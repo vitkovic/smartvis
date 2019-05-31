@@ -34,16 +34,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
+    <nav class="top-bar expanded" data-topbar role="navigation" style="height:60px">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
+                <img style="margin-top:5px" src="img/logo.png"/>
             </li>
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
+                <li><a target="_blank" href="/smartvis/timetable">Timetable</a></li>
+                <li><a target="_blank" href="https://api.cakephp.org/3.0/">Train</a></li>
+                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Wagon</a></li>
+                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Sidings</a></li>
+                <li><a target="_blank" href="https://book.cakephp.org/3.0/">People</a></li>
+                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Contact</a></li>
             </ul>
         </div>
     </nav>

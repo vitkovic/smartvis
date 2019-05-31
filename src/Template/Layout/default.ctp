@@ -47,6 +47,7 @@ $cakeDescription = '';
   <!-- Links -->
   <ul class="navbar-nav">
   
+   
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Visualization
@@ -68,11 +69,12 @@ $cakeDescription = '';
     	<a class="dropdown-item" href="/smartvis/wagon"><span style="font-size:medium">Wagon</a>
      	<a class="dropdown-item" href="/smartvis/sidings"><span style="font-size:medium">Sidings</a>
      	<a class="dropdown-item" href="/smartvis/people"><span style="font-size:medium">People</a>
-        <a class="dropdown-item" href="/smartvis/contact"><span style="font-size:medium">Contact</a></span>
-        <a class="dropdown-item" href="/smartvis/users/login"><span style="font-size:medium">Login</a></span>
-        <a class="dropdown-item" href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span>
       </div>
     </li>
+    
+     <li><a href="/smartvis/contact"><span style="font-size:medium">Contact</a></span></li>
+ 	 <li><a href="/smartvis/users/login"><span style="font-size:medium">Login</a></span></li>
+ 	 <li><a href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span></li>
   </ul>
 </nav>
 

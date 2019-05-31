@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\TrafficDirectionParameter $trafficDirectionParameter
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-3 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Traffic Direction Parameters'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="trafficDirectionParameters form large-9 medium-8 columns content">
+<div class="trafficDirectionParameters form large-10 medium-9 columns content">
     <?= $this->Form->create($trafficDirectionParameter) ?>
     <fieldset>
         <legend><?= __('Add Traffic Direction Parameter') ?></legend>

@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\TrafficDirectionParameter $trafficDirectionParameter
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-3 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Traffic Direction Parameter'), ['action' => 'edit', $trafficDirectionParameter->IDTDP]) ?> </li>
@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Traffic Direction Parameter'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="trafficDirectionParameters view large-9 medium-8 columns content">
+<div class="trafficDirectionParameters view large-10 medium-9 columns content">
     <h3><?= h($trafficDirectionParameter->IDTDP) ?></h3>
     <table class="vertical-table">
         <tr>

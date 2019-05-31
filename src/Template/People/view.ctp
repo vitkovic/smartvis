@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Person $person
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-3 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Person'), ['action' => 'edit', $person->ID_User]) ?> </li>
@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Person'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="people view large-9 medium-8 columns content">
+<div class="people view large-10 medium-9 columns content">
     <h3><?= h($person->ID_User) ?></h3>
     <table class="vertical-table">
         <tr>

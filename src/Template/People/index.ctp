@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\Person[]|\Cake\Collection\CollectionInterface $people
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-3 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Person'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="people index large-9 medium-8 columns content">
+<div class="people index large-10 medium-9 columns content">
     <h3><?= __('People') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

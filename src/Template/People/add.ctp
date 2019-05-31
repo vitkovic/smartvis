@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\Person $person
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-3 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List People'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="people form large-9 medium-8 columns content">
+<div class="people form large-10 medium-9 columns content">
     <?= $this->Form->create($person) ?>
     <fieldset>
         <legend><?= __('Add Person') ?></legend>

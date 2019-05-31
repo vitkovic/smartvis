@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Wagon $wagon
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-3 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Wagon'), ['action' => 'edit', $wagon->ID_wagon]) ?> </li>
@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Wagon'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="wagon view large-9 medium-8 columns content">
+<div class="wagon view large-10 medium-9 columns content">
     <h3><?= h($wagon->ID_wagon) ?></h3>
     <table class="vertical-table">
         <tr>

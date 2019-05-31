@@ -42,7 +42,7 @@ $cakeDescription = '';
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand -->
-  <a class="navbar-brand" href="#"><img src="img/logo.png"/></a>
+  <a class="navbar-brand" href="#"><?php echo $this->Html->image("logo.png", ['fullBase' => true]);?></a>
 
   <!-- Links -->
   <ul class="navbar-nav">

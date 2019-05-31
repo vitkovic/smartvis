@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SMART Vizualization Simulation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="dist/snap.svg-min.js"></script>
+  <style>
+   body {
+     font-size:11px;
+     font-family: Arial, Helvetica, sans-serif;
+   }
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">SMARTVIS</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Marshalling Yard</a></li>
+        <li><a href="#">Data</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-2 sidenav hidden-xs">
+      <h3>SMARTVIZ</h3>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Marshalling Yard shema</a></li>
+        <li><a href="#section2">Current Timetable</a></li>
+        <li><a href="#section3">Infrastructure</a></li>
+        <li><a href="#section3">General Data</a></li>
+      </ul><br>
+
+  <h3>Simulations</h3>
+  <div class="list-group">
+    <a href="#" id="s1" class="list-group-item">Wagons mailfunction</a>
+    <a href="#" class="list-group-item disabled">Lack of People</a>
+    <a href="#" class="list-group-item disabled">Train delay</a>
+  </div>
+
+
+    </div>
+    <br>
+
+    <div class="col-sm-10">
+      <div class="well">
+
+          <object id="marshallingyard" type="image/svg+xml" data="working.svg">
+          Your browser does not support SVG
+          </object>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="well">
+            <h5>Curent trains:</h5>
+            <ul>
+              <li class="list-group-item">Incoming: 2</li>
+              <li class="list-group-item">Outgoing: 4</li>
+              <li class="list-group-item">On Hold: 1</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h5>Curent wagons:</h5>
+            <ul>
+              <li class="list-group-item">Distributed: 124</li>
+              <li class="list-group-item">Broken: 5</li>
+              <li class="list-group-item">On Service: 7</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h5>People:</h5>
+            <ul>
+              <li class="list-group-item">Active: 50</li>
+              <li class="list-group-item">Teams: 10</li>
+              <li class="list-group-item">Out: 7</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h5>Possible deviations:</h5>
+            <ul>
+              <li class="list-group-item">Train delay: 3</li>
+              <li class="list-group-item">Lack of workers: 2</li>
+              <li class="list-group-item">Locomotive regular service: 1</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      </div>
+  </div>
+</div>
+<script>
+window.onload = function () {
+    $( "#s1" ).on( "click", function(){   $( "#opener" ).click(); } );
+
+
+    var s = Snap(Snap("#marshallingyard").node); //wrap the element
+    function hide() {
+      var incoming = s.select("#incoming");
+      incoming.attr({visibility:"hidden"});
+    }
+    function show() {
+      var onseparation = s.select("#separation");
+      onseparation.attr({visibility:"visible"});
+    }
+    function scaleS(){
+
+//      s.attr({width:5000});
+      console.log(s);
+    }
+
+//  setTimeout(function(){   $( "#opener" ).click(); }, 3000);
+
+$( "#dialog" ).dialog({
+
+autoOpen: false,
+show: {
+effect: "blind",
+duration: 1000
+},
+hide: {
+effect: "explode",
+duration: 1000
+},
+modal: true,
+buttons: {
+"PLACE IT": function() {
+hide();
+show();
+scaleS();
+$( this ).dialog( "close" );
+
+}
+}
+});
+
+$( "#opener" ).on( "click", function() {
+$( "#dialog" ).dialog( "open" );
+});
+
+
+var myMatrix = new Snap.Matrix();
+var mapMatrix = s.select("#map-matrix");
+
+var a = 1500, b = 0;
+var left = s.select("#left");
+left.click(pan);
+var right = s.select("#right");
+right.click(pan);
+var top = s.select("#top");
+top.click(pan);
+var down = s.select("#down");
+down.click(pan);
+
+
+
+var zoomplus = s.select("#zin");
+zoomplus.click(zoom);
+var zoomminus = s.select("#zout");
+zoomminus.click(zoom);
+
+function pan(e)
+{
+var butt = e.srcElement.id;
+switch (butt) {
+  case "left":
+  a=1500,b=0;
+  break;
+  case "right":
+  a=-1500,b=0;
+  break;
+  case "top":
+  a=0,b=-1500;
+  break;
+  case "down":
+  a=0,b=1500;
+  break;
+}
+//console.log(butt);
+myMatrix.translate(a,b);
+mapMatrix.animate({ transform: myMatrix.toTransformString() },10);
+}
+
+function zoom(e)
+{
+
+var butt = e.srcElement.id;
+console.log(butt)
+switch (butt) {
+ case "zin":
+ a=0.90;
+ break;
+ case "zout":
+ a=1.2;
+ break;
+}
+myMatrix.scale(a);
+mapMatrix.animate({ transform: myMatrix.toTransformString() },10);
+}
+
+$(document).keypress(function(e){
+  console.log( "Handler for .keypress() called.");
+  var s;
+  switch (e.which) {
+    case 100:
+    a=1500,b=0;
+    break;
+    case 97:
+    a=-1500,b=0;
+    break;
+    case 119:
+    a=0,b=-1500;
+    break;
+    case 115:
+    a=0,b=1500;
+    break;
+    case 109:
+    s=0.9;
+    break;
+    case 110:
+    s=1.1;
+    break;
+  }
+    if (typeof s == 'undefined')
+      myMatrix.translate(a,b);
+    else {
+      myMatrix.scale(s);
+    }
+  mapMatrix.animate({ transform: myMatrix.toTransformString() },10);
+
+});
+
+
+
+
+  };
+
+  </script>
+
+<div id="dialog" title="Incoming train">
+<p>There is an incoming train !</p>
+</div>
+<div style="margin-left:5px">
+<button id="opener" class="btn btn-warning btn-sm" style="visibility:hidden">Open Dialog</button>
+</div>
+</body>
+</html>

@@ -39,16 +39,13 @@ $cakeDescription = '';
     
 </head>
 <body>
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand -->
-  <a class="navbar-brand" href="#"><?php echo $this->Html->image("logo.png", ['fullBase' => true]);?></a>
+  <a class="navbar-brand" href="/smartvis/"><?php echo $this->Html->image("logo.png", ['fullBase' => true]);?></a>
 
   <!-- Links -->
   <ul class="navbar-nav">
-  
-   
-    <li class="nav-item dropdown">
+   <li class="dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Visualization
       </a>
@@ -58,8 +55,7 @@ $cakeDescription = '';
         <a class="dropdown-item" href="#">Yard Info</a>
       </div>
     </li>
-    
-     <li class="nav-item dropdown">
+     <li class="dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Yard Elements
       </a>
@@ -72,17 +68,13 @@ $cakeDescription = '';
       </div>
     </li>
     
-     <li><a href="/smartvis/contact"><span style="font-size:medium">Contact</a></span></li>
- 	 <li><a href="/smartvis/users/login"><span style="font-size:medium">Login</a></span></li>
- 	 <li><a href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span></li>
+     <li class="nav-item"><a class="nav-link" href="/smartvis/contact">Contact</a></li>
+ 	 <li class="nav-item"><a class="nav-link" href="/smartvis/users/login"><span style="font-size:medium">Login</a></span></li>
+ 	 <li class="nav-item"><a class="nav-link" href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span></li>
   </ul>
 </nav>
 
 
-
-
-
-    
     
     <?= $this->Flash->render() ?>
     <div class="container-fluid" style="width:100%">

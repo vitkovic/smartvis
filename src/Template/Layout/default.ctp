@@ -13,15 +13,19 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = '';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $cakeDescription ?>:
+    	<?php $this->assign('title', 'SMARTVIS'); ?>
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
@@ -32,30 +36,64 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation" style="height:60px">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <img style="margin-top:5px" src="img/logo.png"/>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="/smartvis/timetable">Timetable</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">Train</a></li>
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Wagon</a></li>
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Sidings</a></li>
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">People</a></li>
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#"><img src="img/logo.png"/></a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+  
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Visualization
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Display Real Yard diagram</a>
+        <a class="dropdown-item" href="#">Display Simple Yard diagram</a>
+        <a class="dropdown-item" href="#">Yard Info</a>
+      </div>
+    </li>
+    
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Yard Elements
+      </a>
+      <div class="dropdown-menu">
+		<a class="dropdown-item" href="/smartvis/timetable"><span style="font-size:medium">Timetable</span></a>
+    	<a class="dropdown-item" href="/smartvis/train/"><span style="font-size:medium">Train</a>
+    	<a class="dropdown-item" href="/smartvis/wagon"><span style="font-size:medium">Wagon</a>
+     	<a class="dropdown-item" href="/smartvis/sidings"><span style="font-size:medium">Sidings</a>
+     	<a class="dropdown-item" href="/smartvis/people"><span style="font-size:medium">People</a>
+        <a class="dropdown-item" href="/smartvis/contact"><span style="font-size:medium">Contact</a></span>
+        <a class="dropdown-item" href="/smartvis/users/login"><span style="font-size:medium">Login</a></span>
+        <a class="dropdown-item" href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+
+    
+    
     <?= $this->Flash->render() ?>
-    <div class="container clearfix">
+    <div class="container-fluid" style="width:100%">
         <?= $this->fetch('content') ?>
     </div>
+    
+    
+ 
+  
+
     <footer>
+     
     </footer>
+    
 </body>
 </html>

@@ -52,7 +52,7 @@ $cakeDescription = '';
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Display Real Yard diagram</a>
         <a class="dropdown-item" href="#">Display Simple Yard diagram</a>
-        <a class="dropdown-item" href="#">Yard Info</a>
+        <a class="dropdown-item" href="/smartvis/yard/viewyard">Yard Info</a>
       </div>
     </li>
      <li class="dropdown">

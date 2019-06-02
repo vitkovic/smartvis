@@ -77,4 +77,8 @@ class YardController extends Controller
     {
        
     }
+    public function viewyardsimplified()
+    {
+        
+    }
 }

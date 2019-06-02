@@ -130,4 +130,8 @@ class UsersController extends AppController
         $this->Auth->setUser(null);
         return $this->redirect($this->Auth->logout());
     }
+    public function contact()
+    {
+        
+    }
 }

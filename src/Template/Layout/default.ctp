@@ -51,8 +51,19 @@ $cakeDescription = '';
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Display Real Yard diagram</a>
-        <a class="dropdown-item" href="#">Display Simple Yard diagram</a>
+        <a class="dropdown-item" href="/smartvis/yard/viewyardsimplified">Display Simple Yard diagram</a>
         <a class="dropdown-item" href="/smartvis/yard/viewyard">Yard Info</a>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Deviations
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/smartvis/optimis">Train</a>
+        <a class="dropdown-item" href="/smartvis/optimis">Marshalling yard</a>
+        <a class="dropdown-item" href="/smartvis/optimis">People</a>
+        <a class="dropdown-item" href="/smartvis/optimis">Other</a>
       </div>
     </li>
      <li class="dropdown">
@@ -67,8 +78,18 @@ $cakeDescription = '';
      	<a class="dropdown-item" href="/smartvis/people"><span style="font-size:medium">People</a>
       </div>
     </li>
+     <li class="dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        System Users
+      </a>
+      <div class="dropdown-menu">
+		<a class="dropdown-item" href="/smartvis/users"><span style="font-size:medium">View</span></a>
+    	<a class="dropdown-item" href="/smartvis/users/add"><span style="font-size:medium">Add</span></a>
+    	
+      </div>
+    </li>
     
-     <li class="nav-item"><a class="nav-link" href="/smartvis/contact">Contact</a></li>
+     <li class="nav-item"><a class="nav-link" href="/smartvis/users/contact">Project information</a></li>
  	 <li class="nav-item"><a class="nav-link" href="/smartvis/users/login"><span style="font-size:medium">Login</a></span></li>
  	 <li class="nav-item"><a class="nav-link" href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span></li>
   </ul>

@@ -8,9 +8,14 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <?php echo $this->Html->script('/js/dist/snap.svg-min.js',array('inline' => false)); ?>
- 
+
+
+  
 </head>
 <body>
+
+ 
+
 
 <div class="container-fluid" style="width:100%">
   <div class="row">
@@ -68,10 +73,35 @@
 </div>
 <script>
 window.onload = function () {
+ var myMatrix
+ var mapMatrix;
+ var s;
+ var wagonArr = new Array();
+
+
+
+
+
     $( "#s1" ).on( "click", function(){   $( "#opener" ).click(); } );
 
 
-    var s = Snap(Snap("#marshallingyard").node); //wrap the element
+    s = Snap(Snap("#marshallingyard").node); //wrap the element
+    mapMatrix = s.select("#map-matrix");
+    <?php foreach ($wagons as $wagon):  ?>
+		wagonArr.push({'ID_wagon':'<?php echo $wagon['ID_wagon']?>','label':'<?php echo $wagon['label']?>','position':'<?php echo $wagon['position']?>'});
+ 		 var siding = s.select("#<?php echo $wagon['label']?>");
+ 		 var pos = siding.attr("d").split(" ");
+ 		 var start = pos[1];
+ 		 var startcoord = start.split(",");
+ 		 console.log(startcoord);
+ 		 var r = s.rect(Number(startcoord[0])+<?php echo $wagon['position']*10?>,Number(startcoord[1])+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2);
+		 r.attr('fill', 'red'); 
+		 mapMatrix.append(r); 
+		 console.log('startcoord[0]+<?php echo $wagon['position']*10?>,startcoord[1]+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2')
+ 	<?php endforeach; ?>
+    
+   
+    
   //  console.log(s);
     function hide() {
       var incoming = s.select("#incoming");
@@ -117,10 +147,10 @@ $( "#dialog" ).dialog( "open" );
 });
 
 
-var myMatrix = new Snap.Matrix();
-var mapMatrix = s.select("#map-matrix");
+myMatrix = new Snap.Matrix();
+mapMatrix = s.select("#map-matrix");
 
-var a = 100, b = 0;
+var a = 50, b = 0;
 var left = s.select("#left");
 left.click(pan);
 var right = s.select("#right");
@@ -142,16 +172,16 @@ function pan(e)
 var butt = e.srcElement.id;
 switch (butt) {
   case "left":
-  a=100,b=0;
+  a=50,b=0;
   break;
   case "right":
-  a=-100,b=0;
+  a=-50,b=0;
   break;
   case "top":
-  a=0,b=-100;
+  a=0,b=-50;
   break;
   case "down":
-  a=0,b=100;
+  a=0,b=50;
   break;
 }
 //console.log(butt);

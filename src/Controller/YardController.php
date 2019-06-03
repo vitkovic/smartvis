@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Application Controller
@@ -75,10 +76,19 @@ class YardController extends Controller
      */
     public function viewyard()
     {
-       
+             
+        
+      
+        
     }
     public function viewyardsimplified()
     {
+       $connection = ConnectionManager::get('default');
+       $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
+        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
+         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
+        ')->fetchAll('assoc');
         
+        $this->set(compact('wagons'));
     }
 }

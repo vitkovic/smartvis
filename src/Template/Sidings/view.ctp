@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Siding $siding
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Siding'), ['action' => 'edit', $siding->IDsidings]) ?> </li>
@@ -13,28 +13,28 @@
         <li><?= $this->Html->link(__('New Siding'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="sidings view large-10 medium-9 columns content">
+<div class="sidings view large-9 medium-8 columns content">
     <h3><?= h($siding->IDsidings) ?></h3>
     <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Siding Purpose') ?></th>
+            <td><?= h($siding->Siding_purpose) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Mass Per Axle') ?></th>
+            <td><?= h($siding->Mass_per_axle) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Siding Type') ?></th>
+            <td><?= h($siding->Siding_Type) ?></td>
+        </tr>
         <tr>
             <th scope="row"><?= __('IDsidings') ?></th>
             <td><?= $this->Number->format($siding->IDsidings) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Siding Purpose') ?></th>
-            <td><?= $this->Number->format($siding->Siding_purpose) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Siding Lenght') ?></th>
             <td><?= $this->Number->format($siding->Siding_lenght) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Mass Per Axle') ?></th>
-            <td><?= $this->Number->format($siding->Mass_per_axle) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Siding Type') ?></th>
-            <td><?= $this->Number->format($siding->Siding_Type) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('IDSGroup') ?></th>

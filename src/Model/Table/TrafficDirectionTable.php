@@ -48,8 +48,14 @@ class TrafficDirectionTable extends Table
             ->allowEmptyString('ID_Traffic_Direction', 'create');
 
         $validator
-            ->numeric('Mass_Per_Axle')
+            ->scalar('Mass_Per_Axle')
+            ->maxLength('Mass_Per_Axle', 50)
             ->allowEmptyString('Mass_Per_Axle');
+
+        $validator
+            ->scalar('Traffic_Direction')
+            ->maxLength('Traffic_Direction', 50)
+            ->allowEmptyString('Traffic_Direction');
 
         return $validator;
     }

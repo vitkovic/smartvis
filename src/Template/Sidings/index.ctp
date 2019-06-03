@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\Siding[]|\Cake\Collection\CollectionInterface $sidings
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Siding'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="sidings index large-10 medium-9 columns content">
+<div class="sidings index large-9 medium-8 columns content">
     <h3><?= __('Sidings') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -28,10 +28,10 @@
             <?php foreach ($sidings as $siding): ?>
             <tr>
                 <td><?= $this->Number->format($siding->IDsidings) ?></td>
-                <td><?= $this->Number->format($siding->Siding_purpose) ?></td>
+                <td><?= h($siding->Siding_purpose) ?></td>
                 <td><?= $this->Number->format($siding->Siding_lenght) ?></td>
-                <td><?= $this->Number->format($siding->Mass_per_axle) ?></td>
-                <td><?= $this->Number->format($siding->Siding_Type) ?></td>
+                <td><?= h($siding->Mass_per_axle) ?></td>
+                <td><?= h($siding->Siding_Type) ?></td>
                 <td><?= $this->Number->format($siding->IDSGroup) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $siding->IDsidings]) ?>

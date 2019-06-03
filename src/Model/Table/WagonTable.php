@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Wagon Model
  *
+ * @property |\Cake\ORM\Association\HasMany $Drawing
+ *
  * @method \App\Model\Entity\Wagon get($primaryKey, $options = [])
  * @method \App\Model\Entity\Wagon newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Wagon[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class WagonTable extends Table
         $this->setTable('wagon');
         $this->setDisplayField('ID_wagon');
         $this->setPrimaryKey('ID_wagon');
+
+        $this->hasMany('Drawing', [
+            'foreignKey' => 'wagon_id'
+        ]);
     }
 
     /**
@@ -48,32 +54,57 @@ class WagonTable extends Table
             ->allowEmptyString('ID_wagon', 'create');
 
         $validator
-            ->integer('NumberWagonAxles')
-            ->allowEmptyString('NumberWagonAxles');
+            ->scalar('Description')
+            ->maxLength('Description', 50)
+            ->requirePresence('Description', 'create')
+            ->allowEmptyString('Description', false);
 
         $validator
-            ->numeric('NetMassCargo')
-            ->allowEmptyString('NetMassCargo');
+            ->numeric('Net_Mass_Cargo')
+            ->allowEmptyString('Net_Mass_Cargo');
 
         $validator
-            ->integer('Type')
+            ->scalar('Type')
+            ->maxLength('Type', 10)
             ->allowEmptyString('Type');
 
         $validator
-            ->numeric('WagonLenght')
-            ->allowEmptyString('WagonLenght');
+            ->numeric('Wagon_Lenght')
+            ->requirePresence('Wagon_Lenght', 'create')
+            ->allowEmptyString('Wagon_Lenght', false);
 
         $validator
-            ->numeric('WagonMass')
-            ->allowEmptyString('WagonMass');
+            ->numeric('Wagon_Mass')
+            ->allowEmptyString('Wagon_Mass');
 
         $validator
-            ->numeric('BrakeWeight')
-            ->allowEmptyString('BrakeWeight');
+            ->numeric('Brake_Weight')
+            ->requirePresence('Brake_Weight', 'create')
+            ->allowEmptyString('Brake_Weight', false);
 
         $validator
-            ->integer('TypeofCargo')
-            ->allowEmptyString('TypeofCargo');
+            ->scalar('Type_of_Cargo')
+            ->maxLength('Type_of_Cargo', 30)
+            ->allowEmptyString('Type_of_Cargo');
+
+        $validator
+            ->integer('Number_of_Axles')
+            ->allowEmptyString('Number_of_Axles');
+
+        $validator
+            ->scalar('Destination_station')
+            ->maxLength('Destination_station', 45)
+            ->allowEmptyString('Destination_station');
+
+        $validator
+            ->scalar('Arrival_station')
+            ->maxLength('Arrival_station', 45)
+            ->allowEmptyString('Arrival_station');
+
+        $validator
+            ->scalar('Remark')
+            ->maxLength('Remark', 45)
+            ->allowEmptyString('Remark');
 
         return $validator;
     }

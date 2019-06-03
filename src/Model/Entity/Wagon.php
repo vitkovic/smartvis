@@ -7,13 +7,17 @@ use Cake\ORM\Entity;
  * Wagon Entity
  *
  * @property int $ID_wagon
- * @property int|null $NumberWagonAxles
- * @property float|null $NetMassCargo
- * @property int|null $Type
- * @property float|null $WagonLenght
- * @property float|null $WagonMass
- * @property float|null $BrakeWeight
- * @property int|null $TypeofCargo
+ * @property string $Description
+ * @property float|null $Net_Mass_Cargo
+ * @property string|null $Type
+ * @property float $Wagon_Lenght
+ * @property float|null $Wagon_Mass
+ * @property float $Brake_Weight
+ * @property string|null $Type_of_Cargo
+ * @property int|null $Number_of_Axles
+ * @property string|null $Destination_station
+ * @property string|null $Arrival_station
+ * @property string|null $Remark
  */
 class Wagon extends Entity
 {
@@ -27,12 +31,16 @@ class Wagon extends Entity
      * @var array
      */
     protected $_accessible = [
-        'NumberWagonAxles' => true,
-        'NetMassCargo' => true,
+        'Description' => true,
+        'Net_Mass_Cargo' => true,
         'Type' => true,
-        'WagonLenght' => true,
-        'WagonMass' => true,
-        'BrakeWeight' => true,
-        'TypeofCargo' => true
+        'Wagon_Lenght' => true,
+        'Wagon_Mass' => true,
+        'Brake_Weight' => true,
+        'Type_of_Cargo' => true,
+        'Number_of_Axles' => true,
+        'Destination_station' => true,
+        'Arrival_station' => true,
+        'Remark' => true
     ];
 }

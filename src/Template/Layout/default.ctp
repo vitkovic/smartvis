@@ -61,7 +61,7 @@ $cakeDescription = '';
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/smartvis/optimis">Train</a>
-        <a class="dropdown-item" href="/smartvis/optimis">Marshalling yard</a>
+        <a class="dropdown-item" href="/smartvis/optimis">Marshalling yard infrastructure</a>
         <a class="dropdown-item" href="/smartvis/optimis">People</a>
         <a class="dropdown-item" href="/smartvis/optimis">Other</a>
       </div>

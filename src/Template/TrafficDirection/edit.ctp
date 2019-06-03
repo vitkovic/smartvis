@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\TrafficDirection $trafficDirection
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
@@ -16,12 +16,13 @@
         <li><?= $this->Html->link(__('List Traffic Direction'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="trafficDirection form large-10 medium-9 columns content">
+<div class="trafficDirection form large-9 medium-8 columns content">
     <?= $this->Form->create($trafficDirection) ?>
     <fieldset>
         <legend><?= __('Edit Traffic Direction') ?></legend>
         <?php
             echo $this->Form->control('Mass_Per_Axle');
+            echo $this->Form->control('Traffic_Direction');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

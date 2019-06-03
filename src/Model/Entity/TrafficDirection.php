@@ -7,7 +7,8 @@ use Cake\ORM\Entity;
  * TrafficDirection Entity
  *
  * @property int $ID_Traffic_Direction
- * @property float|null $Mass_Per_Axle
+ * @property string|null $Mass_Per_Axle
+ * @property string|null $Traffic_Direction
  */
 class TrafficDirection extends Entity
 {
@@ -21,6 +22,7 @@ class TrafficDirection extends Entity
      * @var array
      */
     protected $_accessible = [
-        'Mass_Per_Axle' => true
+        'Mass_Per_Axle' => true,
+        'Traffic_Direction' => true
     ];
 }

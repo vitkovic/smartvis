@@ -7,10 +7,10 @@ use Cake\ORM\Entity;
  * Siding Entity
  *
  * @property int $IDsidings
- * @property int|null $Siding_purpose
+ * @property string|null $Siding_purpose
  * @property float|null $Siding_lenght
- * @property float|null $Mass_per_axle
- * @property int|null $Siding_Type
+ * @property string|null $Mass_per_axle
+ * @property string|null $Siding_Type
  * @property int $IDSGroup
  */
 class Siding extends Entity

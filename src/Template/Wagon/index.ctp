@@ -4,25 +4,29 @@
  * @var \App\Model\Entity\Wagon[]|\Cake\Collection\CollectionInterface $wagon
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Wagon'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="wagon index large-10 medium-9 columns content">
+<div class="wagon index large-9 medium-8 columns content">
     <h3><?= __('Wagon') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('ID_wagon') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NumberWagonAxles') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NetMassCargo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Net_Mass_Cargo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Type') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('WagonLenght') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('WagonMass') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('BrakeWeight') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('TypeofCargo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Wagon_Lenght') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Wagon_Mass') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Brake_Weight') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Type_of_Cargo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Number_of_Axles') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Destination_station') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Arrival_station') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Remark') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -30,13 +34,17 @@
             <?php foreach ($wagon as $wagon): ?>
             <tr>
                 <td><?= $this->Number->format($wagon->ID_wagon) ?></td>
-                <td><?= $this->Number->format($wagon->NumberWagonAxles) ?></td>
-                <td><?= $this->Number->format($wagon->NetMassCargo) ?></td>
-                <td><?= $this->Number->format($wagon->Type) ?></td>
-                <td><?= $this->Number->format($wagon->WagonLenght) ?></td>
-                <td><?= $this->Number->format($wagon->WagonMass) ?></td>
-                <td><?= $this->Number->format($wagon->BrakeWeight) ?></td>
-                <td><?= $this->Number->format($wagon->TypeofCargo) ?></td>
+                <td><?= h($wagon->Description) ?></td>
+                <td><?= $this->Number->format($wagon->Net_Mass_Cargo) ?></td>
+                <td><?= h($wagon->Type) ?></td>
+                <td><?= $this->Number->format($wagon->Wagon_Lenght) ?></td>
+                <td><?= $this->Number->format($wagon->Wagon_Mass) ?></td>
+                <td><?= $this->Number->format($wagon->Brake_Weight) ?></td>
+                <td><?= h($wagon->Type_of_Cargo) ?></td>
+                <td><?= $this->Number->format($wagon->Number_of_Axles) ?></td>
+                <td><?= h($wagon->Destination_station) ?></td>
+                <td><?= h($wagon->Arrival_station) ?></td>
+                <td><?= h($wagon->Remark) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $wagon->ID_wagon]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagon->ID_wagon]) ?>

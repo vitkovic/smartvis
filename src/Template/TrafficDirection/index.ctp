@@ -4,19 +4,20 @@
  * @var \App\Model\Entity\TrafficDirection[]|\Cake\Collection\CollectionInterface $trafficDirection
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Traffic Direction'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="trafficDirection index large-10 medium-9 columns content">
+<div class="trafficDirection index large-9 medium-8 columns content">
     <h3><?= __('Traffic Direction') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('ID_Traffic_Direction') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Mass_Per_Axle') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Traffic_Direction') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -24,7 +25,8 @@
             <?php foreach ($trafficDirection as $trafficDirection): ?>
             <tr>
                 <td><?= $this->Number->format($trafficDirection->ID_Traffic_Direction) ?></td>
-                <td><?= $this->Number->format($trafficDirection->Mass_Per_Axle) ?></td>
+                <td><?= h($trafficDirection->Mass_Per_Axle) ?></td>
+                <td><?= h($trafficDirection->Traffic_Direction) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $trafficDirection->ID_Traffic_Direction]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $trafficDirection->ID_Traffic_Direction]) ?>

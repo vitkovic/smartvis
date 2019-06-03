@@ -48,7 +48,8 @@ class SidingsTable extends Table
             ->allowEmptyString('IDsidings', 'create');
 
         $validator
-            ->integer('Siding_purpose')
+            ->scalar('Siding_purpose')
+            ->maxLength('Siding_purpose', 50)
             ->allowEmptyString('Siding_purpose');
 
         $validator
@@ -56,11 +57,13 @@ class SidingsTable extends Table
             ->allowEmptyString('Siding_lenght');
 
         $validator
-            ->numeric('Mass_per_axle')
+            ->scalar('Mass_per_axle')
+            ->maxLength('Mass_per_axle', 30)
             ->allowEmptyString('Mass_per_axle');
 
         $validator
-            ->integer('Siding_Type')
+            ->scalar('Siding_Type')
+            ->maxLength('Siding_Type', 50)
             ->allowEmptyString('Siding_Type');
 
         $validator

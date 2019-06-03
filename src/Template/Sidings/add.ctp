@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\Siding $siding
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Sidings'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="sidings form large-10 medium-9 columns content">
+<div class="sidings form large-9 medium-8 columns content">
     <?= $this->Form->create($siding) ?>
     <fieldset>
         <legend><?= __('Add Siding') ?></legend>

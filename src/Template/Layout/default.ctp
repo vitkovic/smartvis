@@ -45,6 +45,16 @@ $cakeDescription = '';
 
   <!-- Links -->
   <ul class="navbar-nav">
+  <li class="dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Infrastructure
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/smartvis/wagon-has-sidings">Wagon distribution</a>
+        <a class="dropdown-item" href="/smartvis/wagon-has-sidings/add">Add Wagons to sidings</a>
+      
+      </div>
+    </li>
    <li class="dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Visualization

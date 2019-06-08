@@ -57,11 +57,7 @@ img:hover {
 
 	<div class="HoverDiv" >
 	
-	  <img id="myimage" src="img/nis_station_v2_zooming.png" >
+	 <?php echo $this->Html->image("nis_station_v2_zooming.png", ['id'=>'myImage','fullBase' => true]);?>
 	</div>
-	<script>
-		
-		magnify("myimage", 10);
-		 
-	</script>
+	
 </body>

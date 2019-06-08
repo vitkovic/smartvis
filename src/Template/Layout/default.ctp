@@ -36,7 +36,18 @@ $cakeDescription = '';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    
+ <style>
+ .myModal {
+    text-align: center;
+}
+.modal-dialog {
+    text-align: left; /* you'll likely want this */
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+    overflow-y: auto;
+}
+ </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

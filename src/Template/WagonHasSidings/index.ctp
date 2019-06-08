@@ -4,6 +4,25 @@
  * @var \App\Model\Entity\WagonHasSiding[]|\Cake\Collection\CollectionInterface $wagonHasSidings
  */
 ?>
+<div id="myModal" class="modal fade" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      
+        <h4 class="modal-title">Station labels</h4>
+      </div>
+      <div class="modal-body">
+       <?php echo $this->element('stationzoom'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -13,9 +32,12 @@
     		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>
     	
     </div>
-    
+     
+ 
 </nav>
+
 <div class="wagonHasSidings index large-9 medium-8 columns content">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Look at station labels</button>
     <h3><?= __('Wagons on Sidings') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

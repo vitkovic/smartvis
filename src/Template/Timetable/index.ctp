@@ -4,23 +4,26 @@
  * @var \App\Model\Entity\Timetable[]|\Cake\Collection\CollectionInterface $timetable
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Timetable'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Train'), ['controller' => 'Train', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Train'), ['controller' => 'Train', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="timetable index large-10 medium-9 columns content">
+<div class="timetable index large-9 medium-8 columns content">
     <h3><?= __('Timetable') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('ID_Sidings') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('IDS_Group') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Siding_Purpose') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Siding_Lenght') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Mass_per_Axle') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Siding_Type') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Source') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Destination') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Arrival_Date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Dispatch_Date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Arrival_Time') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Dispatch_Time') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Train_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ID_Timetable') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -28,12 +31,13 @@
         <tbody>
             <?php foreach ($timetable as $timetable): ?>
             <tr>
-                <td><?= $this->Number->format($timetable->ID_Sidings) ?></td>
-                <td><?= $this->Number->format($timetable->IDS_Group) ?></td>
-                <td><?= $this->Number->format($timetable->Siding_Purpose) ?></td>
-                <td><?= $this->Number->format($timetable->Siding_Lenght) ?></td>
-                <td><?= $this->Number->format($timetable->Mass_per_Axle) ?></td>
-                <td><?= $this->Number->format($timetable->Siding_Type) ?></td>
+                <td><?= h($timetable->Source) ?></td>
+                <td><?= h($timetable->Destination) ?></td>
+                <td><?= h($timetable->Arrival_Date) ?></td>
+                <td><?= h($timetable->Dispatch_Date) ?></td>
+                <td><?= h($timetable->Arrival_Time) ?></td>
+                <td><?= h($timetable->Dispatch_Time) ?></td>
+                <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->ID_Train, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
                 <td><?= $this->Number->format($timetable->ID_Timetable) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $timetable->ID_Timetable]) ?>

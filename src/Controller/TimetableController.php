@@ -19,6 +19,9 @@ class TimetableController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Train']
+        ];
         $timetable = $this->paginate($this->Timetable);
 
         $this->set(compact('timetable'));
@@ -34,7 +37,7 @@ class TimetableController extends AppController
     public function view($id = null)
     {
         $timetable = $this->Timetable->get($id, [
-            'contain' => []
+            'contain' => ['Train']
         ]);
 
         $this->set('timetable', $timetable);
@@ -57,7 +60,8 @@ class TimetableController extends AppController
             }
             $this->Flash->error(__('The timetable could not be saved. Please, try again.'));
         }
-        $this->set(compact('timetable'));
+        $train = $this->Timetable->Train->find('list', ['limit' => 200]);
+        $this->set(compact('timetable', 'train'));
     }
 
     /**
@@ -81,7 +85,8 @@ class TimetableController extends AppController
             }
             $this->Flash->error(__('The timetable could not be saved. Please, try again.'));
         }
-        $this->set(compact('timetable'));
+        $train = $this->Timetable->Train->find('list', ['limit' => 200]);
+        $this->set(compact('timetable', 'train'));
     }
 
     /**

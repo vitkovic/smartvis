@@ -6,13 +6,16 @@ use Cake\ORM\Entity;
 /**
  * Timetable Entity
  *
- * @property int $ID_Sidings
- * @property int $IDS_Group
- * @property int|null $Siding_Purpose
- * @property float|null $Siding_Lenght
- * @property float|null $Mass_per_Axle
- * @property int|null $Siding_Type
+ * @property string|null $Source
+ * @property string $Destination
+ * @property \Cake\I18n\FrozenDate|null $Arrival_Date
+ * @property \Cake\I18n\FrozenDate|null $Dispatch_Date
+ * @property \Cake\I18n\FrozenTime|null $Arrival_Time
+ * @property \Cake\I18n\FrozenTime|null $Dispatch_Time
+ * @property int|null $Train_id
  * @property int $ID_Timetable
+ *
+ * @property \App\Model\Entity\Train $train
  */
 class Timetable extends Entity
 {
@@ -26,11 +29,13 @@ class Timetable extends Entity
      * @var array
      */
     protected $_accessible = [
-        'ID_Sidings' => true,
-        'IDS_Group' => true,
-        'Siding_Purpose' => true,
-        'Siding_Lenght' => true,
-        'Mass_per_Axle' => true,
-        'Siding_Type' => true
+        'Source' => true,
+        'Destination' => true,
+        'Arrival_Date' => true,
+        'Dispatch_Date' => true,
+        'Arrival_Time' => true,
+        'Dispatch_Time' => true,
+        'Train_id' => true,
+        'train' => true
     ];
 }

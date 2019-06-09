@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\Train[]|\Cake\Collection\CollectionInterface $train
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Train'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="train index large-10 medium-9 columns content">
+<div class="train index large-9 medium-8 columns content">
     <h3><?= __('Train') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -23,7 +23,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Dispatch_Time_Starting') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Train_Mass_In_Tones') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Train_Lenght_In_Meters') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('InOut') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('In_Out_Train') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -33,12 +33,12 @@
                 <td><?= $this->Number->format($train->Train_Weight_per_Axle) ?></td>
                 <td><?= $this->Number->format($train->Train_Composition) ?></td>
                 <td><?= $this->Number->format($train->ID_Train) ?></td>
-                <td><?= $this->Number->format($train->Train_type) ?></td>
-                <td><?= $this->Number->format($train->Train_Number) ?></td>
+                <td><?= h($train->Train_type) ?></td>
+                <td><?= h($train->Train_Number) ?></td>
                 <td><?= h($train->Dispatch_Time_Starting) ?></td>
                 <td><?= $this->Number->format($train->Train_Mass_In_Tones) ?></td>
                 <td><?= $this->Number->format($train->Train_Lenght_In_Meters) ?></td>
-                <td><?= $this->Number->format($train->InOut) ?></td>
+                <td><?= $this->Number->format($train->In_Out_Train) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $train->ID_Train]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $train->ID_Train]) ?>

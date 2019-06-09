@@ -9,12 +9,12 @@ use Cake\ORM\Entity;
  * @property float $Train_Weight_per_Axle
  * @property int|null $Train_Composition
  * @property int $ID_Train
- * @property int|null $Train_type
- * @property int|null $Train_Number
+ * @property string|null $Train_type
+ * @property string|null $Train_Number
  * @property \Cake\I18n\FrozenDate|null $Dispatch_Time_Starting
  * @property float|null $Train_Mass_In_Tones
  * @property float|null $Train_Lenght_In_Meters
- * @property int|null $InOut
+ * @property int|null $In_Out_Train
  */
 class Train extends Entity
 {
@@ -35,6 +35,6 @@ class Train extends Entity
         'Dispatch_Time_Starting' => true,
         'Train_Mass_In_Tones' => true,
         'Train_Lenght_In_Meters' => true,
-        'InOut' => true
+        'In_Out_Train' => true
     ];
 }

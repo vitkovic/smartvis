@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Timetable Model
  *
+ * @property \App\Model\Table\TrainTable|\Cake\ORM\Association\BelongsTo $Train
+ *
  * @method \App\Model\Entity\Timetable get($primaryKey, $options = [])
  * @method \App\Model\Entity\Timetable newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Timetable[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class TimetableTable extends Table
         $this->setTable('timetable');
         $this->setDisplayField('ID_Timetable');
         $this->setPrimaryKey('ID_Timetable');
+
+        $this->belongsTo('Train', [
+            'foreignKey' => 'Train_id'
+        ]);
     }
 
     /**
@@ -44,35 +50,50 @@ class TimetableTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('ID_Sidings')
-            ->requirePresence('ID_Sidings', 'create')
-            ->allowEmptyString('ID_Sidings', false);
+            ->scalar('Source')
+            ->maxLength('Source', 100)
+            ->allowEmptyString('Source');
 
         $validator
-            ->integer('IDS_Group')
-            ->requirePresence('IDS_Group', 'create')
-            ->allowEmptyString('IDS_Group', false);
+            ->scalar('Destination')
+            ->maxLength('Destination', 100)
+            ->requirePresence('Destination', 'create')
+            ->allowEmptyString('Destination', false);
 
         $validator
-            ->integer('Siding_Purpose')
-            ->allowEmptyString('Siding_Purpose');
+            ->date('Arrival_Date')
+            ->allowEmptyDate('Arrival_Date');
 
         $validator
-            ->numeric('Siding_Lenght')
-            ->allowEmptyString('Siding_Lenght');
+            ->date('Dispatch_Date')
+            ->allowEmptyDate('Dispatch_Date');
 
         $validator
-            ->numeric('Mass_per_Axle')
-            ->allowEmptyString('Mass_per_Axle');
+            ->time('Arrival_Time')
+            ->allowEmptyTime('Arrival_Time');
 
         $validator
-            ->integer('Siding_Type')
-            ->allowEmptyString('Siding_Type');
+            ->time('Dispatch_Time')
+            ->allowEmptyTime('Dispatch_Time');
 
         $validator
             ->integer('ID_Timetable')
             ->allowEmptyString('ID_Timetable', 'create');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['Train_id'], 'Train'));
+
+        return $rules;
     }
 }

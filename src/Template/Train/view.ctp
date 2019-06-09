@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Train $train
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Train'), ['action' => 'edit', $train->ID_Train]) ?> </li>
@@ -13,9 +13,17 @@
         <li><?= $this->Html->link(__('New Train'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="train view large-10 medium-9 columns content">
+<div class="train view large-9 medium-8 columns content">
     <h3><?= h($train->ID_Train) ?></h3>
     <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Train Type') ?></th>
+            <td><?= h($train->Train_type) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Train Number') ?></th>
+            <td><?= h($train->Train_Number) ?></td>
+        </tr>
         <tr>
             <th scope="row"><?= __('Train Weight Per Axle') ?></th>
             <td><?= $this->Number->format($train->Train_Weight_per_Axle) ?></td>
@@ -29,14 +37,6 @@
             <td><?= $this->Number->format($train->ID_Train) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Train Type') ?></th>
-            <td><?= $this->Number->format($train->Train_type) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Train Number') ?></th>
-            <td><?= $this->Number->format($train->Train_Number) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Train Mass In Tones') ?></th>
             <td><?= $this->Number->format($train->Train_Mass_In_Tones) ?></td>
         </tr>
@@ -45,8 +45,8 @@
             <td><?= $this->Number->format($train->Train_Lenght_In_Meters) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('InOut') ?></th>
-            <td><?= $this->Number->format($train->InOut) ?></td>
+            <th scope="row"><?= __('In Out Train') ?></th>
+            <td><?= $this->Number->format($train->In_Out_Train) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Dispatch Time Starting') ?></th>

@@ -57,11 +57,13 @@ class TrainTable extends Table
             ->allowEmptyString('ID_Train', 'create');
 
         $validator
-            ->integer('Train_type')
+            ->scalar('Train_type')
+            ->maxLength('Train_type', 50)
             ->allowEmptyString('Train_type');
 
         $validator
-            ->integer('Train_Number')
+            ->scalar('Train_Number')
+            ->maxLength('Train_Number', 50)
             ->allowEmptyString('Train_Number');
 
         $validator
@@ -77,8 +79,8 @@ class TrainTable extends Table
             ->allowEmptyString('Train_Lenght_In_Meters');
 
         $validator
-            ->integer('InOut')
-            ->allowEmptyString('InOut');
+            ->integer('In_Out_Train')
+            ->allowEmptyString('In_Out_Train');
 
         return $validator;
     }

@@ -12,6 +12,13 @@ use App\Controller\AppController;
  */
 class WagonController extends AppController
 {
+    
+    public $paginate = [
+        'limit' => 50,
+        'order' => [
+            'Wagon.Description' => 'asc'
+        ]
+    ];
     /**
      * Index method
      *

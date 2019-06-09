@@ -52,10 +52,18 @@ window.onload = function () {
  		 var pos = siding.attr("d").split(" ");
  		 var start = pos[1];
  		 var startcoord = start.split(",");
- 		 console.log(startcoord);
+ 		// console.log(startcoord);
  		 var r = s.rect(Number(startcoord[0])+<?php echo $wagon['position']*10?>,Number(startcoord[1])+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2);
 		 r.attr('fill', 'red'); 
+		 
+		 var text = s.text(Number(startcoord[0])+<?php echo $wagon['position']*10?>,Number(startcoord[1])+<?php echo substr($wagon['label'],1,1)?>,'<?php echo $wagon['Description']?>')
+         text.attr({
+          	'font-size':5
+      	 });
+		 
+		 
 		 mapMatrix.append(r); 
+		 mapMatrix.append(text); 
 		 console.log('startcoord[0]+<?php echo $wagon['position']*10?>,startcoord[1]+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2')
  	<?php endforeach; ?>
     

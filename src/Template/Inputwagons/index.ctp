@@ -7,13 +7,13 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Inputwagon'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Input Wagon'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Timetable'), ['controller' => 'Timetable', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Timetable'), ['controller' => 'Timetable', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="inputwagons index large-9 medium-8 columns content">
-    <h3><?= __('Inputwagons') ?></h3>
+    <h3><?= __('Input Wagons') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

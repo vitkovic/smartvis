@@ -49,6 +49,11 @@ class WagonHasSidingsTable extends Table
             ->allowEmptyString('ID_wagon', false);
 
         $validator
+            ->scalar('Description')
+            ->maxLength('Description', 100)
+            ->allowEmptyString('Description');
+
+        $validator
             ->integer('ID_sidings')
             ->allowEmptyString('ID_sidings');
 

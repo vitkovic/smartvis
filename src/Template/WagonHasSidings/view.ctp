@@ -7,19 +7,19 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Wagon on Siding'), ['action' => 'edit', $wagonHasSiding->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Wagon on Siding'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Wagon on Sidings'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Wagon on Siding'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Edit Wagon Has Siding'), ['action' => 'edit', $wagonHasSiding->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Wagon Has Siding'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Wagon Has Sidings'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Wagon Has Siding'), ['action' => 'add']) ?> </li>
     </ul>
-    <div id="svgplace">
-    		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>
-    	
-    </div>
 </nav>
 <div class="wagonHasSidings view large-9 medium-8 columns content">
     <h3><?= h($wagonHasSiding->id) ?></h3>
     <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Description') ?></th>
+            <td><?= h($wagonHasSiding->Description) ?></td>
+        </tr>
         <tr>
             <th scope="row"><?= __('Label') ?></th>
             <td><?= h($wagonHasSiding->label) ?></td>

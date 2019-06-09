@@ -7,10 +7,10 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Inputwagon'), ['action' => 'edit', $inputwagon->Temp_Id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Inputwagon'), ['action' => 'delete', $inputwagon->Temp_Id], ['confirm' => __('Are you sure you want to delete # {0}?', $inputwagon->Temp_Id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Inputwagons'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Inputwagon'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Edit Input Wagon'), ['action' => 'edit', $inputwagon->Temp_Id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Input Wagon'), ['action' => 'delete', $inputwagon->Temp_Id], ['confirm' => __('Are you sure you want to delete # {0}?', $inputwagon->Temp_Id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Input Wagons'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Input Wagon'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Timetable'), ['controller' => 'Timetable', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Timetable'), ['controller' => 'Timetable', 'action' => 'add']) ?> </li>
     </ul>

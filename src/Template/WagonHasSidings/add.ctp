@@ -26,9 +26,9 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Wagon on Sidings'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Wagon Has Sidings'), ['action' => 'index']) ?></li>
     </ul>
-    <div>
+     <div>
     		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>
     	
     </div>
@@ -37,9 +37,10 @@
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Look at station labels</button>
     <?= $this->Form->create($wagonHasSiding) ?>
     <fieldset>
-        <legend><?= __('Add Wagon on Siding') ?></legend>
+        <legend><?= __('Add Wagon Has Siding') ?></legend>
         <?php
             echo $this->Form->control('ID_wagon');
+            echo $this->Form->control('Description');
             echo $this->Form->control('ID_sidings');
             echo $this->Form->control('label');
             echo $this->Form->control('position');

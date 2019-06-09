@@ -26,23 +26,21 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Wagon on Siding'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Wagon Has Siding'), ['action' => 'add']) ?></li>
     </ul>
-    <div>
+      <div>
     		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>
     	
     </div>
-     
- 
 </nav>
-
 <div class="wagonHasSidings index large-9 medium-8 columns content">
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Look at station labels</button>
-    <h3><?= __('Wagons on Sidings') ?></h3>
+    <h3><?= __('Wagon Has Sidings') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('ID_wagon') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ID_sidings') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('label') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('position') ?></th>
@@ -52,8 +50,13 @@
         </thead>
         <tbody>
             <?php foreach ($wagonHasSidings as $wagonHasSiding): ?>
-            <tr>
+            <?php if ($this->Number->format($wagonHasSiding->ID_wagon)==0) { ?>
+             <tr style="background-color:#ff99ff;">
+            <?php } else { ?>
+             <tr >
+            <?php }  ?>
                 <td><?= $this->Number->format($wagonHasSiding->ID_wagon) ?></td>
+                <td><?= h($wagonHasSiding->Description) ?></td>
                 <td><?= $this->Number->format($wagonHasSiding->ID_sidings) ?></td>
                 <td><?= h($wagonHasSiding->label) ?></td>
                 <td><?= $this->Number->format($wagonHasSiding->position) ?></td>
@@ -62,6 +65,11 @@
                     <?= $this->Html->link(__('View'), ['action' => 'view', $wagonHasSiding->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagonHasSiding->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?>
+                  <?php if ($this->Number->format($wagonHasSiding->ID_wagon)==0) { ?>
+             			<br/> <?= $this->Html->link(__('Insert Wagon'), ['action' => 'insertwagon', $wagonHasSiding->id],['confirm' => __('Are you sure you want to add wagon to database # {0}?', $wagonHasSiding->id)]) ?>
+           		 <?php } else { }?>
+           		  
+           		
                 </td>
             </tr>
             <?php endforeach; ?>

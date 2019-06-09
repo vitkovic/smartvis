@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 /**
  * WagonHasSidings Controller
@@ -32,8 +33,6 @@ class WagonHasSidingsController extends AppController
         ')->fetchAll('assoc');
         
         $this->set(compact('wagons'));
-        
-        
     }
 
     /**
@@ -50,13 +49,6 @@ class WagonHasSidingsController extends AppController
         ]);
 
         $this->set('wagonHasSiding', $wagonHasSiding);
-        $connection = ConnectionManager::get('default');
-        $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
-        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
-         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
-        ')->fetchAll('assoc');
-        
-        $this->set(compact('wagons'));
     }
 
     /**
@@ -77,6 +69,7 @@ class WagonHasSidingsController extends AppController
             $this->Flash->error(__('The wagon has siding could not be saved. Please, try again.'));
         }
         $this->set(compact('wagonHasSiding'));
+        
         $connection = ConnectionManager::get('default');
         $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
@@ -86,6 +79,57 @@ class WagonHasSidingsController extends AppController
         $this->set(compact('wagons'));
     }
 
+    /**
+     * Insert wagon method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function insertwagon($id=null)
+    {
+        $wagonHasSiding = $this->WagonHasSidings->get($id, [
+            'contain' => []
+        ]);
+        
+       
+         //print_r($this->Wagon);
+        
+        $wagonsTable = TableRegistry::get('Wagon');
+        $wagon = $wagonsTable->newEntity();
+        $wagon->Description = $wagonHasSiding->Description;
+        if  ($wagonsTable->save($wagon)) {
+            $this->Flash->success(__('The wagon has been inserted. Now fill neccessary data!!'));
+        } else {
+            $this->Flash->error(__('The wagon could not be inserted and saved. Please, try again.'));
+        }
+       
+     //   print_r($wagon);
+        
+        
+           $wagonHasSiding = $this->WagonHasSidings->patchEntity($wagonHasSiding, $this->request->getData());
+           $wagonHasSiding->ID_wagon = $wagon->ID_wagon;
+            if ($this->WagonHasSidings->save($wagonHasSiding)) {
+                $this->Flash->success(__('The wagon has siding has been saved.'));
+                
+               
+            } else {
+              $this->Flash->error(__('The wagon has siding could not be saved. Please, try again.'));
+            }
+        $this->set(compact('wagonHasSiding'));
+        
+        $connection = ConnectionManager::get('default');
+        $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
+        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
+         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
+        ')->fetchAll('assoc');
+        
+        $this->set(compact('wagons'));
+       
+        return $this->redirect(
+            ['controller' => 'Wagon', 'action' => 'edit',$wagon->ID_wagon]
+            );
+        
+       // return $this->redirect(['action' => 'index']);
+    }
     /**
      * Edit method
      *
@@ -108,6 +152,7 @@ class WagonHasSidingsController extends AppController
             $this->Flash->error(__('The wagon has siding could not be saved. Please, try again.'));
         }
         $this->set(compact('wagonHasSiding'));
+        
         $connection = ConnectionManager::get('default');
         $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label

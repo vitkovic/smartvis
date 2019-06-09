@@ -7,6 +7,7 @@ use Cake\ORM\Entity;
  * WagonHasSiding Entity
  *
  * @property int $ID_wagon
+ * @property string|null $Description
  * @property int|null $ID_sidings
  * @property string $label
  * @property int|null $position
@@ -25,6 +26,7 @@ class WagonHasSiding extends Entity
      */
     protected $_accessible = [
         'ID_wagon' => true,
+        'Description' => true,
         'ID_sidings' => true,
         'label' => true,
         'position' => true

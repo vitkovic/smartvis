@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 /**
  * Inputwagons Controller
  *
@@ -54,6 +55,15 @@ class InputwagonsController extends AppController
         if ($this->request->is('post')) {
             $inputwagon = $this->Inputwagons->patchEntity($inputwagon, $this->request->getData());
             if ($this->Inputwagons->save($inputwagon)) {
+                
+               // print_r( $inputwagon);
+                $connection = ConnectionManager::get('default');
+                
+                $insert = $connection->execute("INSERT INTO wagon_has_sidings (ID_wagon, Description, ID_sidings, label, position) VALUES (0,'{$inputwagon->Description}',0,'0',0)");
+                
+               // $this->set(compact('wagons'));
+                
+                
                 $this->Flash->success(__('The inputwagon has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -62,6 +72,10 @@ class InputwagonsController extends AppController
         }
         $timetable = $this->Inputwagons->Timetable->find('list', ['limit' => 200]);
         $this->set(compact('inputwagon', 'timetable'));
+        
+        // to drawing 
+     
+        
     }
 
     /**

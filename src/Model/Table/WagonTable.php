@@ -57,11 +57,11 @@ class WagonTable extends Table
             ->scalar('Description')
             ->maxLength('Description', 50)
             ->requirePresence('Description', 'create')
-            ->allowEmptyString('Description', false);
+            ->allowEmptyString('Description',false);
 
         $validator
             ->numeric('Net_Mass_Cargo')
-            ->allowEmptyString('Net_Mass_Cargo');
+            ->allowEmptyString('Net_Mass_Cargo',true);
 
         $validator
             ->scalar('Type')
@@ -71,16 +71,16 @@ class WagonTable extends Table
         $validator
             ->numeric('Wagon_Lenght')
             ->requirePresence('Wagon_Lenght', 'create')
-            ->allowEmptyString('Wagon_Lenght', false);
+            ->allowEmptyString('Wagon_Lenght', true);
 
         $validator
             ->numeric('Wagon_Mass')
-            ->allowEmptyString('Wagon_Mass');
+            ->allowEmptyString('Wagon_Mass',true);
 
         $validator
             ->numeric('Brake_Weight')
             ->requirePresence('Brake_Weight', 'create')
-            ->allowEmptyString('Brake_Weight', false);
+            ->allowEmptyString('Brake_Weight', true);
 
         $validator
             ->scalar('Type_of_Cargo')

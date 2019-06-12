@@ -41,7 +41,7 @@ window.onload = function () {
  var wagonArr = new Array();
 
 
-
+ var wagoncolors = ["#04ab52", "#0e5c3b", "#022639", "#023c05", "#024f62", "#0f2449", "#0b2595", "#06d972", "#02e052", "#0408f2", "#01b5c1", "#06e2af", "#02962c", "#0cd7b8", "#0e9b82", "#0da288", "#027191", "#09aebd", "#092fc1", "#0afe7c", "#061529", "#072c6f", "#062cc8", "#034c6c", "#0138c5", "#0a198b", "#0384aa", "#043874", "#0e2e9a", "#041ab8"]
 
 
     $( "#s1" ).on( "click", function(){   $( "#opener" ).click(); } );
@@ -53,6 +53,7 @@ window.onload = function () {
     
      var siding, sidingLength, X0, X1,wgcolor;
    // draw wagons 
+     var i = 0;
     <?php foreach ($wagons_sidings as $key=>$value):  ?>
     
     
@@ -65,10 +66,10 @@ window.onload = function () {
        
        var wagonStartX = X0, wagonStartY = Y0;
        var sidingScale, wagonWidth=2;
-      console.log(sdattr);
+      //console.log(sdattr);
       
-       wgcolor = "#"+((1<<24)*Math.random()|0).toString(16);
-       
+     //  wgcolor = "#"+((1<<24)*Math.random()|0).toString(16);
+     
         <?php foreach ($value as $wagon):  ?>
           
           var sdlength = null;
@@ -77,7 +78,7 @@ window.onload = function () {
             sidingScale = sidingLength / Number(sdlength);
        	   // console.log(sdlength);
             var r = s.rect(Number(wagonStartX),Number(wagonStartY)-wagonWidth/2, Number("<?php echo $wagon['Wagon_Lenght'];?>") * sidingScale ,wagonWidth);
-		    r.attr('fill', wgcolor); 
+		    r.attr('fill', wagoncolors[i]); 
 		  
 		  	var text = s.text(Number(wagonStartX),Number(wagonStartY)-wagonWidth/2,'<?php echo $wagon['Description']?>')
         	   text.attr({
@@ -91,9 +92,10 @@ window.onload = function () {
 		 mapMatrix.append(r); 
 		 mapMatrix.append(text); 
 		 wagonStartX = Number(wagonStartX) + Number(<?php echo $wagon['Wagon_Lenght'];?>) * sidingScale+1;
+	     
 	   <?php endforeach; ?>
       
-    
+       i++;
     
     <?php endforeach; ?>
    

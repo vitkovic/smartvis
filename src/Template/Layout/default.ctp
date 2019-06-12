@@ -71,8 +71,7 @@ $cakeDescription = '';
         Visualization
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Display Real Yard diagram</a>
-        <a class="dropdown-item" href="/smartvis/yard/viewyardsimplified">Display Simple Yard diagram</a>
+        <a class="dropdown-item" href="/smartvis/yard/viewyardsimplified">Display Yard diagram</a>
         <a class="dropdown-item" href="/smartvis/yard/viewyard">Yard Info</a>
       </div>
     </li>
@@ -131,6 +130,6 @@ $cakeDescription = '';
     <footer>
      
     </footer>
-    
+
 </body>
 </html>

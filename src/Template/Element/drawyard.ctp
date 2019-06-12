@@ -184,7 +184,7 @@ localMatrix = mapMatrix.transform().localMatrix;
 //console.log(localMatrix);
 }
 
-$(document).keypress(function(e){
+$(window).keypress(function(e){
   console.log( "Handler for .keypress() called.");
   var s;
   switch (e.which) {
@@ -226,7 +226,7 @@ mapMatrix.transform(myMatrix.toTransformString());
 localMatrix = mapMatrix.transform().localMatrix;
 });
 
-$("#svgplace").keypress(function(e){
+$("#marshallingyard").keypress(function(e){
   console.log( "Handler for .keypress() called.");
   var s;
   switch (e.which) {

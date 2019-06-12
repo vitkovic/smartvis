@@ -86,9 +86,46 @@ class YardController extends Controller
        $connection = ConnectionManager::get('default');
        $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
-         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
+         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon ORDER BY wagon_has_sidings.position
         ')->fetchAll('assoc');
         
+       
+        $new = array();
+        $i = 0;
+        foreach ($wagons as $key => $value) {
+           
+            $new[$value['label']][$i]['ID_wagon']=$value['ID_wagon'];
+            $new[$value['label']][$i]['Siding_lenght']=$value['Siding_lenght'];
+            $new[$value['label']][$i]['Wagon_Lenght']=$value['Wagon_Lenght'];
+            $new[$value['label']][$i]['Description']=$value['Description'];
+            $new[$value['label']][$i]['Position']=$value['position'];
+            
+            $i++;
+        }
+        foreach ($new as $key => $value) {
+            $new[$key]['allowed_length'] = $this->calculateSiding($value);
+            $i++;
+        }
+      
         $this->set(compact('wagons'));
+        $this->set('wagons_sidings',$new);
+        
+        
+        
+        
+    }
+    public function calculateSiding($siding) {
+        
+        $numwagons_siding = count($siding);
+        $sum = 0;
+        foreach ($siding as $key => $value) {
+           
+                 
+            $sum += $value['Wagon_Lenght']+1;
+            $siding_length = $value['Siding_lenght'];
+        }
+        
+        return  $siding_length - $sum;   
+        
     }
 }

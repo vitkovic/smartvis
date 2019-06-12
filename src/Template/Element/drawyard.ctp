@@ -46,28 +46,40 @@ window.onload = function () {
 
     s = Snap(Snap("#marshallingyard").node); //wrap the element
     mapMatrix = s.select("#map-matrix");
-    <?php foreach ($wagons as $wagon):  ?>
-		wagonArr.push({'ID_wagon':'<?php echo $wagon['ID_wagon']?>','label':'<?php echo $wagon['label']?>','position':'<?php echo $wagon['position']?>'});
- 		 var siding = s.select("#<?php echo $wagon['label']?>");
- 		 var pos = siding.attr("d").split(" ");
- 		 var start = pos[1];
- 		 var startcoord = start.split(",");
- 		// console.log(startcoord);
- 		 var r = s.rect(Number(startcoord[0])+<?php echo $wagon['position']*10?>,Number(startcoord[1])+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2);
-		 r.attr('fill', 'red'); 
+    var siding, sidingLength, X0, X1;
+   // draw wagons 
+    <?php foreach ($new as $key=>$value):  ?>
+    
+       siding = s.select("#<?php echo $key ?>");
+       sidingLength = siding.getTotalLength();
+       X0 = siding.node.pathSegList.getItem(0).x;
+       Y0 = siding.node.pathSegList.getItem(0).y;
+       
+       var wagonStartX = X0, wagonStartY = Y0;
+       
+      <?php foreach ($value as $wagon):  ?>
+    
+    
+         sidingScale = sidingLength / $wagon['Siding_length'];
+    
+         var r = s.rect(Number(wagonStartX),Number(wagonStartY), Number(<?php echo $wagon['Wagon_Lenght'];?>) * sidingScale ,2);
+		 r.attr('fill', '#ffff0'+<?php echo $wagon['position'];?>); 
 		 
-		 var text = s.text(Number(startcoord[0])+<?php echo $wagon['position']*10?>,Number(startcoord[1])+<?php echo substr($wagon['label'],1,1)?>,'<?php echo $wagon['Description']?>')
-         text.attr({
-          	'font-size':5
-      	 });
+		// var text = s.text(Number(startcoord[0])+<?php echo $wagon['position']*10?>,Number(startcoord[1])+<?php echo substr($wagon['label'],1,1)?>,'<?php echo $wagon['Description']?>')
+        // text.attr({
+        //  	'font-size':5
+      	// });
 		 
 		 
 		 mapMatrix.append(r); 
 		 mapMatrix.append(text); 
-		 console.log('startcoord[0]+<?php echo $wagon['position']*10?>,startcoord[1]+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2')
+		 
+		 wagonStartX = Number(wagonStartX) + Number(<?php echo $wagon['Wagon_Lenght'];?>) * sidingScale;
+		 
+		// console.log('startcoord[0]+<?php echo $wagon['position']*10?>,startcoord[1]+<?php echo substr($wagon['label'],1,1)?>,10 +<?php echo $wagon['Wagon_Lenght']?> ,2')
  	<?php endforeach; ?>
     
-   
+  <?php endforeach; ?>
     
   //  console.log(s);
     function hide() {

@@ -80,10 +80,9 @@ $cakeDescription = '';
         Deviations
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="/smartvis/optimis">Train</a>
-        <a class="dropdown-item" href="/smartvis/optimis">Marshalling yard infrastructure</a>
-        <a class="dropdown-item" href="/smartvis/optimis">People</a>
-        <a class="dropdown-item" href="/smartvis/optimis">Other</a>
+        <a class="dropdown-item" href="/smartvis/deviations/">Train & Infrastructure</a>
+        <a class="dropdown-item" href="/smartvis/deviations/">People</a>
+        <a class="dropdown-item" href="/smartvis/deviations/">Other</a>
       </div>
     </li>
      <li class="dropdown">

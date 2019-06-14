@@ -88,15 +88,17 @@ var mapMatrix;
 
  
 <div id="tabs">
+<?php echo $this->Form->create("deviations",['url' => ['action' => 'processdeviations']]);?>
   <ul>
     <li><a href="#tabs-1">Train & Infrastructure</a></li>
     <li><a href="#tabs-2">People</a></li>
     <li><a href="#tabs-3">Other</a></li>
   </ul>
   <div id="tabs-1">
+  
    <table border=0 width="100%">
    <tr> 
-    <td width="40%">
+    <td width="30%">
 			 <label class="container">Time Deviation for Incoming train
 			  <input type="radio" id="radiotrain1" name="radiotrain" value="time" checked="checked">
 			  <span class="checkmark"></span>
@@ -107,42 +109,44 @@ var mapMatrix;
 			  <span class="checkmark"></span>
 			</label>
 			
-			<label class="container">Other
-			  <input type="radio" id="radiotrain3" name="radiotrain" value="other">
-			  <span class="checkmark" ></span>
-			</label>
-	 </td>
+	  </td>
 	 <td>
-			<div id="timetablediv" class="timetablediv" >
+			<div id="timetablediv" class="timetablediv" style="overflow-y: scroll; height:400px;">
 					<div class="timetable">
 					    <h4 align="center"><?= __('Timetable') ?></h4>
 					    <table cellpadding="0" cellspacing="0">
 					        <thead>
 					            <tr>
+					                <th scope="col">Mark deviation</th>
 					                <th scope="col">Source</th>
 					                <th scope="col">Destination</th>
 					                <th scope="col">Arrival_Date</th>
 					                <th scope="col">Dispatch_Date</th>
 					                <th scope="col">Arrival_Time</th>
 					                <th scope="col">Dispatch_Time</th>
-					                <th scope="col">ID_Timetable</th>
+					                <th scope="col">Train</th>
 					            </tr>
 					        </thead>
 					        <tbody>
 					            <?php foreach ($timetable as $timetable): ?>
 					            <tr>
-					                <td><?php echo $timetable['Source'] ?></td>
+					            	<td>
+									    <?php echo $this->Form->checkbox('timetableid_'.$timetable['ID_Timetable'], ['hiddenField' => false,'id'=>$timetable['ID_Timetable'], 'value'=>$timetable['ID_Timetable']]); ?>
+									</td>
+										<td><?php echo $timetable['Source'] ?></td>
 					                <td><?php echo $timetable['Destination'] ?></td>
 					                <td><?php echo $timetable['Arrival_Date'] ?></td>
 					                <td><?php echo $timetable['Dispatch_Date'] ?></td>
 					                <td><?php echo $timetable['Arrival_Time'] ?></td>
 					                <td><?php echo $timetable['Dispatch_Time'] ?></td>
-					                <td><?php echo $timetable['ID_Timetable'] ?></td>
+					                <td><?php echo $this->Html->link($timetable['Train_Number'], ['controller' => 'Train', 'action' => 'view', $timetable['ID_Train']]) ?></td>
 					               
 					            </tr>
 					            <?php endforeach; ?>
+					            </tr>
 					        </tbody>
 					    </table>
+					    
 					  </div>
 			<div>
 		 </td>
@@ -150,12 +154,36 @@ var mapMatrix;
 	</table>	
   </div>
   <div id="tabs-2">
-    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+    <p> <label class="container">Machine operator
+			  <input type="radio" id="radiotrain1" name="radiotrain" value="time" checked="checked">
+			  <span class="checkmark"></span>
+			</label>
+			
+			<label class="container">Worker
+			  <input type="radio" id="radiotrain2" name="radiotrain" value="wagon">
+			  <span class="checkmark"></span>
+			</label>
+			
+			<label class="container">Support Worker
+			  <input type="radio" id="radiotrain3" name="radiotrain" value="other">
+			  <span class="checkmark" ></span>
+			</label>
+	</p>
+	
+	<div class="form-group">
+  			<label for="peopledeviation">Eneter number of people:</label>
+  				<input type="text" class="form-control rounded-0" id="peopledeviation" name="peopledeviation"/>
+		</div>
   </div>
   <div id="tabs-3">
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+      	<div class="form-group">
+  			<label for="otherdeviation">Describe deviation and include deviation sources separated by comma:</label>
+  				<textarea class="form-control rounded-0" id="otherdeviation" name="otherdeviation" rows="10"></textarea>
+		</div>
   </div>
+  <?php echo $this->Form->button('Submit deviations',array('class'=>'btn btn-dark','formaction' => $this->Url->build(
+            							array('controller' => 'Deviations','action' => 'processdeviation'))));?>
+ <?php echo $this->Form->end();?>
  </div>
 
 <div class="container-fluid" id="yard">
@@ -169,14 +197,13 @@ var mapMatrix;
   </div>
   
 
- 
 </div>
 <script>
 
 window.onload = function () {
 
  $("input[name='radiotrain']").click(function () {
- 	$('#timetablediv').fadeToggle();
+ 	//$('#timetablediv').fadeToggle();
 });
  $( function() {
     $( "#tabs" ).tabs();

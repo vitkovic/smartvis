@@ -111,7 +111,8 @@ class DeviationsController extends Controller
         $this->set('wagons_sidings',$new);
         
         
-        $timetable = $connection->execute('SELECT * FROM timetable')->fetchAll('assoc');
+        $timetable = $connection->execute('SELECT * FROM timetable, train where timetable.train_id = train.ID_Train
+        ')->fetchAll('assoc');
         //print_r($timetable);
         $this->set(compact('timetable'));
         
@@ -129,5 +130,45 @@ class DeviationsController extends Controller
         
         return  $siding_length - $sum;   
         
+    }
+    
+    public function processdeviation()
+    {
+        $connection = ConnectionManager::get('default');
+        $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
+        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
+         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon ORDER BY wagon_has_sidings.position
+        ')->fetchAll('assoc');
+        
+        
+        $new = array();
+        $i = 0;
+        foreach ($wagons as $key => $value) {
+            
+            $new[$value['label']][$i]['ID_wagon']=$value['ID_wagon'];
+            $new[$value['label']][$i]['Siding_lenght']=$value['Siding_lenght'];
+            $new[$value['label']][$i]['Wagon_Lenght']=$value['Wagon_Lenght'];
+            $new[$value['label']][$i]['Description']=$value['Description'];
+            $new[$value['label']][$i]['Position']=$value['position'];
+            
+            $i++;
+        }
+        foreach ($new as $key => $value) {
+            $new[$key]['allowed_length'] = $this->calculateSiding($value);
+            $i++;
+        }
+        
+        $this->set(compact('wagons'));
+        $this->set('wagons_sidings',$new);
+        
+        
+        $timetable = $connection->execute('SELECT * FROM timetable, train where timetable.train_id = train.ID_Train
+        ')->fetchAll('assoc');
+        
+        $this->set(compact('timetable'));
+        
+        echo "<pre>";
+        print_r($this->request->getData());
+        echo "</pre>";
     }
 }

@@ -99,16 +99,25 @@ var mapMatrix;
    <table border=0 width="100%">
    <tr> 
     <td width="30%">
+    		<label class="container"><strong>There are no deviations...Everything is normal</strong>
+			  <input type="radio" id="radiotrain1" name="radiotrain" value="-1" checked>
+			  <span class="checkmark"></span>
+			</label>
+			
 			 <label class="container">Time Deviation for Incoming train
-			  <input type="radio" id="radiotrain1" name="radiotrain" value="time" checked="checked">
+			  <input type="radio" id="radiotrain1" name="radiotrain" value="0">
 			  <span class="checkmark"></span>
 			</label>
 			
-			<label class="container">Vagon mailfunction
-			  <input type="radio" id="radiotrain2" name="radiotrain" value="wagon">
+			<label class="container">Vagon mailfunction (yard)
+			  <input type="radio" id="radiotrain2" name="radiotrain" value="1">
 			  <span class="checkmark"></span>
 			</label>
 			
+			<div id="timedelaydiv">
+			  <label for="timedelay">Insert value for delay <bt>(in minutes for time, or wagon description for vagon)</label>
+			  <input type="text" class="form-control" id="timedelay" name="timedelay" value="0">
+			</div>
 	  </td>
 	 <td>
 			<div id="timetablediv" class="timetablediv" style="overflow-y: scroll; height:400px;">
@@ -155,17 +164,17 @@ var mapMatrix;
   </div>
   <div id="tabs-2">
     <p> <label class="container">Machine operator
-			  <input type="radio" id="radiotrain1" name="radiotrain" value="time" checked="checked">
+			  <input type="radio" id="workers1" name="workers" value="0" checked="checked">
 			  <span class="checkmark"></span>
 			</label>
 			
 			<label class="container">Worker
-			  <input type="radio" id="radiotrain2" name="radiotrain" value="wagon">
+			  <input type="radio" id="workers2" name="workers" value="1">
 			  <span class="checkmark"></span>
 			</label>
 			
 			<label class="container">Support Worker
-			  <input type="radio" id="radiotrain3" name="radiotrain" value="other">
+			  <input type="radio" id="workers3" name="workers" value="2">
 			  <span class="checkmark" ></span>
 			</label>
 	</p>
@@ -202,8 +211,8 @@ var mapMatrix;
 
 window.onload = function () {
 
- $("input[name='radiotrain']").click(function () {
- 	//$('#timetablediv').fadeToggle();
+ $("input[name='radiotrain']").change(function () {
+ 	//$('#timedelaydiv').fadeToggle();
 });
  $( function() {
     $( "#tabs" ).tabs();

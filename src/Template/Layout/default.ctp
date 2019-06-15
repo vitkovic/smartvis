@@ -77,7 +77,7 @@ $cakeDescription = '';
     </li>
     <li class="dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Deviations
+        Deviations/Distribution
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/smartvis/deviations/">Train & Infrastructure</a>

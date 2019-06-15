@@ -112,7 +112,7 @@ class DeviationsController extends Controller
         
         
         $timetable = $connection->execute('SELECT * FROM timetable, train where timetable.train_id = train.ID_Train
-        ')->fetchAll('assoc');
+        and timetable.Arrival_Date IS NOT NULL')->fetchAll('assoc');
         //print_r($timetable);
         $this->set(compact('timetable'));
         
@@ -123,9 +123,10 @@ class DeviationsController extends Controller
         $sum = 0;
         foreach ($siding as $key => $value) {
            
-                 
-            $sum += $value['Wagon_Lenght']+1;
-            $siding_length = $value['Siding_lenght'];
+            if (is_array($value)) {
+                $sum += $value['Wagon_Lenght']+1;
+                $siding_length = $value['Siding_lenght'];
+            }
         }
         
         return  $siding_length - $sum;   
@@ -134,6 +135,114 @@ class DeviationsController extends Controller
     
     public function processdeviation()
     {
+        $deviationdata = $this->request->getData();
+        
+       // print_r($deviationdata);
+        
+        $connection = ConnectionManager::get('default');
+        $wagons = $connection->execute(' SELECT * FROM wagon_has_sidings, wagon, drawing,sidings, wagon_has_train,train, timetable where
+        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label and wagon_has_train.ID_wagon = wagon.ID_wagon and timetable.Train_id = train.ID_Train
+        and wagon_has_train.ID_Train = train.ID_Train
+        and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon ORDER BY train.ID_Train
+        ')->fetchAll('assoc');
+        
+       
+        
+        
+        $new = array();
+        $i = 0;
+        foreach ($wagons as $key => $value) {
+            
+            $new[$value['ID_Train']][$i]['ID_wagon']=$value['ID_wagon'];
+            $new[$value['ID_Train']][$i]['Siding_lenght']=$value['Siding_lenght'];
+            $new[$value['ID_Train']][$i]['Wagon_Lenght']=$value['Wagon_Lenght'];
+            $new[$value['ID_Train']][$i]['Description']=$value['Description'];
+            $new[$value['ID_Train']][$i]['Position']=$value['position'];
+            $new[$value['ID_Train']][$i]['label']=$value['label'];
+            $new[$value['ID_Train']]['Arrival_Date'] = $value['Arrival_Date'];
+            $new[$value['ID_Train']]['Arrival_Time'] = $value['Arrival_Time'];
+            $new[$value['ID_Train']]['Dispatch_Date'] = $value['Dispatch_Date'];
+            $new[$value['ID_Train']]['Dispatch_Time'] = $value['Dispatch_Time'];
+            $new[$value['ID_Train']]['Source'] = $value['Source'];
+            $new[$value['ID_Train']]['Destination'] = $value['Destination'];
+            $i++;
+        }
+        foreach ($new as $key => $value) {
+            $new[$key]['allowed_length'] = $this->calculateSiding($value);
+            $i++;
+        }
+        
+        $connection = ConnectionManager::get('default');
+        $incomingTrains = $connection->execute(' SELECT * FROM timetable, train where
+        timetable.Train_id = train.ID_Train and train.In_Out_Train=1')->fetchAll('assoc');
+          
+        $newIncoming = array();
+        $i = 0;
+        foreach ($incomingTrains as $key => $value) {
+            
+            $newIncoming[$value['ID_Timetable']]['Arrival_Date'] = $value['Arrival_Date'];
+            $newIncoming[$value['ID_Timetable']]['Arrival_Time'] = $value['Arrival_Time'];
+            $newIncoming[$value['ID_Timetable']]['Dispatch_Date'] = $value['Dispatch_Date'];
+            $newIncoming[$value['ID_Timetable']]['Dispatch_Time'] = $value['Dispatch_Time'];
+            $newIncoming[$value['ID_Timetable']]['Source'] = $value['Source'];
+            $newIncoming[$value['ID_Timetable']]['Destination'] = $value['Destination'];
+            $newIncoming[$value['ID_Timetable']]['TrainLength'] = $value['Train_Lenght_In_Meters'];
+            $newIncoming[$value['ID_Timetable']]['ID_Train'] = $value['ID_Timetable'];
+            $i++;
+        }
+        
+        
+        $connection = ConnectionManager::get('default');
+        $newSidings = $connection->execute(' SELECT * FROM   sidings,drawing WHERE  NOT EXISTS
+                     (SELECT * FROM wagon_has_sidings WHERE 
+                        wagon_has_sidings.ID_sidings =sidings.IDsidings) 
+                    and sidings.IDsidings = drawing.sidings_id and drawing.sidings_g_m Like "C%" GROUP BY sidings.IDsidings')->fetchAll('assoc');
+      // echo "<pre>"; 
+      // print_r($newSidings);
+      // echo "</pre>"; 
+       // $deviationdata['nodeviations']=1;
+        
+        if ($deviationdata['radiotrain']==-1) {
+            
+           
+            $filtereddata = array_filter($deviationdata, function ($key) {
+                return strpos($key, 'timetable') === 0;
+            }, ARRAY_FILTER_USE_KEY);
+            
+           // print_r($filtereddata);
+            foreach ($filtereddata as $key=>$value) {
+                $timetablekey = $key;
+                $timetableid = $value;
+            }
+           
+          //  echo $timetableid;
+            $TrainLength = $newIncoming[$timetableid]['TrainLength'];
+           // echo $TrainLength."dgdgd";
+            
+            $possitions = 0; 
+                        
+            
+             foreach ($newSidings as $key => $value) {
+                
+                 if ((float)$value['Siding_lenght']>(float)$TrainLength) {
+                     
+                    $possitions = 1; 
+                    
+                    $possiblesidings[$key] = $value;
+                     
+                }
+                
+            }
+            
+        
+        
+        foreach ( $possiblesidings as $key => $value) {
+            
+            $possidings[$value['sidings_g_m']]['TrainLength'] = $TrainLength;
+            
+        }
+         
+         
         $connection = ConnectionManager::get('default');
         $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
@@ -160,15 +269,15 @@ class DeviationsController extends Controller
         
         $this->set(compact('wagons'));
         $this->set('wagons_sidings',$new);
+        $this->set('add_sidings',$possidings);
+        
+        $messageTextStart = "You can put your train into the following sidings:";
+        $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app)<br>";    
+        $this->set('mssStart', $messageTextStart);
+        $this->set('mssEnd', $messageTextEnd);
         
         
-        $timetable = $connection->execute('SELECT * FROM timetable, train where timetable.train_id = train.ID_Train
-        ')->fetchAll('assoc');
         
-        $this->set(compact('timetable'));
-        
-        echo "<pre>";
-        print_r($this->request->getData());
-        echo "</pre>";
+      }
     }
 }

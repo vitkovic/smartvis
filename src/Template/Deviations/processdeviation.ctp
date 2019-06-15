@@ -26,7 +26,7 @@ var mapMatrix;
 
   <?php endforeach; ?>
     
-</p><p>Now go to infrastructure to distribute wagons: <a href="http://localhost/smartvis/wagon-has-sidings">Infrastructure</a></p>
+</p><p>In order to distribute wagons, go to infrastructure: <a href="http://localhost/smartvis/wagon-has-sidings">Infrastructure</a></p>
 <p class="text-info"><strong>Note:</strong> <?php echo $mssEnd; ?></p>
 </div>
 
@@ -79,9 +79,9 @@ var wagonWidth=2;
        
     //console.log(siding);
      sdlength = "<?php echo $value['TrainLength']; ?>";
-     
+     sidingDBLength = "<?php echo $value['SidingLength']; ?>";
      if (sdlength != null && sdlength !="") {
-      	sidingScale = sidingLength / Number(sdlength);
+      	sidingScale = sidingLength / Number(sidingDBLength);
      }
      
       var r = s.rect( Number(X0), Number(Y0)-wagonWidth/2, Number(sdlength) * sidingScale ,wagonWidth);

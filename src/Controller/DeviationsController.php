@@ -37,7 +37,10 @@ class DeviationsController extends Controller
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
-     */
+     * 
+    */
+    public $deviationdata;
+    
     public function initialize()
     {
         parent::initialize();
@@ -133,9 +136,47 @@ class DeviationsController extends Controller
         
     }
     
+    
+    public function getDeviations($deviationdata) {
+        $timetable = array();
+        $infTimeWagons = null;
+        $infTimeAmmountWagon = null;
+        $infPeople = null;
+        $infPeopleNum = null;
+        
+        // get timetable
+        $timetable = array_filter($deviationdata, function ($key) {
+            return strpos($key, 'timetable') === 0;
+        }, ARRAY_FILTER_USE_KEY);
+        
+        //get deviation for time or infrastructure wagon
+        $infTimeWagons = $deviationdata['radiotrain'];
+        $infTimeAmmountWagon = $deviationdata['timedelay'];
+      
+        // People
+        $infPeople = $deviationdata['workers'];
+        $infPeopleNum = $deviationdata['peopledeviation'];
+        //Other
+        
+        $allinone = array();
+        
+        if ($infTimeWagons != null) $allinone['timewagon'][] = $infTimeWagons;
+        if ($infTimeAmmountWagon != null) $allinone['timewagon'][] = $infTimeAmmountWagon;
+        if ($timetable != null && count($timetable)>0) $allinone['timetable'][] = $timetable;
+        if ($infPeople != null) $allinone['people'][] = $infPeople;
+        if ($infPeopleNum != null) $allinone['people'][] = $infPeopleNum;
+        
+        $this->devitiondata = $allinone;
+        
+        
+    }
+    
     public function processdeviation()
     {
-        $deviationdata = $this->request->getData();
+        
+        $this->getDeviations($this->request->getData());
+        
+        
         
        // print_r($deviationdata);
         
@@ -202,10 +243,8 @@ class DeviationsController extends Controller
       // echo "</pre>"; 
        // $deviationdata['nodeviations']=1;
         
-        if ($deviationdata['radiotrain']==-1) {
-            
-           
-            $filtereddata = array_filter($deviationdata, function ($key) {
+        if ($this->deviationdata['radiotrain']==-1) {
+             $filtereddata = array_filter($this->deviationdata, function ($key) {
                 return strpos($key, 'timetable') === 0;
             }, ARRAY_FILTER_USE_KEY);
             
@@ -239,7 +278,7 @@ class DeviationsController extends Controller
         foreach ( $possiblesidings as $key => $value) {
             
             $possidings[$value['sidings_g_m']]['TrainLength'] = $TrainLength;
-            
+            $possidings[$value['sidings_g_m']]['SidingLength'] = $value['Siding_lenght'];
         }
          
          

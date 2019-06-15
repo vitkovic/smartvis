@@ -27,7 +27,7 @@ var mapMatrix;
   <?php endforeach; ?>
     
 </p><p>Now go to infrastructure to distribute wagons: <a href="http://localhost/smartvis/wagon-has-sidings">Infrastructure</a></p>
-<p class="text-warning"><strong>Note:</strong> <?php echo $mssEnd; ?></p>
+<p class="text-info"><strong>Note:</strong> <?php echo $mssEnd; ?></p>
 </div>
 
 <div class="container-fluid" id="yard">

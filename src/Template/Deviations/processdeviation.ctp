@@ -52,6 +52,7 @@ var mapMatrix;
 					    </table>
 <?php } ?>
 <p>Conserning people lacking. It is possible to move two workers from warehouse to the yard in order to continue to operate.</p>
+<?php } ?> 
 <p>You can put train in the free sidings or, you can distirbuted wagons on the already busy sidings.</p>
 <p>You can position incoming train(s) to displayed sidings (marked with color)
   
@@ -61,7 +62,7 @@ var mapMatrix;
  
   <?php endforeach; ?>
  
- <?php } ?> 
+ 
   
   <?php foreach ($add_sidings as $key=>$value): ?>
 	

@@ -354,6 +354,8 @@ class DeviationsController extends Controller
         $this->set('wagons_sidings',$new);
         $this->set('recommendations',$possiblesidings);
         $this->set('dev',1);
+        
+        
         $this->set('winput',$ninput);
         $messageTextStart = "You can put your train into the following sidings:";
         $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app)<br>";
@@ -367,7 +369,7 @@ class DeviationsController extends Controller
         $filtereddata = array_filter($this->deviationdata['timetable'], function ($key) {
             return strpos($key, 'timetable') === 0;
         }, ARRAY_FILTER_USE_KEY);
-            
+            $timetableid = null;
             // print_r($filtereddata);
             foreach ($filtereddata as $key=>$value) {
                 $timetablekey = $key;
@@ -403,18 +405,19 @@ class DeviationsController extends Controller
             
             $connection = ConnectionManager::get('default');
             $inputwagons = $connection->execute('SELECT * FROM timetable,inputwagons where 
-                timetable.ID_Timetable = inputwagons.Timetable_id')->fetchAll('assoc');
+                timetable.ID_Timetable = inputwagons.Timetable_id and timetable.ID_Timetable')->fetchAll('assoc');
             
             
             foreach ($inputwagons as $key => $value) {
                 
                 $ninput[$key] = $value['Description'];
             }
-            /*
-            echo "<pre>";
-            print_r($ninput);
-            echo "</pre>";
-            */
+          //  echo 'SELECT * FROM timetable,inputwagons where
+        //        timetable.ID_Timetable = inputwagons.Timetable_id and timetable.ID_Timetable='. $timetableid;
+         //   echo "<pre>";
+         //   print_r($ninput);
+         //   echo "</pre>";
+           
             $connection = ConnectionManager::get('default');
             $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label

@@ -258,20 +258,21 @@ class DeviationsController extends Controller
         //print_r($this->deviationdata);
         $latetime = null; $newarrivaltime = null;
         $timetablearr = $this->deviationdata['timetable'];
-        print_r($timetablearr);
+       // print_r($timetablearr);
         foreach ($timetablearr as $dtkey => $dvalue) {
             $idarr = explode('_',$dtkey);
             $id = $idarr[1];
             //echo $id;
             foreach ($newIncoming as $key => $value) { 
                // echo $id."  -  ".$key;
+               $change = false;
                 if ((string)$key == (string)$id) {
                    // echo $id;
                     $arrivaltime = strtotime($value['Arrival_Time']);
                     $newarrivaltime = strtotime("+ ".$this->deviationdata['timewagon'][1]." minutes",$arrivaltime );
                    // echo "+ " + $this->deviationdata['timewagon'][1] + " minutes";
                     $latetime = date("H:i:s", $newarrivaltime);
-                   
+                   $change = true;
                 }
             }
         }
@@ -281,6 +282,7 @@ class DeviationsController extends Controller
             $timetabletrainarrival = strtotime($value['Arrival_Time']);
             
             if ($newarrivaltime > $timetabletrainarrival) {
+                if ((string)$key == (string)$id) $value['Arrival_Time'] = $latetime;
                 $trainsbefore[$key] = $value;
             }
             
@@ -293,7 +295,7 @@ class DeviationsController extends Controller
         echo "<pre>";
         print_r($trainsbefore);
         echo "</pre>";
-        
+        /*
         echo "<pre>";
         print_r($newSidings);
         echo "</pre>";
@@ -327,23 +329,36 @@ class DeviationsController extends Controller
                 
                 if ($bvalue['Num_Wagons'] <  $new[$key]['num_wagons']) {
                     $possiblesidings[$key][$bkey]=$bvalue;
+                    $new[$key]['color'] = 'red';
                 }
                 
             }
             
         }
+        
+        $inputwagons = $connection->execute('SELECT * FROM timetable,inputwagons where
+                timetable.ID_Timetable = inputwagons.Timetable_id')->fetchAll('assoc');
+        
+        
+        foreach ($inputwagons as $key => $value) {
+            
+            $ninput[$key] = $value['Description'];
+        }
         /*
-        echo "<pre>";
-        print_r($new);
-        echo "</pre>";
-        */
         echo "<pre>";
         print_r($possiblesidings);
         echo "</pre>";
-        
-        
-        
-        
+         */
+        $this->set('trainsbefore',$trainsbefore);
+        $this->set(compact('wagons'));
+        $this->set('wagons_sidings',$new);
+        $this->set('recommendations',$possiblesidings);
+        $this->set('dev',1);
+        $this->set('winput',$ninput);
+        $messageTextStart = "You can put your train into the following sidings:";
+        $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app)<br>";
+        $this->set('mssStart', $messageTextStart);
+        $this->set('mssEnd', $messageTextEnd);
     }
     
     
@@ -386,7 +401,20 @@ class DeviationsController extends Controller
                 $possidings[$value['sidings_g_m']]['SidingLength'] = $value['Siding_lenght'];
             }
             
+            $connection = ConnectionManager::get('default');
+            $inputwagons = $connection->execute('SELECT * FROM timetable,inputwagons where 
+                timetable.ID_Timetable = inputwagons.Timetable_id')->fetchAll('assoc');
             
+            
+            foreach ($inputwagons as $key => $value) {
+                
+                $ninput[$key] = $value['Description'];
+            }
+            /*
+            echo "<pre>";
+            print_r($ninput);
+            echo "</pre>";
+            */
             $connection = ConnectionManager::get('default');
             $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
@@ -410,15 +438,25 @@ class DeviationsController extends Controller
                 $new[$key]['allowed_length'] = $this->calculateSiding($value);
                 $i++;
             }
+            /*
+            echo "<pre>";
+            print_r($new);
+            echo "</pre>";
+            */
+            
+           
             
             $this->set(compact('wagons'));
             $this->set('wagons_sidings',$new);
             $this->set('add_sidings',$possidings);
+            $this->set('winput',$ninput);
             
             $messageTextStart = "You can put your train into the following sidings:";
             $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app)<br>";
             $this->set('mssStart', $messageTextStart);
             $this->set('mssEnd', $messageTextEnd);
+            
+          //  print_r($possidings);
             
             return;
             

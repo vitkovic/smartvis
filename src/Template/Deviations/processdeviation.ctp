@@ -17,9 +17,52 @@ var mapMatrix;
 </head>
 <body>
 
-<div class="d-flex p-2" style="flex-direction: column;flex-wrap: wrap;margin:10px;border:1px solid black;">Possible Solutions:
-
-<p>You can position incoming train(s) to displayed sidings (marked red)
+<div class="d-flex p-2" style="flex-direction: column;flex-wrap: wrap;margin:10px;border:1px solid black;">
+<h3>Possible Solutions:</h3>
+<?php if ($dev !=null) { ?>
+<?php if ($trainsbefore!=null && count($trainsbefore)>1) { ?>
+<p>Selected timetable trains and timetable trains which are influenced by time deviation:</p>
+<table cellpadding="0" cellspacing="0">
+					        <thead>
+					            <tr>
+					                <th scope="col">Source</th>
+					                <th scope="col">Destination</th>
+					                <th scope="col">Arrival_Date</th>
+					                <th scope="col">Arrival_Time</th>
+					                <th scope="col">Dispatch_Date</th>
+					                <th scope="col">Dispatch_Time</th>
+					                <th scope="col">Train</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <?php foreach ($trainsbefore as $timetable): ?>
+					            <tr>
+					            	<td><?php echo $timetable['Source'] ?></td>
+					                <td><?php echo $timetable['Destination'] ?></td>
+					                <td><?php echo $timetable['Arrival_Date'] ?></td>
+					                <td><?php echo $timetable['Arrival_Time'] ?></td>
+					                <td><?php echo $timetable['Dispatch_Date'] ?></td>
+					                <td><?php echo $timetable['Dispatch_Time'] ?></td>
+					                <td><?php echo $this->Html->link('LINK', ['controller' => 'Train', 'action' => 'view', $timetable['ID_Train']]) ?></td>
+					               
+					            </tr>
+					            <?php endforeach; ?>
+					            </tr>
+					        </tbody>
+					    </table>
+<?php } ?>
+<p>Conserning people lacking. It is possible to move two workers from warehouse to the yard in order to continue to operate.</p>
+<p>You can put train in the free sidings or, you can distirbuted wagons on the already busy sidings.</p>
+<p>You can position incoming train(s) to displayed sidings (marked with color)
+  
+  <?php foreach ($recommendations as $key=>$value): ?>
+	
+	<span class="text-danger"><?php echo $key ?></span>, 
+ 
+  <?php endforeach; ?>
+ 
+ <?php } ?> 
+  
   <?php foreach ($add_sidings as $key=>$value): ?>
 	
 	<span class="text-danger"><?php echo $key ?></span>, 
@@ -87,7 +130,7 @@ var wagonWidth=2;
       var r = s.rect( Number(X0), Number(Y0)-wagonWidth/2, Number(sdlength) * sidingScale ,wagonWidth);
       r.attr('fill', 'red'); 
       mapMatrix.append(r); 
-      
+      //console.log(r);
    <?php endforeach; ?>
      
    // draw wagons 
@@ -96,12 +139,14 @@ var wagonWidth=2;
     
     
      siding = s.select("#<?php echo $key ?>");
-     
+      
+      <?php if ($value['color']=='red') { ?> siding.attr({ stroke: 'red', 'strokeWidth': 2 }); <?php } ?>
     
      
      
        sidingLength = siding.getTotalLength();
        sdattr = siding.attr('d').split(" ");
+      
        start = sdattr[1].split(",");
        X0 = start[0];
        Y0 = start[1];
@@ -121,6 +166,17 @@ var wagonWidth=2;
        	   // console.log(sdlength);
             var r = s.rect(Number(wagonStartX),Number(wagonStartY)-wagonWidth/2, Number("<?php echo $wagon['Wagon_Lenght'];?>") * sidingScale ,wagonWidth);
 		    r.attr('fill', wagoncolors[i]); 
+		  
+		  
+		    <?php foreach ($winput as $key=>$value):  ?>
+		       <?php if ((string)$value==(string)$wagon['Description']) { ?>
+		            r.attr('fill', 'red');
+		            siding.attr({ stroke: 'yellow', 'strokeWidth': 2 });  
+		       <?php } ?>
+		     <?php endforeach; ?>
+		  
+		  
+		  
 		  
 		  	var text = s.text(Number(wagonStartX),Number(wagonStartY)-wagonWidth/2,'<?php echo $wagon['Description']?>')
         	   text.attr({

@@ -130,8 +130,8 @@ var mapMatrix;
 					                <th scope="col">Source</th>
 					                <th scope="col">Destination</th>
 					                <th scope="col">Arrival_Date</th>
-					                <th scope="col">Dispatch_Date</th>
 					                <th scope="col">Arrival_Time</th>
+					                <th scope="col">Dispatch_Date</th>
 					                <th scope="col">Dispatch_Time</th>
 					                <th scope="col">Train</th>
 					            </tr>
@@ -145,8 +145,8 @@ var mapMatrix;
 										<td><?php echo $timetable['Source'] ?></td>
 					                <td><?php echo $timetable['Destination'] ?></td>
 					                <td><?php echo $timetable['Arrival_Date'] ?></td>
-					                <td><?php echo $timetable['Dispatch_Date'] ?></td>
 					                <td><?php echo $timetable['Arrival_Time'] ?></td>
+					                <td><?php echo $timetable['Dispatch_Date'] ?></td>
 					                <td><?php echo $timetable['Dispatch_Time'] ?></td>
 					                <td><?php echo $this->Html->link($timetable['Train_Number'], ['controller' => 'Train', 'action' => 'view', $timetable['ID_Train']]) ?></td>
 					               

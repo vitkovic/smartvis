@@ -7,12 +7,12 @@ use Cake\ORM\Entity;
  * Person Entity
  *
  * @property int $ID_User
- * @property int|null $Phone
- * @property int|null $Role
- * @property int|null $Type
- * @property int|null $First_Name
- * @property int|null $Last_Name
- * @property int|null $Email
+ * @property string|null $Phone
+ * @property string|null $Role
+ * @property string|null $Type
+ * @property string|null $First_Name
+ * @property string|null $Last_Name
+ * @property string|null $Email
  * @property string|null $username
  */
 class Person extends Entity

@@ -29,7 +29,7 @@
         <li><?= $this->Html->link(__('New Wagon Has Siding'), ['action' => 'add']) ?></li>
     </ul>
       <div>
-    		 <?php echo $this->element('drawyard', ["wagons" => $wagons,"wagons_sidings"=>$wagons_sidings]); ?>
+    		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>
     	
     </div>
 </nav>

@@ -48,27 +48,33 @@ class PeopleTable extends Table
             ->allowEmptyString('ID_User', 'create');
 
         $validator
-            ->integer('Phone')
+            ->scalar('Phone')
+            ->maxLength('Phone', 50)
             ->allowEmptyString('Phone');
 
         $validator
-            ->integer('Role')
+            ->scalar('Role')
+            ->maxLength('Role', 10)
             ->allowEmptyString('Role');
 
         $validator
-            ->integer('Type')
+            ->scalar('Type')
+            ->maxLength('Type', 11)
             ->allowEmptyString('Type');
 
         $validator
-            ->integer('First_Name')
+            ->scalar('First_Name')
+            ->maxLength('First_Name', 30)
             ->allowEmptyString('First_Name');
 
         $validator
-            ->integer('Last_Name')
+            ->scalar('Last_Name')
+            ->maxLength('Last_Name', 50)
             ->allowEmptyString('Last_Name');
 
         $validator
-            ->integer('Email')
+            ->scalar('Email')
+            ->maxLength('Email', 30)
             ->allowEmptyString('Email');
 
         $validator

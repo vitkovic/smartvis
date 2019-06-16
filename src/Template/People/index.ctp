@@ -4,13 +4,13 @@
  * @var \App\Model\Entity\Person[]|\Cake\Collection\CollectionInterface $people
  */
 ?>
-<nav class="large-2 medium-3 columns" id="actions-sidebar">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Person'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="people index large-10 medium-9 columns content">
+<div class="people index large-9 medium-8 columns content">
     <h3><?= __('People') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -30,12 +30,12 @@
             <?php foreach ($people as $person): ?>
             <tr>
                 <td><?= $this->Number->format($person->ID_User) ?></td>
-                <td><?= $this->Number->format($person->Phone) ?></td>
-                <td><?= $this->Number->format($person->Role) ?></td>
-                <td><?= $this->Number->format($person->Type) ?></td>
-                <td><?= $this->Number->format($person->First_Name) ?></td>
-                <td><?= $this->Number->format($person->Last_Name) ?></td>
-                <td><?= $this->Number->format($person->Email) ?></td>
+                <td><?= h($person->Phone) ?></td>
+                <td><?= h($person->Role) ?></td>
+                <td><?= h($person->Type) ?></td>
+                <td><?= h($person->First_Name) ?></td>
+                <td><?= h($person->Last_Name) ?></td>
+                <td><?= h($person->Email) ?></td>
                 <td><?= h($person->username) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $person->ID_User]) ?>

@@ -7,19 +7,13 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $trainHasLocomotive->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]
-            )
-        ?></li>
         <li><?= $this->Html->link(__('List Train Has Locomotive'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="trainHasLocomotive form large-9 medium-8 columns content">
     <?= $this->Form->create($trainHasLocomotive) ?>
     <fieldset>
-        <legend><?= __('Edit Train Has Locomotive') ?></legend>
+        <legend><?= __('Add Train Has Locomotive') ?></legend>
         <?php
             echo $this->Form->control('locomotive_id');
             echo $this->Form->control('train_id');

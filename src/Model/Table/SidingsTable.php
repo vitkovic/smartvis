@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Sidings Model
  *
+ * @property |\Cake\ORM\Association\HasMany $TrainHasSiding
+ *
  * @method \App\Model\Entity\Siding get($primaryKey, $options = [])
  * @method \App\Model\Entity\Siding newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Siding[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class SidingsTable extends Table
         $this->setTable('sidings');
         $this->setDisplayField('IDsidings');
         $this->setPrimaryKey('IDsidings');
+
+        $this->belongsToMany('Train', [
+            'through' => 'TrainHasSiding'
+        ]);
     }
 
     /**

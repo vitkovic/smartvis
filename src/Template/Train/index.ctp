@@ -34,7 +34,7 @@
             <tr>
                 <td><?= $this->Number->format($train->Train_Weight_per_Axle) ?></td>
                 <td><?= $this->Number->format($train->Train_Composition) ?></td>
-                <td><?= $this->Number->format($train->ID_Train) ?>  <?= $this->Html->link(__('Wagons'), ['controller' => 'TrainHasLocomotive', 'action' => 'index', $train->ID_Train]) ?></td>
+                <td><?= $this->Number->format($train->ID_Train) ?></td>
                 <td><?= h($train->Train_type) ?></td>
                 <td><?= h($train->Train_Number) ?></td>
                 <td><?= h($train->Dispatch_Time_Starting) ?></td>

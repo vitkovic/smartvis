@@ -43,6 +43,10 @@ class TrainTable extends Table
         $this->belongsToMany('Wagon', [
             'through' => 'WagonHasTrain'
         ]);
+        
+        $this->belongsToMany('Sidings', [
+            'through' => 'TrainHasSiding'
+        ]);
     }
 
     /**

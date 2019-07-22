@@ -8,6 +8,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Train'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="train index large-9 medium-8 columns content">
@@ -32,7 +34,7 @@
             <tr>
                 <td><?= $this->Number->format($train->Train_Weight_per_Axle) ?></td>
                 <td><?= $this->Number->format($train->Train_Composition) ?></td>
-                <td><?= $this->Number->format($train->ID_Train) ?></td>
+                <td><?= $this->Number->format($train->ID_Train) ?>  <?= $this->Html->link(__('Wagons'), ['controller' => 'TrainHasLocomotive', 'action' => 'index', $train->ID_Train]) ?></td>
                 <td><?= h($train->Train_type) ?></td>
                 <td><?= h($train->Train_Number) ?></td>
                 <td><?= h($train->Dispatch_Time_Starting) ?></td>

@@ -34,7 +34,7 @@ class TrainController extends AppController
     public function view($id = null)
     {
         $train = $this->Train->get($id, [
-            'contain' => []
+            'contain' => ['TrainHasLocomotive']
         ]);
 
         $this->set('train', $train);

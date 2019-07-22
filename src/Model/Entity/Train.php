@@ -15,6 +15,8 @@ use Cake\ORM\Entity;
  * @property float|null $Train_Mass_In_Tones
  * @property float|null $Train_Lenght_In_Meters
  * @property int|null $In_Out_Train
+ *
+ * @property \App\Model\Entity\TrainHasLocomotive[] $train_has_locomotive
  */
 class Train extends Entity
 {
@@ -35,6 +37,7 @@ class Train extends Entity
         'Dispatch_Time_Starting' => true,
         'Train_Mass_In_Tones' => true,
         'Train_Lenght_In_Meters' => true,
-        'In_Out_Train' => true
+        'In_Out_Train' => true,
+        'train_has_locomotive' => true
     ];
 }

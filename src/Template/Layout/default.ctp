@@ -63,8 +63,9 @@ $cakeDescription = '';
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/smartvis/wagon-has-sidings">Wagon distribution</a>
         <a class="dropdown-item" href="/smartvis/wagon-has-sidings/add">Add Wagons to sidings</a>
-      
-      </div>
+        <a class="dropdown-item" href="/smartvis/wagon-has-train/add">Add Wagons to trains</a>
+        
+       </div>
     </li>
    <li class="dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -94,6 +95,7 @@ $cakeDescription = '';
     	<a class="dropdown-item" href="/smartvis/inputwagons"><span style="font-size:medium">Temporary Distribution</span></a>
     	<a class="dropdown-item" href="/smartvis/train/"><span style="font-size:medium">Train</a>
     	<a class="dropdown-item" href="/smartvis/wagon"><span style="font-size:medium">Wagon</a>
+    	<a class="dropdown-item" href="/smartvis/locomotive/"><span style="font-size:medium">Locomotive</a>
      	<a class="dropdown-item" href="/smartvis/sidings"><span style="font-size:medium">Sidings</a>
      	<a class="dropdown-item" href="/smartvis/people"><span style="font-size:medium">People</a>
       </div>

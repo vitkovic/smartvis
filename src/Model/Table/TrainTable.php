@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Train Model
  *
+ * @property \App\Model\Table\TrainHasLocomotiveTable|\Cake\ORM\Association\HasMany $TrainHasLocomotive
+ *
  * @method \App\Model\Entity\Train get($primaryKey, $options = [])
  * @method \App\Model\Entity\Train newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Train[] newEntities(array $data, array $options = [])
@@ -33,6 +35,14 @@ class TrainTable extends Table
         $this->setTable('train');
         $this->setDisplayField('ID_Train');
         $this->setPrimaryKey('ID_Train');
+
+        $this->hasMany('TrainHasLocomotive', [
+            'foreignKey' => 'train_id'
+        ]);
+        
+        $this->belongsToMany('Wagon', [
+            'through' => 'WagonHasTrain',
+        ]);
     }
 
     /**

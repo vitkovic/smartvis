@@ -11,6 +11,8 @@
         <li><?= $this->Form->postLink(__('Delete Train'), ['action' => 'delete', $train->ID_Train], ['confirm' => __('Are you sure you want to delete # {0}?', $train->ID_Train)]) ?> </li>
         <li><?= $this->Html->link(__('List Train'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Train'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="train view large-9 medium-8 columns content">
@@ -53,4 +55,31 @@
             <td><?= h($train->Dispatch_Time_Starting) ?></td>
         </tr>
     </table>
+    <div class="related">
+        <h4><?= __('Related Train Has Locomotive') ?></h4>
+        <?php if (!empty($train->train_has_locomotive)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Locomotive Id') ?></th>
+                <th scope="col"><?= __('Train Id') ?></th>
+                <th scope="col"><?= __('Description') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($train->train_has_locomotive as $trainHasLocomotive): ?>
+            <tr>
+                <td><?= h($trainHasLocomotive->id) ?></td>
+                <td><?= h($trainHasLocomotive->locomotive_id) ?></td>
+                <td><?= h($trainHasLocomotive->train_id) ?></td>
+                <td><?= h($trainHasLocomotive->description) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'TrainHasLocomotive', 'action' => 'view', $trainHasLocomotive->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'TrainHasLocomotive', 'action' => 'edit', $trainHasLocomotive->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'TrainHasLocomotive', 'action' => 'delete', $trainHasLocomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
 </div>

@@ -60,8 +60,8 @@ class TrainHasLocomotiveController extends AppController
             }
             $this->Flash->error(__('The train has locomotive could not be saved. Please, try again.'));
         }
-        $locomotives = $this->TrainHasLocomotive->Locomotives->find('list', ['limit' => 200]);
-        $trains = $this->TrainHasLocomotive->Trains->find('list', ['limit' => 200]);
+        $locomotives = $this->TrainHasLocomotive->Locomotive->find('list', ['keyField' => 'id','valueField' => 'description','limit' => 500]);
+        $trains = $this->TrainHasLocomotive->Train->find('list', ['keyField' => 'ID_Train','valueField' => 'Train_Number','limit' => 500]);
         $this->set(compact('trainHasLocomotive', 'locomotives', 'trains'));
     }
 
@@ -86,8 +86,8 @@ class TrainHasLocomotiveController extends AppController
             }
             $this->Flash->error(__('The train has locomotive could not be saved. Please, try again.'));
         }
-        $locomotives = $this->TrainHasLocomotive->Locomotives->find('list', ['limit' => 200]);
-        $trains = $this->TrainHasLocomotive->Trains->find('list', ['limit' => 200]);
+        $locomotives = $this->TrainHasLocomotive->Locomotive->find('list', ['keyField' => 'id','valueField' => 'description','limit' => 500]);
+        $trains = $this->TrainHasLocomotive->Train->find('list', ['keyField' => 'ID_Train','valueField' => 'Train_Number','limit' => 500]);
         $this->set(compact('trainHasLocomotive', 'locomotives', 'trains'));
     }
 

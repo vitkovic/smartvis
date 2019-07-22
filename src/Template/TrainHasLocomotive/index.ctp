@@ -26,8 +26,8 @@
             <?php foreach ($trainHasLocomotive as $trainHasLocomotive): ?>
             <tr>
                 <td><?= $this->Number->format($trainHasLocomotive->id) ?></td>
-                <td><?= $this->Number->format($trainHasLocomotive->locomotive_id) ?></td>
-                <td><?= $this->Number->format($trainHasLocomotive->train_id) ?></td>
+                <td><?php echo $trainHasLocomotive->locomotive->description?></td>
+                <td><?php echo $trainHasLocomotive->train->Train_Number?></td>
                 <td><?= h($trainHasLocomotive->description) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $trainHasLocomotive->id]) ?>

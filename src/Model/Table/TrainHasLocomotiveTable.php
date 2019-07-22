@@ -38,12 +38,12 @@ class TrainHasLocomotiveTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Locomotive', [
-            'foreignKey' => 'locomotive_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'locomotive_id'
+            
         ]);
         $this->belongsTo('Train', [
-            'foreignKey' => 'train_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'train_id'
+            
         ]);
     }
 

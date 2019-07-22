@@ -63,6 +63,7 @@ $cakeDescription = '';
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/smartvis/wagon-has-sidings">Wagon distribution</a>
         <a class="dropdown-item" href="/smartvis/wagon-has-sidings/add">Add Wagons to sidings</a>
+         <a class="dropdown-item" href="/smartvis/wagon-has-train/add">Add Trains to Sidings</a>
         <a class="dropdown-item" href="/smartvis/wagon-has-train/add">Add Wagons to trains</a>
         
        </div>

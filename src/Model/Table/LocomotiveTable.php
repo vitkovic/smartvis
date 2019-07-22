@@ -39,6 +39,10 @@ class LocomotiveTable extends Table
         $this->hasMany('TrainHasLocomotive', [
             'foreignKey' => 'locomotive_id'
         ]);
+        
+        $this->belongsToMany('Train', [
+            'through' => 'TrainHasLocomotive',
+        ]);
     }
 
     /**

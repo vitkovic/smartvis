@@ -36,12 +36,12 @@ class TrainTable extends Table
         $this->setDisplayField('ID_Train');
         $this->setPrimaryKey('ID_Train');
 
-        $this->hasMany('TrainHasLocomotive', [
-            'foreignKey' => 'train_id'
+        $this->belongsToMany('Locomotive', [
+            'through' => 'TrainHasLocomotive'
         ]);
         
         $this->belongsToMany('Wagon', [
-            'through' => 'WagonHasTrain',
+            'through' => 'WagonHasTrain'
         ]);
     }
 

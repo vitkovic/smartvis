@@ -8,6 +8,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Siding'), ['action' => 'add']) ?></li>
+       
     </ul>
 </nav>
 <div class="sidings index large-9 medium-8 columns content">
@@ -21,6 +22,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Mass_per_axle') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Siding_Type') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('IDSGroup') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('destination_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -33,6 +35,7 @@
                 <td><?= h($siding->Mass_per_axle) ?></td>
                 <td><?= h($siding->Siding_Type) ?></td>
                 <td><?= $this->Number->format($siding->IDSGroup) ?></td>
+                  <td><?= $siding->has('destination') ? $this->Html->link($siding->destination->name, ['controller' => 'Destination', 'action' => 'view', $siding->destination->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $siding->IDsidings]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $siding->IDsidings]) ?>

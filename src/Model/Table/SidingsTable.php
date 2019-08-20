@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Sidings Model
  *
+ * @property |\Cake\ORM\Association\BelongsTo $Destination
  * @property |\Cake\ORM\Association\HasMany $TrainHasSiding
  *
  * @method \App\Model\Entity\Siding get($primaryKey, $options = [])
@@ -36,8 +37,13 @@ class SidingsTable extends Table
         $this->setDisplayField('IDsidings');
         $this->setPrimaryKey('IDsidings');
 
-        $this->belongsToMany('Train', [
-            'through' => 'TrainHasSiding'
+        $this->belongsTo('Destination', [
+            'foreignKey' => 'destination_id',
+            'joinType' => 'INNER'
+        ]);
+        
+        $this->hasMany('TrainHasSiding', [
+            'foreignKey' => 'siding_id'
         ]);
     }
 
@@ -78,5 +84,19 @@ class SidingsTable extends Table
             ->allowEmptyString('IDSGroup', false);
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['destination_id'], 'Destination'));
+
+        return $rules;
     }
 }

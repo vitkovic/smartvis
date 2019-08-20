@@ -8,6 +8,12 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Wagon'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Destination'), ['controller' => 'Destination', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Destination'), ['controller' => 'Destination', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List People'), ['controller' => 'People', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Person'), ['controller' => 'People', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Drawing'), ['controller' => 'Drawing', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Drawing'), ['controller' => 'Drawing', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="wagon form large-9 medium-8 columns content">
@@ -26,6 +32,9 @@
             echo $this->Form->control('Destination_station');
             echo $this->Form->control('Arrival_station');
             echo $this->Form->control('Remark');
+            echo $this->Form->control('destination_id',['options' => $destination]);
+            echo $this->Form->control('arrival_id', ['options' => $destination]);
+            echo $this->Form->control('people_id', ['options' => $people]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

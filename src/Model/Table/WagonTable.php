@@ -9,7 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Wagon Model
  *
- * @property |\Cake\ORM\Association\HasMany $Drawing
+ * @property \App\Model\Table\DestinationTable|\Cake\ORM\Association\BelongsTo $Destination
+ * @property \App\Model\Table\DestinationTable|\Cake\ORM\Association\BelongsTo $Destination
+ * @property \App\Model\Table\PeopleTable|\Cake\ORM\Association\BelongsTo $People
+ * @property \App\Model\Table\DrawingTable|\Cake\ORM\Association\HasMany $Drawing
  *
  * @method \App\Model\Entity\Wagon get($primaryKey, $options = [])
  * @method \App\Model\Entity\Wagon newEntity($data = null, array $options = [])
@@ -36,12 +39,20 @@ class WagonTable extends Table
         $this->setDisplayField('ID_wagon');
         $this->setPrimaryKey('ID_wagon');
 
+        $this->belongsTo('Destination', [
+            'foreignKey' => 'destination_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Destination', [
+            'foreignKey' => 'arrival_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('People', [
+            'foreignKey' => 'people_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('Drawing', [
             'foreignKey' => 'wagon_id'
-        ]);
-        
-        $this->belongsToMany('Train', [
-            'through' => 'WagonHasTrain',
         ]);
     }
 
@@ -61,11 +72,11 @@ class WagonTable extends Table
             ->scalar('Description')
             ->maxLength('Description', 50)
             ->requirePresence('Description', 'create')
-            ->allowEmptyString('Description',false);
+            ->allowEmptyString('Description', false);
 
         $validator
             ->numeric('Net_Mass_Cargo')
-            ->allowEmptyString('Net_Mass_Cargo',true);
+            ->allowEmptyString('Net_Mass_Cargo');
 
         $validator
             ->scalar('Type')
@@ -74,17 +85,15 @@ class WagonTable extends Table
 
         $validator
             ->numeric('Wagon_Lenght')
-            ->requirePresence('Wagon_Lenght', 'create')
-            ->allowEmptyString('Wagon_Lenght', true);
+            ->allowEmptyString('Wagon_Lenght', false);
 
         $validator
             ->numeric('Wagon_Mass')
-            ->allowEmptyString('Wagon_Mass',true);
+            ->allowEmptyString('Wagon_Mass');
 
         $validator
             ->numeric('Brake_Weight')
-            ->requirePresence('Brake_Weight', 'create')
-            ->allowEmptyString('Brake_Weight', true);
+            ->allowEmptyString('Brake_Weight', false);
 
         $validator
             ->scalar('Type_of_Cargo')
@@ -111,5 +120,21 @@ class WagonTable extends Table
             ->allowEmptyString('Remark');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['destination_id'], 'Destination'));
+        $rules->add($rules->existsIn(['arrival_id'], 'Destination'));
+        $rules->add($rules->existsIn(['people_id'], 'People'));
+
+        return $rules;
     }
 }

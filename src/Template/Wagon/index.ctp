@@ -8,6 +8,12 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Wagon'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Destination'), ['controller' => 'Destination', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Destination'), ['controller' => 'Destination', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List People'), ['controller' => 'People', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Person'), ['controller' => 'People', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Drawing'), ['controller' => 'Drawing', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Drawing'), ['controller' => 'Drawing', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="wagon index large-9 medium-8 columns content">
@@ -27,6 +33,9 @@
                 <th scope="col"><?= $this->Paginator->sort('Destination_station') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Arrival_station') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Remark') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('destination_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('arrival_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('people_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -45,6 +54,9 @@
                 <td><?= h($wagon->Destination_station) ?></td>
                 <td><?= h($wagon->Arrival_station) ?></td>
                 <td><?= h($wagon->Remark) ?></td>
+                <td><?= $wagon->has('destination') ? $this->Html->link($wagon->destination->name, ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) : '' ?></td>
+                <td><?= $wagon->has('destination') ? $this->Html->link($wagon->destination->name, ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) : '' ?></td>
+                <td><?= $wagon->has('person') ? $this->Html->link($wagon->person->username, ['controller' => 'People', 'action' => 'view', $wagon->person->ID_User]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $wagon->ID_wagon]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagon->ID_wagon]) ?>

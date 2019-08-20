@@ -12,6 +12,9 @@ use Cake\ORM\Entity;
  * @property string|null $Mass_per_axle
  * @property string|null $Siding_Type
  * @property int $IDSGroup
+ * @property int $destination_id
+ *
+ * @property \App\Model\Entity\Train[] $train
  */
 class Siding extends Entity
 {
@@ -29,6 +32,8 @@ class Siding extends Entity
         'Siding_lenght' => true,
         'Mass_per_axle' => true,
         'Siding_Type' => true,
-        'IDSGroup' => true
+        'IDSGroup' => true,
+        'destination_id' => true,
+        'train' => true
     ];
 }

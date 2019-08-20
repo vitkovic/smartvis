@@ -31,7 +31,7 @@ class PeopleTable extends Table
         parent::initialize($config);
 
         $this->setTable('people');
-        $this->setDisplayField('ID_User');
+        $this->setDisplayField('username');
         $this->setPrimaryKey('ID_User');
     }
 

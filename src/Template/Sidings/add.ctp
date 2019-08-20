@@ -8,6 +8,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Sidings'), ['action' => 'index']) ?></li>
+        
     </ul>
 </nav>
 <div class="sidings form large-9 medium-8 columns content">
@@ -20,6 +21,8 @@
             echo $this->Form->control('Mass_per_axle');
             echo $this->Form->control('Siding_Type');
             echo $this->Form->control('IDSGroup');
+            echo $this->Form->control('destination_id',['options' => $destination]);
+            
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

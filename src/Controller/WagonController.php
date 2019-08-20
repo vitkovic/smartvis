@@ -12,13 +12,6 @@ use App\Controller\AppController;
  */
 class WagonController extends AppController
 {
-    
-    public $paginate = [
-        'limit' => 50,
-        'order' => [
-            'Wagon.Description' => 'asc'
-        ]
-    ];
     /**
      * Index method
      *
@@ -26,6 +19,9 @@ class WagonController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Destination', 'People']
+        ];
         $wagon = $this->paginate($this->Wagon);
 
         $this->set(compact('wagon'));
@@ -41,7 +37,7 @@ class WagonController extends AppController
     public function view($id = null)
     {
         $wagon = $this->Wagon->get($id, [
-            'contain' => []
+            'contain' => ['Destination', 'People', 'Drawing']
         ]);
 
         $this->set('wagon', $wagon);
@@ -64,7 +60,9 @@ class WagonController extends AppController
             }
             $this->Flash->error(__('The wagon could not be saved. Please, try again.'));
         }
-        $this->set(compact('wagon'));
+        $destination = $this->Wagon->Destination->find('list', ['limit' => 200]);
+        $people = $this->Wagon->People->find('list', ['limit' => 200]);
+        $this->set(compact('wagon', 'destination', 'people'));
     }
 
     /**
@@ -88,7 +86,9 @@ class WagonController extends AppController
             }
             $this->Flash->error(__('The wagon could not be saved. Please, try again.'));
         }
-        $this->set(compact('wagon'));
+        $destination = $this->Wagon->Destination->find('list', ['limit' => 200]);
+        $people = $this->Wagon->People->find('list', ['limit' => 200]);
+        $this->set(compact('wagon', 'destination', 'people'));
     }
 
     /**

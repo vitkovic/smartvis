@@ -18,6 +18,13 @@ use Cake\ORM\Entity;
  * @property string|null $Destination_station
  * @property string|null $Arrival_station
  * @property string|null $Remark
+ * @property int $destination_id
+ * @property int $arrival_id
+ * @property int $people_id
+ *
+ * @property \App\Model\Entity\Destination $destination
+ * @property \App\Model\Entity\Person $person
+ * @property \App\Model\Entity\Drawing[] $drawing
  */
 class Wagon extends Entity
 {
@@ -41,6 +48,12 @@ class Wagon extends Entity
         'Number_of_Axles' => true,
         'Destination_station' => true,
         'Arrival_station' => true,
-        'Remark' => true
+        'Remark' => true,
+        'destination_id' => true,
+        'arrival_id' => true,
+        'people_id' => true,
+        'destination' => true,
+        'person' => true,
+        'drawing' => true
     ];
 }

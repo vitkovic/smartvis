@@ -19,6 +19,8 @@ class SidingsController extends AppController
      */
     public function index()
     {
+        $this->paginate =['contain' => ['Destination']];
+        
         $sidings = $this->paginate($this->Sidings);
 
         $this->set(compact('sidings'));
@@ -34,7 +36,7 @@ class SidingsController extends AppController
     public function view($id = null)
     {
         $siding = $this->Sidings->get($id, [
-            'contain' => []
+            'contain' => ['Destination']
         ]);
 
         $this->set('siding', $siding);
@@ -57,7 +59,9 @@ class SidingsController extends AppController
             }
             $this->Flash->error(__('The siding could not be saved. Please, try again.'));
         }
-        $this->set(compact('siding'));
+        $destination = $this->Sidings->Destination->find('list', ['limit' => 200]);
+       
+        $this->set(compact('siding', 'destination'));
     }
 
     /**
@@ -70,7 +74,7 @@ class SidingsController extends AppController
     public function edit($id = null)
     {
         $siding = $this->Sidings->get($id, [
-            'contain' => []
+            'contain' => ['Destination']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $siding = $this->Sidings->patchEntity($siding, $this->request->getData());
@@ -81,7 +85,9 @@ class SidingsController extends AppController
             }
             $this->Flash->error(__('The siding could not be saved. Please, try again.'));
         }
-        $this->set(compact('siding'));
+        $destination = $this->Sidings->Destination->find('list', ['limit' => 200]);
+        
+        $this->set(compact('siding', 'destination'));
     }
 
     /**

@@ -37,7 +37,7 @@
                 <td><?= h($timetable->Dispatch_Date) ?></td>
                 <td><?= h($timetable->Arrival_Time) ?></td>
                 <td><?= h($timetable->Dispatch_Time) ?></td>
-                <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->ID_Train, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
+                <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->Train_Number, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
                 <td><?= $this->Number->format($timetable->ID_Timetable) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $timetable->ID_Timetable]) ?>

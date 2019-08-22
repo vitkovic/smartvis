@@ -34,10 +34,36 @@ class TrainController extends AppController
     public function view($id = null)
     {
         $train = $this->Train->get($id, [
-            'contain' => ['TrainHasLocomotive']
+            'contain' => ['Locomotive','Wagon','Sidings']
         ]);
-
-        $this->set('train', $train);
+        /*
+        echo "<pre>";
+         print_r($train);
+        echo "</pre>";
+        */
+      //  $trainHasLocomotives = $this->Train->Locomotive->find()->all();
+        
+        $trainHasLocomotives  = $this->Train->Locomotive->find()->matching('Train', function ($q) use ($id) {
+            return $q->where(['Train.ID_Train = ' => $id]);
+        })->all();
+        
+        
+                  
+       // $wagons = $this->Train->Wagon->find()->all();
+            $wagons  = $this->Train->Wagon->find()->matching('Train', function ($q)  use ($id) {
+            return $q->where(['Train.ID_Train = ' => $id]);
+        })->all();
+       
+        
+       
+        
+        
+        $this->set('trainHasLocomotives',$trainHasLocomotives);
+        $this->set('wagons',$wagons);
+        $this->set(compact('train'));
+        
+        
+        
     }
 
     /**

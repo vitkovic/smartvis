@@ -54,6 +54,10 @@ class WagonTable extends Table
         $this->hasMany('Drawing', [
             'foreignKey' => 'wagon_id'
         ]);
+        
+        $this->belongsToMany('Train', [
+            'through' => 'WagonHasTrain',
+        ]);
     }
 
     /**

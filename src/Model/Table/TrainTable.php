@@ -33,7 +33,7 @@ class TrainTable extends Table
         parent::initialize($config);
 
         $this->setTable('train');
-        $this->setDisplayField('ID_Train');
+        $this->setDisplayField('Train_Number');
         $this->setPrimaryKey('ID_Train');
 
         $this->belongsToMany('Locomotive', [

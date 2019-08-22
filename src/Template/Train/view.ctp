@@ -46,36 +46,62 @@
             <th scope="row"><?= __('Train Lenght In Meters') ?></th>
             <td><?= $this->Number->format($train->Train_Lenght_In_Meters) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('In Out Train') ?></th>
-            <td><?= $this->Number->format($train->In_Out_Train) ?></td>
-        </tr>
+       
         <tr>
             <th scope="row"><?= __('Dispatch Time Starting') ?></th>
             <td><?= h($train->Dispatch_Time_Starting) ?></td>
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Train Has Locomotive') ?></h4>
-        <?php if (!empty($train->train_has_locomotive)): ?>
+        <h4><?= __('Locomotive') ?></h4>
+        <?php if (is_array($train->locomotive)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Locomotive Id') ?></th>
-                <th scope="col"><?= __('Train Id') ?></th>
+                <th scope="col"><?= __('type') ?></th>
                 <th scope="col"><?= __('Description') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($train->train_has_locomotive as $trainHasLocomotive): ?>
+            <?php foreach ($trainHasLocomotives as $trainHasLocomotive): ?>
             <tr>
                 <td><?= h($trainHasLocomotive->id) ?></td>
-                <td><?= h($trainHasLocomotive->locomotive_id) ?></td>
-                <td><?= h($trainHasLocomotive->train_id) ?></td>
+                <td><?= h($trainHasLocomotive->type) ?></td>
                 <td><?= h($trainHasLocomotive->description) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'TrainHasLocomotive', 'action' => 'view', $trainHasLocomotive->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'TrainHasLocomotive', 'action' => 'edit', $trainHasLocomotive->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'TrainHasLocomotive', 'action' => 'delete', $trainHasLocomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Locomotive', 'action' => 'view', $trainHasLocomotive->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Locomotive', 'action' => 'edit', $trainHasLocomotive->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Locomotive', 'action' => 'delete', $trainHasLocomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    
+    <div class="related">
+        <h4><?= __('Wagons') ?></h4>
+        <?php if (is_array($train->wagon)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('type') ?></th>
+                <th scope="col"><?= __('Description') ?></th>
+                 <th scope="col"><?= __('Destination') ?></th>
+                 <th scope="col"><?= __('Arrival') ?></th>
+                
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($wagons as $wagon): ?>
+            <tr>
+                <td><?= h($wagon->ID_wagon) ?></td>
+                <td><?= h($wagon->Type) ?></td>
+                <td><?= h($wagon->Description) ?></td>
+                <td><?= $wagon->has('destination_id') ? $this->Html->link($wagon->destination_id, ['controller' => 'Destination', 'action' => 'view', $wagon->destination_id]) : '' ?></td>
+                <td><?= $wagon->has('arrival_id') ? $this->Html->link($wagon->destination_id, ['controller' => 'Destination', 'action' => 'view', $wagon->destination_id]) : '' ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Wagon', 'action' => 'view', $wagon->ID_wagon]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Wagon', 'action' => 'edit', $wagon->ID_wagon]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Wagon', 'action' => 'delete', $wagon->ID_wagon], ['confirm' => __('Are you sure you want to delete # {0}?', $wagon->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

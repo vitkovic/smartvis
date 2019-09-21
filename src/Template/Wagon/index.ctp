@@ -10,14 +10,11 @@
         <li><?= $this->Html->link(__('New Wagon'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Destination'), ['controller' => 'Destination', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Destination'), ['controller' => 'Destination', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List People'), ['controller' => 'People', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Person'), ['controller' => 'People', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Drawing'), ['controller' => 'Drawing', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Drawing'), ['controller' => 'Drawing', 'action' => 'add']) ?></li>
+        
     </ul>
 </nav>
 <div class="wagon index large-10 medium-9 columns content">
-    <h3><?= __('Wagon') ?></h3>
+    <h3><?= __('List of Wagons') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -30,8 +27,8 @@
                 <th scope="col"><?= $this->Paginator->sort('Brake_Weight') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Type_of_Cargo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Number_of_Axles') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Destination_station') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Arrival_station') ?></th>
+                <!--<th scope="col"><?= $this->Paginator->sort('Destination_station') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Arrival_station') ?></th>-->
                 <th scope="col"><?= $this->Paginator->sort('Remark') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('destination_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('arrival_id') ?></th>
@@ -51,8 +48,8 @@
                 <td><?= $this->Number->format($wagon->Brake_Weight) ?></td>
                 <td><?= h($wagon->Type_of_Cargo) ?></td>
                 <td><?= $this->Number->format($wagon->Number_of_Axles) ?></td>
-                <td><?= h($wagon->Destination_station) ?></td>
-                <td><?= h($wagon->Arrival_station) ?></td>
+                <!--<td><?= h($wagon->Destination_station) ?></td>
+                <td><?= h($wagon->Arrival_station) ?></td>-->
                 <td><?= h($wagon->Remark) ?></td>
                 <td><?= $wagon->has('destination') ? $this->Html->link($wagon->destination->name, ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) : '' ?></td>
                 <td><?= $wagon->has('destination') ? $this->Html->link($wagon->destination->name, ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) : '' ?></td>

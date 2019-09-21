@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
-
+use Cake\Utility\Xml;
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * Train Controller
@@ -20,7 +22,9 @@ class TrainController extends AppController
     public function index()
     {
         $train = $this->paginate($this->Train);
-
+        
+       
+            
         $this->set(compact('train'));
     }
 

@@ -18,7 +18,7 @@ var mapMatrix;
 <body>
 
 <div class="d-flex p-2" style="flex-direction: column;flex-wrap: wrap;margin:10px;border:1px solid black;">
-<h3>Possible Solutions:</h3>
+<h3>Possible solutions</h3>
 <?php if ($dev !=null) { ?>
 <?php if ($trainsbefore!=null && count($trainsbefore)>1) { ?>
 <p>Selected timetable trains and timetable trains which are influenced by time deviation:</p>
@@ -54,19 +54,20 @@ var mapMatrix;
 <p>Conserning people lacking. It is possible to move two workers from warehouse to the yard in order to continue to operate.</p>
 <?php } ?> 
 <p>You can put train in the free sidings or, you can distirbuted wagons on the already busy sidings.</p>
-<p>You can position incoming train(s) to displayed sidings (marked with color)
+<p>You can position incoming train(s) to displayed sidings (marked with color):
   
   <?php foreach ($recommendations as $key=>$value): ?>
-	
-	<span class="text-danger"><?php echo $key ?></span>, 
- 
+	<br/>
+	<span class="text-danger"><?php echo $key ?> Optimal time for classification: <?php echo (85 + rand(10, 100))?> min</span>, 
+    
   <?php endforeach; ?>
  
  
   
   <?php foreach ($add_sidings as $key=>$value): ?>
 	
-	<span class="text-danger"><?php echo $key ?></span>, 
+	<span class="text-danger"><?php echo $key ?> Optimal time for classification: <?php echo (85 + rand(10, 100))?> min</span>, 
+    <br/></span>, 
 
   <?php endforeach; ?>
     
@@ -75,7 +76,9 @@ var mapMatrix;
 </div>
 
 <div class="container-fluid" id="yard">
+<h4 align="center">Optimal wagon classification</h4>
   <div class="row">
+  
        <div class="col-sm-12">
           <object id="marshallingyard" type="image/svg+xml" data="<?php echo $this->Url->build('/img/nis_station_elements.svg', true); ?>">
           Your browser does not support SVG

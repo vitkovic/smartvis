@@ -99,7 +99,7 @@ var mapMatrix;
    <table border=0 width="100%">
    <tr> 
     <td width="30%">
-    		<label class="container"><strong>There are no deviations...Everything is normal</strong>
+    		<label class="container"><strong>No deviations</strong>
 			  <input type="radio" id="radiotrain1" name="radiotrain" value="-1" checked>
 			  <span class="checkmark"></span>
 			</label>
@@ -111,6 +111,10 @@ var mapMatrix;
 			
 			<label class="container">Vagon mailfunction (yard)
 			  <input type="radio" id="radiotrain2" name="radiotrain" value="1">
+			  <span class="checkmark"></span>
+			</label>
+			<label class="container">Time deviation of outgoing train
+			  <input type="radio" id="radiotrain2" name="radiotrain" value="2">
 			  <span class="checkmark"></span>
 			</label>
 			

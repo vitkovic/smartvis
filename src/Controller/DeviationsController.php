@@ -183,8 +183,8 @@ class DeviationsController extends Controller
         
         $connection = ConnectionManager::get('default');
         $wagons = $connection->execute(' SELECT * FROM wagon_has_sidings, wagon, drawing,sidings, wagon_has_train,train, timetable where
-        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label and wagon_has_train.ID_wagon = wagon.ID_wagon and timetable.Train_id = train.ID_Train
-        and wagon_has_train.ID_Train = train.ID_Train
+        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label and wagon_has_train.Wagon_id = wagon.ID_wagon and timetable.Train_id = train.ID_Train
+        and wagon_has_train.Train_id = train.ID_Train
         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon ORDER BY train.ID_Train
         ')->fetchAll('assoc');
         
@@ -358,7 +358,7 @@ class DeviationsController extends Controller
         
         $this->set('winput',$ninput);
         $messageTextStart = "You can put your train into the following sidings:";
-        $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app)<br>";
+        $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app), <br>also there is a possibility that other sidings are limited by the authorized person.<br>";
         $this->set('mssStart', $messageTextStart);
         $this->set('mssEnd', $messageTextEnd);
     }
@@ -455,7 +455,7 @@ class DeviationsController extends Controller
             $this->set('winput',$ninput);
             
             $messageTextStart = "You can put your train into the following sidings:";
-            $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app)<br>";
+            $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app), <br>also there is a possibility that other sidings are limited by the authorized person.<br>";
             $this->set('mssStart', $messageTextStart);
             $this->set('mssEnd', $messageTextEnd);
             

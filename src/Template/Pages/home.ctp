@@ -15,7 +15,7 @@
 <body>
 ​
 <div class="jumbotron text-center" style="margin-bottom:0;background:white;">
-  <h1><span class="text-primary">WELCOME to MARSHALLING YARD<br/>VISUALIZATION</span></h1>
+  <h1><span class="text-primary">REAL-TIME YARD MANAGEMENT SYSTEM</span></h1>
   <img src="img/solution.png" class="rounded-circle" width="50%"/>
   <p>By Mechanical Engineering faculty University of Nis</p> 
  

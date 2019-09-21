@@ -63,8 +63,5 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
     }
-    public function beforeFilter(Event $event)
-    {
-        $this->Auth->allow(['index', 'view', 'display']);
-    }
+   
 }

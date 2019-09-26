@@ -59,12 +59,36 @@ class TrainController extends AppController
         })->all();
        
         
-       
+        $connection = ConnectionManager::get('default');
+        $wagonstemp = $connection->execute('SELECT *,wagon_has_train.id as wid FROM wagon_has_train, wagon, train, destination  where
+        wagon_has_train.Wagon_id = wagon.ID_wagon and wagon_has_train.Train_id = train.ID_Train
+        and train.ID_Train = '.$id.'
+        GROUP BY wagon.ID_wagon
+        ')->fetchAll('assoc');
+        
+        //$connection = ConnectionManager::get('default');
+        $destination = $connection->execute('SELECT * FROM destination')->fetchAll('assoc');
+        
+        
+        foreach ($wagonstemp as $wagontemp) {
+            foreach ($destination as $dest) {
+                if ($wagontemp['destination_id']==$dest['id']) {
+                    $wagontemp['Destination'] = $dest['name'];
+                }
+                if ($wagontemp['arrival_id']==$dest['id']) {
+                    $wagontemp['Arrival'] = $dest['name'];
+                }
+            }
+            //echo  $wagontemp['Destination'];
+            $wagonstemp0[] = $wagontemp;
+        }
+        
+        $wagonstemp= $wagonstemp0;
         
         
         $this->set('trainHasLocomotives',$trainHasLocomotives);
         $this->set('wagons',$wagons);
-        $this->set(compact('train'));
+        $this->set(compact('train','wagonstemp'));
         
         
         

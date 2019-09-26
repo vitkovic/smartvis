@@ -109,7 +109,7 @@ var mapMatrix;
 			  <span class="checkmark"></span>
 			</label>
 			
-			<label class="container">Vagon mailfunction (yard)
+			<label class="container">Wagon mailfunction
 			  <input type="radio" id="radiotrain2" name="radiotrain" value="1">
 			  <span class="checkmark"></span>
 			</label>

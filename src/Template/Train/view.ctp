@@ -16,7 +16,7 @@
     </ul>
 </nav>
 <div class="train view large-9 medium-8 columns content">
-    <h3><?= h($train->ID_Train) ?></h3>
+    <h3><?= h($train->Train_Number) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Train Type') ?></th>
@@ -80,32 +80,41 @@
     
     <div class="related">
         <h4><?= __('Wagons') ?></h4>
-        <?php if (is_array($train->wagon)): ?>
         <table cellpadding="0" cellspacing="0">
+        <thead>
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('type') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
-                 <th scope="col"><?= __('Destination') ?></th>
-                 <th scope="col"><?= __('Arrival') ?></th>
-                
+                 <th scope="col"><?= $this->Paginator->sort('Id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Wagon Label') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Type') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Wagon_Lenght') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Wagon_Mass') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Break_Weight') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('destination_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('arrival_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Remark') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($wagons as $wagon): ?>
+        </thead>
+        <tbody>
+            <?php foreach ($wagonstemp as $wagon): $tid = $wagon['Train_Number'];?>
             <tr>
-                <td><?= h($wagon->ID_wagon) ?></td>
-                <td><?= h($wagon->Type) ?></td>
-                <td><?= h($wagon->Description) ?></td>
-                <td><?= $wagon->has('destination_id') ? $this->Html->link($wagon->destination_id, ['controller' => 'Destination', 'action' => 'view', $wagon->destination_id]) : '' ?></td>
-                <td><?= $wagon->has('arrival_id') ? $this->Html->link($wagon->destination_id, ['controller' => 'Destination', 'action' => 'view', $wagon->destination_id]) : '' ?></td>
+                <td><?= h($wagon['ID_wagon']) ?></td>
+                <td><?= h($wagon['Description']) ?></td>
+                <td><?= h($wagon['Type']) ?></td>
+                <td><?= $this->Number->format($wagon['Wagon_Lenght']) ?></td>
+                <td><?= $this->Number->format($wagon['Wagon_Mass']) ?></td>
+                 <td><?= $this->Number->format($wagon['Brake_Weight']) ?></td>
+                <td><?= $this->Html->link($wagon['Destination'], ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id])?></td>
+                <td><?= $this->Html->link($wagon['Arrival'], ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) ?></td>
+                <td><?= h($wagon['Remark']) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Wagon', 'action' => 'view', $wagon->ID_wagon]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Wagon', 'action' => 'edit', $wagon->ID_wagon]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Wagon', 'action' => 'delete', $wagon->ID_wagon], ['confirm' => __('Are you sure you want to delete # {0}?', $wagon->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $wagon['Wagon_id']]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit',  $wagon['Wagon_id']]) ?>
+                    <?= $this->Html->link(Delete, ['controller' => 'WagonHasTrain', 'action' => 'delete', $wagon['wid']])?>
                 </td>
             </tr>
             <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
+        </tbody>
+    </table>
     </div>
 </div>

@@ -42,7 +42,7 @@
                 <th scope="col"><?= $this->Paginator->sort('ID_wagon') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ID_sidings') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('label') ?></th>
+              <!--  <th scope="col"><?= $this->Paginator->sort('label') ?></th>-->
                 <th scope="col"><?= $this->Paginator->sort('position') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -58,7 +58,7 @@
                 <td><?= $this->Number->format($wagonHasSiding->ID_wagon) ?></td>
                 <td><?= h($wagonHasSiding->Description) ?></td>
                 <td><?= $this->Number->format($wagonHasSiding->ID_sidings) ?></td>
-                <td><?= h($wagonHasSiding->label) ?></td>
+             <!--   <td><?= h($wagonHasSiding->label) ?></td>-->
                 <td><?= $this->Number->format($wagonHasSiding->position) ?></td>
                 <td><?= $this->Number->format($wagonHasSiding->id) ?></td>
                 <td class="actions">

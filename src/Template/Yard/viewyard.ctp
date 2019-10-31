@@ -26,8 +26,8 @@
           <div class="well">
             <h5>Curent trains:</h5>
             <ul>
-              <li class="list-group-item">Incoming: 10</li>
-              <li class="list-group-item">Outgoing: 8</li>
+              <li class="list-group-item">Incoming: 14</li>
+              <li class="list-group-item">Outgoing: 9</li>
               
             </ul>
           </div>
@@ -36,7 +36,7 @@
           <div class="well">
             <h5>Curent wagons:</h5>
             <ul>
-              <li class="list-group-item">Number: 124</li>
+              <li class="list-group-item">Number: 156</li>
               </ul>
           </div>
         </div>

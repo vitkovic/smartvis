@@ -21,7 +21,6 @@
                 <th scope="col"><?= $this->Paginator->sort('Siding_lenght') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Mass_per_axle') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Siding_Type') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('IDSGroup') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('destination_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -34,8 +33,7 @@
                 <td><?= $this->Number->format($siding->Siding_lenght) ?></td>
                 <td><?= h($siding->Mass_per_axle) ?></td>
                 <td><?= h($siding->Siding_Type) ?></td>
-                <td><?= $this->Number->format($siding->IDSGroup) ?></td>
-                  <td><?= $siding->has('destination') ? $this->Html->link($siding->destination->name, ['controller' => 'Destination', 'action' => 'view', $siding->destination->id]) : '' ?></td>
+                <td><?= $siding->has('destination') && h($siding->Siding_purpose)=="classification-departure" ? $this->Html->link($siding->destination->name, ['controller' => 'Destination', 'action' => 'view', $siding->destination->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $siding->IDsidings]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $siding->IDsidings]) ?>

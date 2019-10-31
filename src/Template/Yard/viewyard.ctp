@@ -26,9 +26,9 @@
           <div class="well">
             <h5>Curent trains:</h5>
             <ul>
-              <li class="list-group-item">Incoming: 2</li>
-              <li class="list-group-item">Outgoing: 4</li>
-              <li class="list-group-item">On Hold: 1</li>
+              <li class="list-group-item">Incoming: 10</li>
+              <li class="list-group-item">Outgoing: 8</li>
+              
             </ul>
           </div>
         </div>
@@ -36,32 +36,11 @@
           <div class="well">
             <h5>Curent wagons:</h5>
             <ul>
-              <li class="list-group-item">Distributed: 124</li>
-              <li class="list-group-item">Broken: 5</li>
-              <li class="list-group-item">On Service: 7</li>
-            </ul>
+              <li class="list-group-item">Number: 124</li>
+              </ul>
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h5>People:</h5>
-            <ul>
-              <li class="list-group-item">Active: 50</li>
-              <li class="list-group-item">Teams: 10</li>
-              <li class="list-group-item">Out: 7</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h5>Possible deviations:</h5>
-            <ul>
-              <li class="list-group-item">Train delay: 3</li>
-              <li class="list-group-item">Lack of workers: 2</li>
-              <li class="list-group-item">Locomotive regular service: 1</li>
-            </ul>
-          </div>
-        </div>
+        
       </div>
 
  

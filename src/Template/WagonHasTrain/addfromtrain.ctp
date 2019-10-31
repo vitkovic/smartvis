@@ -11,7 +11,7 @@
     </ul>
 </nav>
 <div class="wagonHasTrain form large-9 medium-8 columns content">
-     <h3><?= __('Wagons for Train') ?></h3>
+     <h3><?php foreach ($wagonstemp as $wagon): $tid = $wagon['Train_Number'];?><?php endforeach; ?>List of wagons for train <?= $tid; ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

@@ -18,7 +18,6 @@
         <?php
             echo $this->Form->control('Siding_purpose');
             echo $this->Form->control('Siding_lenght');
-            echo $this->Form->control('Mass_per_axle');
             echo $this->Form->control('Siding_Type');
             echo $this->Form->control('IDSGroup');
             echo $this->Form->control('destination_id',['options' => $destination]);

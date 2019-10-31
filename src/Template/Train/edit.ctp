@@ -23,14 +23,13 @@
     <fieldset>
         <legend><?= __('Edit Train') ?></legend>
         <?php
-            echo $this->Form->control('Train_Weight_per_Axle');
+           
             echo $this->Form->control('Train_Composition');
-            echo $this->Form->control('Train_type');
             echo $this->Form->control('Train_Number');
             echo $this->Form->control('Dispatch_Time_Starting', ['empty' => true]);
-            echo $this->Form->control('Train_Mass_In_Tones');
-            echo $this->Form->control('Train_Lenght_In_Meters');
-            echo $this->Form->control('In_Out_Train');
+         
+           
+           
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

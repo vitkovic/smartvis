@@ -79,7 +79,7 @@
     </div>
     
     <div class="related">
-        <h4><?= __('Wagons') ?></h4>
+        <h4>List of wagons for train <?= h($train->Train_Number) ?></h4>
         <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

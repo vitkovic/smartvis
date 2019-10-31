@@ -34,7 +34,7 @@
     </div>
 </nav>
 <div class="wagonHasSidings index large-9 medium-8 columns content">
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Look at station labels</button>
+
     <h3><?= __('Wagon Has Sidings') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

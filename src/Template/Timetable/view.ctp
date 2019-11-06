@@ -16,7 +16,7 @@
     </ul>
 </nav>
 <div class="timetable view large-9 medium-8 columns content">
-    <h3><?= h($timetable->ID_Timetable) ?></h3>
+    <h3><?= h('Timetable for Train: '.$timetable->train->Train_Number) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Source') ?></th>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Train') ?></th>
-            <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->ID_Train, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
+            <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->Train_Number, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Arrival Date') ?></th>

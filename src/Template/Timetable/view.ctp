@@ -31,16 +31,12 @@
             <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->ID_Train, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('ID Timetable') ?></th>
-            <td><?= $this->Number->format($timetable->ID_Timetable) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Arrival Date') ?></th>
             <td><?= h($timetable->Arrival_Date) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Dispatch Date') ?></th>
-            <td><?= h($timetable->Dispatch_Date) ?></td>
+            <td><?= h($timetable->Dispatch_Date)?>(<?php echo date('l', strtotime(h($timetable->Dispatch_Date))); ?>)</td>
         </tr>
         <tr>
             <th scope="row"><?= __('Arrival Time') ?></th>

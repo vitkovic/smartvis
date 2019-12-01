@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 /**
  * Wagon Controller
  *
@@ -53,8 +54,15 @@ class WagonController extends AppController
         $wagon = $this->Wagon->newEntity();
         if ($this->request->is('post')) {
             $wagon = $this->Wagon->patchEntity($wagon, $this->request->getData());
+            $connection = ConnectionManager::get('default');
+           
             if ($this->Wagon->save($wagon)) {
+              //  print_r($this->Wagon);
                 $this->Flash->success(__('The wagon has been saved.'));
+                $del = $connection->execute("delete from wagon_has_sidings where ID_Wagon={$wagon->ID_wagon}");
+                
+                $wagons = $connection->execute("insert into wagon_has_sidings (ID_Wagon, ID_Sidings, label, position) VALUES
+                                        ({$wagon->ID_wagon},32,'I3',1)");
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -63,6 +71,9 @@ class WagonController extends AppController
         $destination = $this->Wagon->Destination->find('list', ['limit' => 200]);
         $people = $this->Wagon->People->find('list', ['limit' => 200]);
         $this->set(compact('wagon', 'destination', 'people'));
+        
+     
+        
     }
 
     /**

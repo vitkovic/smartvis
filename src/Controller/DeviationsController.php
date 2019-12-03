@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
+use DateTime;
 
 /**
  * Application Controller
@@ -115,7 +116,7 @@ class DeviationsController extends Controller
         
         
         $timetable = $connection->execute('SELECT * FROM timetable, train where timetable.train_id = train.ID_Train
-        and timetable.Arrival_Date IS NOT NULL ORDER BY timetable.Arrival_Time, timetable.Arrival_Date')->fetchAll('assoc');
+        and timetable.Arrival_Date IS NOT NULL ORDER BY timetable.Arrival_Date, timetable.Arrival_Time')->fetchAll('assoc');
         //print_r($timetable);
         $this->set(compact('timetable'));
         
@@ -157,17 +158,20 @@ class DeviationsController extends Controller
         $infPeople = $deviationdata['workers'];
         $infPeopleNum = $deviationdata['peopledeviation'];
         //Other
+        $otherdata = $deviationdata['otherdeviation'];
         
         $allinone = array();
         
         if ($infTimeWagons != null) $allinone['timewagon'][] = $infTimeWagons;
+        if ($infTimeWagons != null && $infTimeWagons==1) $allinone['wagon'] = 1;
         if ($infTimeAmmountWagon != null) $allinone['timewagon'][] = $infTimeAmmountWagon;
         if ($timetable != null && count($timetable)>0) $allinone['timetable'] = $timetable;
         if ($infPeople != null) $allinone['people'][] = $infPeople;
         if ($infPeopleNum != null) $allinone['people'][] = $infPeopleNum;
+        if ($otherdata != null) $allinone['otherdeviation'] = $otherdata;
         
         $this->deviationdata = $allinone;
-        //print_r($this->deviationdata);
+      //  print_r($this->deviationdata);
        
     }
     
@@ -216,21 +220,25 @@ class DeviationsController extends Controller
         
         $connection = ConnectionManager::get('default');
         $incomingTrains = $connection->execute(' SELECT * FROM timetable, train where
-        timetable.Train_id = train.ID_Train and train.In_Out_Train=1 ORDER BY timetable.Arrival_Time')->fetchAll('assoc');
+        timetable.Train_id = train.ID_Train and train.In_Out_Train=1 ORDER BY timetable.Arrival_Date, timetable.Arrival_Time')->fetchAll('assoc');
           
         $newIncoming = array();
         $i = 0;
         foreach ($incomingTrains as $key => $value) {
             
-            $newIncoming[$value['ID_Timetable']]['Arrival_Date'] = $value['Arrival_Date'];
-            $newIncoming[$value['ID_Timetable']]['Arrival_Time'] = $value['Arrival_Time'];
-            $newIncoming[$value['ID_Timetable']]['Dispatch_Date'] = $value['Dispatch_Date'];
-            $newIncoming[$value['ID_Timetable']]['Dispatch_Time'] = $value['Dispatch_Time'];
-            $newIncoming[$value['ID_Timetable']]['Source'] = $value['Source'];
-            $newIncoming[$value['ID_Timetable']]['Destination'] = $value['Destination'];
-            $newIncoming[$value['ID_Timetable']]['TrainLength'] = $value['Train_Lenght_In_Meters'];
-            $newIncoming[$value['ID_Timetable']]['ID_Train'] = $value['ID_Timetable'];
-            $newIncoming[$value['ID_Timetable']]['Num_Wagons'] = $value['Train_Composition'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Arrival_Date'] = $value['Arrival_Date'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Calculated_Arrival_Date'] = strtotime($value['Arrival_Date']);
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Arrival_Time'] = $value['Arrival_Time'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Calculated_Arrival_Time'] = strtotime($value['Arrival_Date'].' '.$value['Arrival_Time']);
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Dispatch_Date'] = $value['Dispatch_Date'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Dispatch_Time'] = $value['Dispatch_Time'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Calculated_Dispatch_Time'] = strtotime($value['Dispatch_Date'].' '.$value['Dispatch_Time']);
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Source'] = $value['Source'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Destination'] = $value['Destination'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['TrainLength'] = $value['Train_Lenght_In_Meters'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['ID_Train'] = $value['ID_Timetable'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Num_Wagons'] = $value['Train_Composition'];
+            $newIncoming['timetablelist'][$value['ID_Timetable']]['Train_Number'] = $value['Train_Number'];
             $i++;
         }
         
@@ -243,128 +251,249 @@ class DeviationsController extends Controller
       // echo "<pre>"; 
       // print_r($newSidings);
       // echo "</pre>"; 
-       // $deviationdata['nodeviations']=1;
+       // $deviationdata['nodeviations ']=1;
         
-        if ($this->deviationdata['timewagon'][0]==-1) {
-           // echo "sdslkajdlsdjdlkj";
-            $this->getRecommendations($newIncoming,$newSidings);
-           
+                  // echo "sdslkajdlsdjdlkj";
+            
+            
+        
+        if ($this->deviationdata['wagon'] == 1) {
+            $messages = $this->getRecommendationsForWagon($newIncoming,$newSidings);
+        } else if ($this->deviationdata['otherdeviation']!='') {
+            $messages = $this->getRecommendationsForOtherDeviation($newIncoming,$newSidings);
         } else {
-            $this->getRecommendationsForDeviations($newIncoming,$newSidings);
+            $messages = $this->getRecommendations($newIncoming,$newSidings);
         }
+        
+                    
+        $this->set('messages',$messages);
+            
+     }
+    
+     public function getRecommendationsForWagon($newIncoming,$newSidings=null) {
+         
+         $filtereddata = array_filter($this->deviationdata['timetable'], function ($key) {
+             return strpos($key, 'timetable') === 0;
+         }, ARRAY_FILTER_USE_KEY);
+             $timetableid = null;
+             // print_r($filtereddata);
+             foreach ($filtereddata as $key=>$value) {
+                 $timetablekey = $key;
+                 $timetableid = $value;
+             }
+             
+             $connection = ConnectionManager::get('default');
+             $ptimes = $connection->execute('SELECT * FROM processing_times')->fetchAll('assoc');
+             
+             $trainarrdate = $newIncoming['timetablelist'][$timetableid]['Arrival_Date'];
+             $trainarrtime = $newIncoming['timetablelist'][$timetableid]['Arrival_Time'];
+             
+             $wagondescription = $this->deviationdata['timewagon'][1];
+             
+             $traindistributionparts = 3;
+             $traindistributionpartsaftermailfunction = 5;
+             
+             $additional = 3;
+             //print_r($ptimes);
+             $timefordistributionadd = $ptimes[$traindistributionparts]['duration'] + $ptimes[$additional]['duration'];
+             //print_r($timefordistribution);
+             $message[0] = "Entered deviation is not affecting other yard operation.<br>Wagon {$wagondescription} needs to be pushed to Siding 28. Additional processing time {$ptimes[$additional]['duration']} minutes.";
+             
+             return $message;
+             
+     }
+     
+    public function getRecommendationsForOtherDeviation($newIncoming,$newSidings=null) {
+    
+        $devarray = explode(';',$this->deviationdata['otherdeviation']);
+        
+        $day = date('Y-m-d');
+        
+        $daynumber = strtotime($day);
+        
+        // samo za primer
+        
+        $day = date('2019-09-23');
+        
+        $daynumber = strtotime($day);
+        
+        
+        foreach ($newIncoming['timetablelist'] as $key => $value) {
+            if ($value['Calculated_Arrival_Date']==$daynumber) {
+                $checktrainslist[$key] = $value;
+            }
+        }
+        
+        
+        $preparedmessages = $this->getPrepraredMessagesForOtherDeviation($checktrainslist,$devarray);
+        return $preparedmessages;
     }
     
-    public function  getRecommendationsForDeviations($newIncoming,$newSidings){
-        //print_r($this->deviationdata);
-        $latetime = null; $newarrivaltime = null;
-        $timetablearr = $this->deviationdata['timetable'];
-       // print_r($timetablearr);
-        foreach ($timetablearr as $dtkey => $dvalue) {
-            $idarr = explode('_',$dtkey);
-            $id = $idarr[1];
-            //echo $id;
-            foreach ($newIncoming as $key => $value) { 
-               // echo $id."  -  ".$key;
-               $change = false;
-                if ((string)$key == (string)$id) {
-                   // echo $id;
-                    $arrivaltime = strtotime($value['Arrival_Time']);
-                    $newarrivaltime = strtotime("+ ".$this->deviationdata['timewagon'][1]." minutes",$arrivaltime );
-                   // echo "+ " + $this->deviationdata['timewagon'][1] + " minutes";
-                    $latetime = date("H:i:s", $newarrivaltime);
-                   $change = true;
-                }
-            }
-        }
+    public function getPrepraredMessagesForOtherDeviation($checktrainslist,$devarray) {
         
-        foreach ($newIncoming as $key => $value) {
-            
-            $timetabletrainarrival = strtotime($value['Arrival_Time']);
-            
-            if ($newarrivaltime > $timetabletrainarrival) {
-                if ((string)$key == (string)$id) $value['Arrival_Time'] = $latetime;
-                $trainsbefore[$key] = $value;
-            }
-            
-        }
+        $number = count($devarray);
         
+        $from = $devarray[$number - 3];
+        $to = $devarray[$number - 2];
         
-        $MaxWagonLength = 20;
-        $MinDistanceLength = 1;
-        /*
-        echo "<pre>";
-        print_r($trainsbefore);
-        echo "</pre>";
-        /*
-        echo "<pre>";
-        print_r($newSidings);
-        echo "</pre>";
-        */
+               
+       // echo $dateTimeFormStr." ".$dateTimeToStr;
         
         $connection = ConnectionManager::get('default');
-        $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
-        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
-         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon ORDER BY wagon_has_sidings.position
-        ')->fetchAll('assoc');
+        $ptimes = $connection->execute('SELECT * FROM processing_times')->fetchAll('assoc');
         
-        
-        $new = array();
-        $i = 0;
-        foreach ($wagons as $key => $value) {
+        foreach ($ptimes as $key => $value) {
             
-            $new[$value['label']][$i]['ID_wagon']=$value['ID_wagon'];
-            $new[$value['label']][$i]['Siding_lenght']=$value['Siding_lenght'];
-            $new[$value['label']][$i]['Wagon_Lenght']=$value['Wagon_Lenght'];
-            $new[$value['label']][$i]['Description']=$value['Description'];
-            $new[$value['label']][$i]['Position']=$value['position'];
+            if ($value['id']==1) {
+                $duration['proctime'] = $value['duration'];
+            }
             
-            $i++;
-        }
-        
-        foreach ($new as $key => $value) {
-            $new[$key]['allowed_length'] = $this->calculateSiding($value);
-            $new[$key]['num_wagons'] = floor($new[$key]['allowed_length']/($MaxWagonLength-$MinDistanceLength));
-            $i++;
-            foreach ($trainsbefore as $bkey=>$bvalue) {
-                
-                if ($bvalue['Num_Wagons'] <  $new[$key]['num_wagons']) {
-                    $possiblesidings[$key][$bkey]=$bvalue;
-                    $new[$key]['color'] = 'red';
-                }
-                
+            if ($value['id']==3) {
+                $duration['distrtime'] = $value['duration'];
             }
             
         }
         
-        $inputwagons = $connection->execute('SELECT * FROM timetable,inputwagons where
-                timetable.ID_Timetable = inputwagons.Timetable_id')->fetchAll('assoc');
+        $i = 1;
         
-        
-        foreach ($inputwagons as $key => $value) {
+        //print_r($checktrainslist);        
+        foreach ($checktrainslist as $key=>$value) {
+         
+            $now = new DateTime(date('2019-09-23'));
             
-            $ninput[$key] = $value['Description'];
+            $now->modify("+{$to} hours");
+            
+            $dateTimeTo = $now;
+            $dateTimeToStr = $now->format('Y-m-d H:i:s');
+            
+            // $now = new DateTime(date('Y-m-d'));
+            $now = new DateTime(date('2019-09-23'));
+            
+            $now->modify("+{$from} hours");
+            
+            $dateTimeFrom = $now;
+            $dateTimeFormStr = $now->format('Y-m-d H:i:s');
+            
+            //$dateTimecheck = $dateTimeTo;
+            
+           // echo $value["Dispatch_Date"]." ".$value['Dispatch_Time']." ".$dateTimecheck->format('Y-m-d H:i:s')."<br>";
+            
+           // echo $value['Calculated_Dispatch_Time']." ".strtotime($dateTimecheck->format('Y-m-d H:i:s'))."<br>";
+            
+            //$dateTimecheck->modify("-{$duration['proctime']} minutes");
+            
+            if  ($value['Calculated_Dispatch_Time'] > strtotime($dateTimeTo->format('Y-m-d H:i:s'))) {
+                //    echo $value['Dispatch_Time']." 1";
+                $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
+               //echo $dateTime->format('Y-m-d H:i:s');
+                $dateTime->modify("-{$duration['proctime']} minutes");
+                $Starttime = $dateTime;
+                $starttime = $dateTime->format('H:i');
+                $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
+                //echo $dateTime->format('Y-m-d H:i');
+                $Endtime = $dateTime;
+                $endtime = $dateTime->format('H:i');
+            } else if ($value['Calculated_Dispatch_Time'] < strtotime($dateTimeTo->format('Y-m-d H:i:s')) &&
+                $value['Dispatch_Time']!='00:00:00'){
+                //    echo $value['Dispatch_Time']." 2";
+                $Starttime = $dateTimeTo;
+                $starttime = $Starttime->format('H:i');
+                $dateTime = new DateTime(date('Y-m-d H:i:s',strtotime($dateTimeTo->format('Y-m-d H:i:s'))));
+                $add = $duration['proctime'] ;
+                $dateTime->modify("+{$add} minutes");
+                $EndTime = $dateTime;
+                $endtime = $dateTime->format('H:i');
+           } else {
+                 // echo $value['Dispatch_Time']." 3";
+                $Starttime = $dateTimeTo;
+                $starttime = $Starttime->format('H:i');
+                $dateTime = new DateTime(date('Y-m-d H:i:s',strtotime($dateTimeTo->format('Y-m-d H:i:s'))));
+                $add = $duration['proctime'] + $duration['distrtime'];
+                $dateTime->modify("+{$add} minutes");
+                $EndTime = $dateTime;
+                $endtime = $dateTime->format('H:i');
+                
+            }
+            
+            //echo $starttime."   ".$endtime."<br>";
+            
+            
+            $message ="Option {$i}: Train {$value['Train_Number']} is going to be processed from {$starttime} until {$endtime}.";
+            
+            $messageone = '';
+            $messagesecond= '';
+            $RealStartTime = $Starttime;
+            $RealEndTime = $EndTime;
+            
+            foreach ($checktrainslist as $keyother=>$valueother) {
+                
+                if ((string)$key === (string)$keyother) continue;
+               
+                $dateTimeOther = $EndTime;
+                $add = 10;
+                $dateTimeOther->modify("+{$add} minutes");
+                $Secondtime = $dateTimeOther;
+                $secondtime = $dateTimeOther->format('H:i');
+                
+                $dateTimeOther = $Secondtime;
+                $add = $duration['proctime'] + $duration['distrtime'];
+                $dateTimeOther->modify("+{$add} minutes");
+                $SecondtimeEnd = $dateTimeOther;
+                $secondtimeend = $dateTimeOther->format('H:i');
+                
+               
+                
+                
+                $messageone.="Train {$valueother['Train_Number']} is going to be processed from {$secondtime} until {$secondtimeend}.
+                                It can leave yard at {$secondtimeend}.";
+                
+                $dateTimeOther = null;
+            }
+            
+            $messages[$i++] = $message.$messageone;
+           
+            
+            $Starttime = $RealStartTime ;
+            $EndTime = $RealEndTime;
+            $Secondtime = null;
+            $SecondtimeEnd = null;
+            $dateTimeOther = null;
+            
+            $checklistreverse = array_reverse($checktrainslist, true);
+            foreach ($checklistreverse  as $keyother=>$valueother) {
+                
+                if ((string)$key === (string)$keyother) continue;
+                
+                $dateTimeOther = $EndTime;
+                $add = 10;
+                $dateTimeOther->modify("+{$add} minutes");
+                $Secondtime = $dateTimeOther;
+                $secondtime = $dateTimeOther->format('H:i');
+                
+                $dateTimeOther = $Secondtime;
+                $add = $duration['proctime'] + $duration['distrtime'];
+                $dateTimeOther->modify("+{$add} minutes");
+                $SecondtimeEnd = $dateTimeOther;
+                $secondtimeend = $dateTimeOther->format('H:i');
+                
+                               
+                
+                $messagesecond.="Train {$valueother['Train_Number']} is going to be processed from {$secondtime} until {$secondtimeend}.
+                                It can leave yard at {$secondtimeend}.";
+                
+                $dateTimeOther = null;
+            }
+            
+            $messages[$i++] = $message.$messagesecond;
+               
         }
-        /*
-        echo "<pre>";
-        print_r($possiblesidings);
-        echo "</pre>";
-         */
-        $this->set('trainsbefore',$trainsbefore);
-        $this->set(compact('wagons'));
-        $this->set('wagons_sidings',$new);
-        $this->set('recommendations',$possiblesidings);
-        $this->set('dev',1);
         
         
-        $this->set('winput',$ninput);
-        $messageTextStart = "You can put your train into the following sidings:";
-        $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app), <br>also there is a possibility that other sidings are limited by the authorized person.<br>";
-        $this->set('mssStart', $messageTextStart);
-        $this->set('mssEnd', $messageTextEnd);
+        return $messages;
+        
     }
     
-    
-    public function getRecommendations($newIncoming,$newSidings) {
+    public function getRecommendations($newIncoming,$newSidings=null) {
         
         $filtereddata = array_filter($this->deviationdata['timetable'], function ($key) {
             return strpos($key, 'timetable') === 0;
@@ -375,94 +504,175 @@ class DeviationsController extends Controller
                 $timetablekey = $key;
                 $timetableid = $value;
             }
+        
+            $connection = ConnectionManager::get('default');
+            $ptimes = $connection->execute('SELECT * FROM processing_times')->fetchAll('assoc');
             
-            //  echo $timetableid;
-            $TrainLength = $newIncoming[$timetableid]['TrainLength'];
-            // echo $TrainLength."dgdgd";
+            $trainarrdate = $newIncoming['timetablelist'][$timetableid]['Arrival_Date'];
+            $trainarrtime = $newIncoming['timetablelist'][$timetableid]['Arrival_Time'];
+                    
             
-            $possitions = 0;
-            
-            
-            foreach ($newSidings as $key => $value) {
+            foreach ($ptimes as $key => $value) { 
                 
-                if ((float)$value['Siding_lenght']>(float)$TrainLength) {
-                    
-                    $possitions = 1;
-                    
-                    $possiblesidings[$key] = $value;
-                    
+                if ($value['id']==1) {
+                    $duration['proctime'] = $value['duration']; 
+                }
+                
+                if ($value['id']==3) {
+                    $duration['distrtime'] = $value['duration'];
                 }
                 
             }
             
+            $trainlate = $this->deviationdata['timewagon'][1] + $duration['proctime'] + $duration['distrtime'];
             
+            $timemilifortrain=strtotime($trainarrdate.' '.$trainarrtime);
             
-            foreach ( $possiblesidings as $key => $value) {
-                
-                $possidings[$value['sidings_g_m']]['TrainLength'] = $TrainLength;
-                $possidings[$value['sidings_g_m']]['SidingLength'] = $value['Siding_lenght'];
-            }
+            $dateTime = new DateTime(date('Y-m-d H:i:s',$timemilifortrain));
             
-            $connection = ConnectionManager::get('default');
-            $inputwagons = $connection->execute('SELECT * FROM timetable,inputwagons where 
-                timetable.ID_Timetable = inputwagons.Timetable_id and timetable.ID_Timetable')->fetchAll('assoc');
-            
-            
-            foreach ($inputwagons as $key => $value) {
-                
-                $ninput[$key] = $value['Description'];
-            }
-          //  echo 'SELECT * FROM timetable,inputwagons where
-        //        timetable.ID_Timetable = inputwagons.Timetable_id and timetable.ID_Timetable='. $timetableid;
-         //   echo "<pre>";
-         //   print_r($ninput);
-         //   echo "</pre>";
+            $dateTime->modify("+{$trainlate} minutes");
            
-            $connection = ConnectionManager::get('default');
-            $wagons = $connection->execute('SELECT * FROM wagon_has_sidings, wagon, drawing,sidings where
-        wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
-         and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon ORDER BY wagon_has_sidings.position
-        ')->fetchAll('assoc');
+            $calculatedlatetime = strtotime($dateTime->format('Y-m-d H:i:s'));
             
+            foreach ($newIncoming['timetablelist'] as $key => $value) {
+                
+                if ($value['Calculated_Arrival_Time']<$timemilifortrain) {
+                    $checktrainslist[$key] = $value;
+                }
+            }
             
-            $new = array();
-            $i = 0;
-            foreach ($wagons as $key => $value) {
-                
-                $new[$value['label']][$i]['ID_wagon']=$value['ID_wagon'];
-                $new[$value['label']][$i]['Siding_lenght']=$value['Siding_lenght'];
-                $new[$value['label']][$i]['Wagon_Lenght']=$value['Wagon_Lenght'];
-                $new[$value['label']][$i]['Description']=$value['Description'];
-                $new[$value['label']][$i]['Position']=$value['position'];
-                
-                $i++;
-            }
-            foreach ($new as $key => $value) {
-                $new[$key]['allowed_length'] = $this->calculateSiding($value);
-                $i++;
-            }
-            /*
-            echo "<pre>";
-            print_r($new);
-            echo "</pre>";
-            */
+           $dtlatetrain = $dateTime->format('Y-m-d');
             
            
+           $duration['calclatetime'] = $calculatedlatetime;
+           
+           
+            //echo $calculatedlatetime."_<br>";
+            //print_r($checktrainslist);
+            foreach ($checktrainslist as $key => $value) {
+                
+                $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
+                $dateTime->modify("-{$duration['distrtime']} minutes");
+                $calculateddispatchtime = strtotime($dateTime->format('Y-m-d H:i:s'));
+                
+                //echo $calculateddispatchtime."<br>";
+                
+                
+                if ($calculateddispatchtime > $calculatedlatetime) {
+                    $noinfluencedtrains[$key] = $value;
+                    
+                } else if ($calculateddispatchtime < $calculatedlatetime) {
+                    
+                    $dtcalc = $dateTime->format('Y-m-d');
+                    // proveravamo u istom danu
+                    if ($dtlatetrain == $dtcalc) {
+                        $influencedtrains[$key] = $value;
+                    }
+                } 
+                
+            }
             
-            $this->set(compact('wagons'));
-            $this->set('wagons_sidings',$new);
-            $this->set('add_sidings',$possidings);
-            $this->set('winput',$ninput);
+            if (count($influencedtrains) == 1) {
+                foreach ($influencedtrains as $value)
+                    $influencedtrain = $value;
+                $preparedmessages = $this->preparemessagesforcaseone($timetableid, $duration,$influencedtrain,$newIncoming['timetablelist'][$timetableid]);
+            } else if (count($influencedtrains) > 1) {
+                $preparedmessages = $this->preparemessagesforother($timetableid, $duration,$influencedtrains,$newIncoming['timetablelist'][$timetableid]);
+            } else {
+                $preparedmessages[0] = "Entered deviation is not affecting other yard operation";
+            }
             
-            $messageTextStart = "You can put your train into the following sidings:";
-            $messageTextEnd = "If looks like some of the sidings are empty, but You are not allowed to put wagons there, then,<br> You should check if every wagon is properly entered to the system (In infrastructure part of the app), <br>also there is a possibility that other sidings are limited by the authorized person.<br>";
-            $this->set('mssStart', $messageTextStart);
-            $this->set('mssEnd', $messageTextEnd);
+            return $preparedmessages;
             
-          //  print_r($possidings);
-            
-            return;
             
     }
+    
+    
+    public function preparemessagesforcaseone($timetableid, $duration, $troubletrain, $latetrain) {
+        
+        $dateTime = new DateTime(date('Y-m-d H:i:s',$duration['calclatetime']));
+        $option1_late_train_time = $dateTime->format('H:i');
+        $option1_proc_time=$duration['proctime'];
+        $dateTime->modify("+{$duration['proctime']} minutes");
+        $option1_leave_time = $dateTime->format('H:i');
+        $dateTime->modify("+10 minutes");
+        $option1_leave_time_width_ten = $dateTime->format('H:i');
+        
+        $dateTime = new DateTime(date('Y-m-d H:i:s',$troubletrain['Calculated_Dispatch_Time']));
+        //echo $dateTime->format('Y-m-d H:i');
+        $option2_processing_to = $dateTime->format('H:i');
+        $dateTime->modify("+10 minutes");
+        $option2_processing_late_from = $dateTime->format('H:i');
+        $add = $duration['proctime'] + $duration['distrtime'];
+        $dateTime->modify("+{$add} minutes");
+        $option2_processing_late_from_finished = $dateTime->format('H:i');
+        $dateTime->modify("+10 minutes");
+        $option2_processing_late_from_start = $dateTime->format('H:i');
+        $dateTime = new DateTime(date('Y-m-d H:i:s',$troubletrain['Calculated_Dispatch_Time']));
+        $dateTime->modify("-{$duration['proctime']} minutes");
+        $dateTime->modify("-10 minutes");
+        $option2_processing_from = $dateTime->format('H:i');
+        
+        
+        
+        
+        $messages[0] = "Option 1: If train {$latetrain['Train_Number']} is going to be processed first, 
+                   it means that processing and shunting of train {$troubletrain['Train_Number']} 
+                   can start at {$option1_late_train_time} and it can leave station with {$option1_proc_time} minutes delay and leave the yard at {$option1_leave_time}.
+                   This mean that workers and shunting locomotive for next operation can start at {$option1_leave_time_width_ten}.";
+        $messages[1] = "Option 2: If train {$troubletrain['Train_Number']} is going to leave station according to the plan, 
+                        processing will be from {$option2_processing_from} until {$option2_processing_to} and processing for 
+                        train {$latetrain['timetablelist'][$timetableid]['Train_Number']} can start at {$option2_processing_late_from} and will be finished at {$option2_processing_late_from_finished}.
+                        This means that workers and shunting locomotive for next operation can start at {$option2_processing_late_from_start}.";
+        
+        return $messages;
+    }
+    
+    public function preparemessagesforother($timetableid, $duration, $troubletrains, $latetrain) {
+        $i = 0;
+        foreach ($troubletrains as $key=>$value) {
+            
+            $dateTime = new DateTime(date('Y-m-d H:i:s',$duration['calclatetime']));
+            $option1_late_train_time = $dateTime->format('H:i');
+            $option1_proc_time=$duration['proctime'];
+            $dateTime->modify("+{$duration['proctime']} minutes");
+            $option1_leave_time = $dateTime->format('H:i');
+            $dateTime->modify("+10 minutes");
+            $option1_leave_time_width_ten = $dateTime->format('H:i');
+            
+            $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
+            //echo $dateTime->format('Y-m-d H:i');
+            $option2_processing_to = $dateTime->format('H:i');
+            $dateTime->modify("+10 minutes");
+            $option2_processing_late_from = $dateTime->format('H:i');
+            $add = $duration['proctime'] + $duration['distrtime'];
+            $dateTime->modify("+{$add} minutes");
+            $option2_processing_late_from_finished = $dateTime->format('H:i');
+            $dateTime->modify("+10 minutes");
+            $option2_processing_late_from_start = $dateTime->format('H:i');
+            $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
+            $dateTime->modify("-{$duration['proctime']} minutes");
+            $dateTime->modify("-10 minutes");
+            $option2_processing_from = $dateTime->format('H:i');
+            
+            $messages[$i++]="Option {$i}:
+            If train {$latetrain['Train_Number']} is going to be processed first this means that processing of train {$latetrain['Train_Number']} 
+                can start at {$option1_late_train_time} until {$option1_proc_time} and processing of train {$value['Train_Number']} can start at {$option2_processing_late_from} until {$option2_processing_late_from_finished}.
+                This mean that workers and shunting locomotive for next operation can start at {$option2_processing_late_from_start}.";
+            $messages[$i++] = "Option {$i}: If train {$value['Train_Number']} is going to be processed first according to the plan,
+                processing will be from {$option2_processing_from} until until {$option2_processing_to} and processing with
+                    shunting operations for train {$latetrain['Train_Number']} can start at {$option2_processing_late_from} and will be finished at {$option2_processing_late_from_finished}.
+                        This means that workers and shunting locomotive for next operation can start at {$option2_processing_late_from_start}.";
+            
+            
+        }
+        
+        
+        return $messages;
+        
+           
+    }
+    
+    
     
 }

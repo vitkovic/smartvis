@@ -93,7 +93,7 @@ var mapMatrix;
     <li><a href="#tabs-1">Train & Infrastructure</a></li>
     <li><a href="#tabs-2">People</a></li>
     <li><a href="#tabs-3">Other</a></li>
-    <li><a href="#tabs-4">Marshalling yard - out of service</a></li>
+  
   </ul>
   <div id="tabs-1">
   
@@ -191,24 +191,11 @@ var mapMatrix;
   </div>
   <div id="tabs-3">
       	<div class="form-group">
-  			<label for="otherdeviation">Describe deviation and include deviation sources separated by comma:</label>
+  			<label for="otherdeviation">Describe deviation and include deviation sources separated by dot-comma:<br/>Example:Marshalling yard out of service;from(in hours);to(hours);Y-m-d<br/>
+  			Marshalling yard out of service;12;17;2019-09-23</label>
   				<textarea class="form-control rounded-0" id="otherdeviation" name="otherdeviation" rows="10"></textarea>
 		</div>
   </div>
-  <div id="tabs-4">
-      <p>	<label class="container">Out of service
-  				<input type="radio"  id="outofserviceyes" name="outofservice" value="1"/>
-  				 <span class="checkmark"></span>
-  				</label>
-  			<label class="container">Working
-  				<input type="radio" id="outofserviceno" name="outofservice" value="0"/>
-  				 <span class="checkmark"></span>
-  				</label>
-  		</p>
-  		<div class="form-group">
-  			<label for="outnote">Note</label>
-  				<textarea class="form-control rounded-0" id="outnote" name="outnote" rows="10"/></textarea>
-		</div>
   </div>
   <?php echo $this->Form->button('Submit deviations',array('class'=>'btn btn-dark','formaction' => $this->Url->build(
             							array('controller' => 'Deviations','action' => 'processdeviation'))));?>

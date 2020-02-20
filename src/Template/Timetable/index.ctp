@@ -35,8 +35,8 @@
                 <td><?= h($timetable->Destination) ?></td>
                 <td><?= h($timetable->Arrival_Date) ?></td>
                 <td><?= h($timetable->Dispatch_Date) ?>(<?php echo date('l', strtotime(h($timetable->Dispatch_Date))); ?>)</td>
-                <td><?= h($timetable->Arrival_Time) ?></td>
-                <td><?= h($timetable->Dispatch_Time) ?></td>
+                <td><?= date('H:i:s',strtotime($timetable->Arrival_Time)) ?></td>
+                <td><?= date('H:i:s',strtotime($timetable->Dispatch_Time))?></td>
                 <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->Train_Number, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $timetable->ID_Timetable]) ?>

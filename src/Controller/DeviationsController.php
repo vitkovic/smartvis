@@ -29,7 +29,7 @@ use DateTime;
  */
 class DeviationsController extends Controller
 {
-
+    public $addtime = 10;
     /**
      * Initialization hook method.
      *
@@ -307,15 +307,21 @@ class DeviationsController extends Controller
     
         $devarray = explode(';',$this->deviationdata['otherdeviation']);
         
-        $day = date('Y-m-d');
+        //print_r($devarray);
         
+        $number = count($devarray);
+        
+        if (trim($devarray[$number - 1])!="") $nowf = trim($devarray[$number - 1]);
+        
+        if ($nowf != "")
+            $day = date($nowf);
+        else
+            $day = date('Y-m-d');
+                
         $daynumber = strtotime($day);
         
-        // samo za primer
+     //   echo $nowf.$day;
         
-        $day = date('2019-09-23');
-        
-        $daynumber = strtotime($day);
         
         
         foreach ($newIncoming['timetablelist'] as $key => $value) {
@@ -336,8 +342,10 @@ class DeviationsController extends Controller
         $from = $devarray[$number - 3];
         $to = $devarray[$number - 2];
         
-               
-       // echo $dateTimeFormStr." ".$dateTimeToStr;
+        if (trim($devarray[$number - 1])!="") $nowf = trim($devarray[$number - 1]);
+        
+     //   print_r($devarray);
+       // echo $nowf."ssssss";
         
         $connection = ConnectionManager::get('default');
         $ptimes = $connection->execute('SELECT * FROM processing_times')->fetchAll('assoc');
@@ -356,19 +364,27 @@ class DeviationsController extends Controller
         
         $i = 1;
         
-        //print_r($checktrainslist);        
+       // print_r($checktrainslist);        
         foreach ($checktrainslist as $key=>$value) {
          
-            $now = new DateTime(date('2019-09-23'));
+            if ($nowf!="") 
+                $now = new DateTime(date($nowf));
+            else 
+                $now = new DateTime(date('Y-m-d'));
             
+                
             $now->modify("+{$to} hours");
             
             $dateTimeTo = $now;
             $dateTimeToStr = $now->format('Y-m-d H:i:s');
             
             // $now = new DateTime(date('Y-m-d'));
-            $now = new DateTime(date('2019-09-23'));
-            
+            if ($nowf!="")
+                $now = new DateTime(date($nowf));
+            else
+                $now = new DateTime(date('Y-m-d'));
+                    
+         //   echo $now."1";
             $now->modify("+{$from} hours");
             
             $dateTimeFrom = $now;
@@ -430,7 +446,7 @@ class DeviationsController extends Controller
                 if ((string)$key === (string)$keyother) continue;
                
                 $dateTimeOther = $EndTime;
-                $add = 10;
+                $add = $this->addtime;
                 $dateTimeOther->modify("+{$add} minutes");
                 $Secondtime = $dateTimeOther;
                 $secondtime = $dateTimeOther->format('H:i');

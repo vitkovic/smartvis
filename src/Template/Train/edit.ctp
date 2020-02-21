@@ -13,9 +13,8 @@
                 ['confirm' => __('Are you sure you want to delete # {0}?', $train->ID_Train)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Train'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Trains'), ['action' => 'index']) ?></li>
+       
     </ul>
 </nav>
 <div class="train form large-9 medium-8 columns content">

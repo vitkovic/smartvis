@@ -7,10 +7,10 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Wagon Has Siding'), ['action' => 'edit', $wagonHasSiding->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Wagon Has Siding'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Wagon Has Sidings'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Wagon Has Siding'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Edit Wagon On Siding'), ['action' => 'edit', $wagonHasSiding->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Wagon From Siding'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?> </li>
+        <li><?= $this->Html->link(__('Display Wagons On Sidings'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Position Wagon Ons Siding'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="wagonHasSidings view large-9 medium-8 columns content">

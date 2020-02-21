@@ -433,8 +433,8 @@ class DeviationsController extends Controller
             
             //echo $starttime."   ".$endtime."<br>";
             
-            
-            $message ="Option {$i}: Train {$value['Train_Number']} is going to be processed from {$starttime} until {$endtime}.";
+           
+            $message ="Train {$value['Train_Number']} is going to be processed from {$starttime} until {$endtime}.";
             
             $messageone = '';
             $messagesecond= '';
@@ -465,7 +465,7 @@ class DeviationsController extends Controller
                 
                 $dateTimeOther = null;
             }
-            
+            if ($messageone != "")
             $messages[$i++] = $message.$messageone;
            
             
@@ -499,11 +499,14 @@ class DeviationsController extends Controller
                 
                 $dateTimeOther = null;
             }
-            
-            $messages[$i++] = $message.$messagesecond;
+            if ($messagesecond != "") {
+                
+                $messages[$i++] = $message.$messagesecond;
+            }
                
         }
-        
+        $messageone= "";
+        $messagesecond="";
         
         return $messages;
         

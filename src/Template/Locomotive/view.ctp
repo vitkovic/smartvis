@@ -9,10 +9,10 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Locomotive'), ['action' => 'edit', $locomotive->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Locomotive'), ['action' => 'delete', $locomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $locomotive->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Locomotive'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('List Locomotives'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Locomotive'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Trains With Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Train With Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="locomotive view large-9 medium-8 columns content">

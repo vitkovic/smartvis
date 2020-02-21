@@ -9,10 +9,9 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Train'), ['action' => 'edit', $train->ID_Train]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Train'), ['action' => 'delete', $train->ID_Train], ['confirm' => __('Are you sure you want to delete # {0}?', $train->ID_Train)]) ?> </li>
-        <li><?= $this->Html->link(__('List Train'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('List Trains'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Train'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Train Has Locomotive'), ['controller' => 'TrainHasLocomotive', 'action' => 'add']) ?> </li>
+       
     </ul>
 </nav>
 <div class="train view large-9 medium-8 columns content">

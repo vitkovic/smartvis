@@ -26,7 +26,7 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Wagon Has Sidings'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Display Wagon On Sidings'), ['action' => 'index']) ?></li>
     </ul>
      <div>
     		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>

@@ -32,7 +32,7 @@
                 ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Wagon Has Sidings'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Display Wagons On Sidings'), ['action' => 'index']) ?></li>
     </ul>
      <div>
     		 <?php echo $this->element('drawyard', ["wagons" => $wagons]); ?>

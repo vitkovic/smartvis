@@ -290,15 +290,27 @@ class DeviationsController extends Controller
              
              $wagondescription = $this->deviationdata['timewagon'][1];
              
-             $traindistributionparts = 3;
-             $traindistributionpartsaftermailfunction = 5;
-             
-             $additional = 3;
-             //print_r($ptimes);
-             $timefordistributionadd = $ptimes[$traindistributionparts]['duration'] + $ptimes[$additional]['duration'];
-             //print_r($timefordistribution);
-             $message[0] = "Entered deviation is not affecting other yard operation.<br>Wagon {$wagondescription} needs to be pushed to Siding 28. Additional processing time {$ptimes[$additional]['duration']} minutes.";
-             
+            
+             $wgexists = $connection->execute("SELECT * FROM wagon where Description='".$wagondescription."'")->fetchAll('assoc');
+             $a = 0;
+             foreach ($wgexists as $value) {
+                
+                 $a++;
+             }
+             if ($a == 0) {
+                 $message[0] = "Entered deviation is not affecting other yard operation.<br>Wagon {$wagondescription} does not exists!";
+                 //return $message;
+             } else {
+                 $traindistributionparts = 3;
+                 $traindistributionpartsaftermailfunction = 5;
+                 $num = 28;
+                 $additional = 3;
+                 //print_r($ptimes);
+                 $timefordistributionadd = $ptimes[$traindistributionparts]['duration'] + $ptimes[$additional]['duration'];
+                 //print_r($timefordistribution);
+                 $message[0] = "Entered deviation is not affecting other yard operation.<br>Wagon {$wagondescription} needs to be pushed to Siding {$num}. Additional processing time {$ptimes[$additional]['duration']} minutes.";
+                 
+                 }
              return $message;
              
      }

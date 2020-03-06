@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
-
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * Users Controller
  *
@@ -20,8 +20,12 @@ class UsersController extends AppController
      */
     public function index()
     {
+      
+        $this->paginate = [
+            'contain' => ['Roles']
+        ];
         $users = $this->paginate($this->Users);
-
+        
         $this->set(compact('users'));
     }
 
@@ -49,8 +53,22 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
+        
+        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        
+        $data = $roles->toArray();
+        
+        $rdata = $this->request->getData();
+        
+        $roleid = $rdata['roleid'];
+        
+        $rdata['role'] = $data[$roleid];
+        
+        $hasher = new DefaultPasswordHasher();
+        $rdata["password"] = $hasher->hash($rdata["password"]);
+        
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user = $this->Users->patchEntity($user, $rdata);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -58,7 +76,10 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
+       // $this->set(compact('user'));
+       //print_r($this->Users->Roles);
+        //$roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'roles'));
     }
 
     /**
@@ -73,8 +94,26 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+        
+        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            
+            $data = $roles->toArray();
+            
+            $rdata = $this->request->getData();
+            
+            $roleid = $rdata['roleid'];
+            
+            $rdata['role'] = $data[$roleid];
+            
+            $hasher = new DefaultPasswordHasher();
+            $rdata["password"] = $hasher->hash($rdata["password"]);
+                      
+            $user = $this->Users->patchEntity($user, $rdata);
+            
+            
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -82,7 +121,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
+        $this->set(compact('user','roles'));
     }
 
     /**
@@ -104,6 +143,7 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);

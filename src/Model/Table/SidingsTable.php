@@ -41,7 +41,6 @@ class SidingsTable extends Table
             'foreignKey' => 'destination_id',
             'joinType' => 'INNER'
         ]);
-        
         $this->hasMany('TrainHasSiding', [
             'foreignKey' => 'siding_id'
         ]);

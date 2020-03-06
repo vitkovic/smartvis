@@ -62,9 +62,9 @@ $cakeDescription = '';
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/smartvis/wagon-has-sidings">Wagon distribution</a>
-       <!-- <a class="dropdown-item" href="/smartvis/wagon-has-sidings/add">Add Wagons to sidings</a>
+       <a class="dropdown-item" href="/smartvis/wagon-has-sidings/add">Add Wagons to sidings</a>
         <a class="dropdown-item" href="/smartvis/wagon-has-train/add">Add Wagons to trains</a>
-          <a class="dropdown-item" href="/smartvis/train-has-siding/add">Add Trains to sidings</a>-->
+          <a class="dropdown-item" href="/smartvis/train-has-siding/add">Add Trains to sidings</a>
         
        </div>
     </li>
@@ -105,15 +105,26 @@ $cakeDescription = '';
     </li>
      <li class="dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        System Users
+        Users
       </a>
       <div class="dropdown-menu">
 		<a class="dropdown-item" href="/smartvis/users"><span style="font-size:medium">View</span></a>
     	<a class="dropdown-item" href="/smartvis/users/add"><span style="font-size:medium">Add</span></a>
-    	
+    	<a class="dropdown-item" href="/smartvis/roles"><span style="font-size:medium">Roles</span></a>
       </div>
     </li>
-    
+    <!--
+    <li class="dropdown">
+	      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+	        		Yard Users
+	      		</a>
+	      <div class="dropdown-menu">
+			<a class="dropdown-item" href="/smartvis/yard-users"><span style="font-size:medium">View yard users</span></a>
+	    	<a class="dropdown-item" href="/smartvis/yard-users/add"><span style="font-size:medium">Add yard users</span></a>
+	    	
+	      </div>
+	      </li>
+    -->
      <li class="nav-item"><a class="nav-link" href="/smartvis/users/contact">Project information</a></li>
  	 <li class="nav-item"><a class="nav-link" href="/smartvis/users/login"><span style="font-size:medium">Login</a></span></li>
  	 <li class="nav-item"><a class="nav-link" href="/smartvis/users/logout"><span style="font-size:medium">Logout</a></span></li>

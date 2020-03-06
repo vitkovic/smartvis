@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property |\Cake\ORM\Association\HasMany $YardUsers
+ *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -37,6 +39,15 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('YardUsers', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->belongsTo('Roles', [
+            'foreignKey' => 'roleid',
+            'propertyName'=>'AnotherRole',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -65,6 +76,11 @@ class UsersTable extends Table
             ->scalar('role')
             ->maxLength('role', 20)
             ->allowEmptyString('role');
+
+        $validator
+            ->integer('roleid')
+            ->requirePresence('roleid', 'create')
+            ->allowEmptyString('roleid', false);
 
         return $validator;
     }

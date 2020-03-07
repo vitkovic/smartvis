@@ -27,7 +27,7 @@
                 <td><?= $this->Number->format($wagonHasTrain->id) ?></td>
                 <td><?php echo $wagonHasTrain->wagon->Description ?></td>
                 <td><?php echo $wagonHasTrain->train->Train_Number ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $wagonHasTrain->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagonHasTrain->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagonHasTrain->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasTrain->id)]) ?>

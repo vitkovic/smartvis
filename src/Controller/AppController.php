@@ -30,6 +30,7 @@ class AppController extends Controller
 {
 
     public $setvisibility;
+    public $setusertype;
     /**
      * Initialization hook method.
      *
@@ -71,8 +72,10 @@ class AppController extends Controller
             $connection = ConnectionManager::get('default');
             $wagons = $connection->execute('Select * from roles,users where users.roleid=roles.id and users.id =  '.$uid)->fetchAll('assoc');
             $roleid = $wagons[0]['roleid'];
+            $role = $wagons[0]['role'];
         } else {
             $roleid=3;
+            $role = '';
         }
         
         
@@ -84,9 +87,10 @@ class AppController extends Controller
         
         
         $this->setvisibility =  $setvisibility;
+        $this->setusertype = $role;
         
+        $this->set('setusertype',$role);
         
-        //echo $this->setvisibility." hhuhuuhu";
     }
     
     public function beforeFilter()

@@ -29,7 +29,7 @@
                 <td><?php echo $trainHasLocomotive->locomotive->description?></td>
                 <td><?php echo $trainHasLocomotive->train->Train_Number?></td>
                 <td><?= h($trainHasLocomotive->description) ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $trainHasLocomotive->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $trainHasLocomotive->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $trainHasLocomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]) ?>

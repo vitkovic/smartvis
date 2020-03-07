@@ -27,7 +27,7 @@
                 <td><?= $this->Number->format($processingTime->id) ?></td>
                 <td><?= h($processingTime->operation) ?></td>
                 <td><?= $this->Number->format($processingTime->duration) ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $processingTime->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $processingTime->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $processingTime->id], ['confirm' => __('Are you sure you want to delete # {0}?', $processingTime->id)]) ?>

@@ -31,7 +31,7 @@
                 <td><?= h($role->name) ?></td>
                 <td><?= h($role->access) ?></td>
                 <td><?= h($role->type) ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $role->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $role->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $role->id], ['confirm' => __('Are you sure you want to delete # {0}?', $role->id)]) ?>

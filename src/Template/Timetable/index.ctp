@@ -38,7 +38,7 @@
                 <td><?= date('H:i:s',strtotime($timetable->Arrival_Time)) ?></td>
                 <td><?= date('H:i:s',strtotime($timetable->Dispatch_Time))?></td>
                 <td><?= $timetable->has('train') ? $this->Html->link($timetable->train->Train_Number, ['controller' => 'Train', 'action' => 'view', $timetable->train->ID_Train]) : '' ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $timetable->ID_Timetable]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $timetable->ID_Timetable]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $timetable->ID_Timetable], ['confirm' => __('Are you sure you want to delete # {0}?', $timetable->ID_Timetable)]) ?>

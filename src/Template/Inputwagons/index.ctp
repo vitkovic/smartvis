@@ -29,7 +29,7 @@
                 <td><?= $this->Number->format($inputwagon->Temp_Id) ?></td>
                 <td><?= h($inputwagon->Description) ?></td>
                 <td><?= $inputwagon->has('timetable') ? $this->Html->link($inputwagon->timetable->ID_Timetable, ['controller' => 'Timetable', 'action' => 'view', $inputwagon->timetable->ID_Timetable]) : '' ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $inputwagon->Temp_Id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $inputwagon->Temp_Id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $inputwagon->Temp_Id], ['confirm' => __('Are you sure you want to delete # {0}?', $inputwagon->Temp_Id)]) ?>

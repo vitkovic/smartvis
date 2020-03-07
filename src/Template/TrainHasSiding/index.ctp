@@ -35,7 +35,7 @@
                 <td><?php echo $trainHasSiding->train->Train_Number ?></td>
                 <td><?= $trainHasSiding->has('siding') ? $this->Html->link($trainHasSiding->siding->IDsidings, ['controller' => 'Sidings', 'action' => 'view', $trainHasSiding->siding->IDsidings]) : '' ?></td>
                 <td><?= h($trainHasSiding->description) ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $trainHasSiding->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $trainHasSiding->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $trainHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasSiding->id)]) ?>

@@ -34,7 +34,7 @@
                 <td><?= h($siding->Mass_per_axle) ?></td>
                 <td><?= h($siding->Siding_Type) ?></td>
                 <td><?= $siding->has('destination') && h($siding->Siding_purpose)=="classification-departure" ? $this->Html->link($siding->destination->name, ['controller' => 'Destination', 'action' => 'view', $siding->destination->id]) : '' ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $siding->IDsidings]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $siding->IDsidings]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $siding->IDsidings], ['confirm' => __('Are you sure you want to delete # {0}?', $siding->IDsidings)]) ?>

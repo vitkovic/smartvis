@@ -61,7 +61,7 @@
              <!--   <td><?= h($wagonHasSiding->label) ?></td>-->
                 <td><?= $this->Number->format($wagonHasSiding->position) ?></td>
                 <td><?= $this->Number->format($wagonHasSiding->id) ?></td>
-                <td class="actions">
+                <td class="actions" style="<?= $setvisibility; ?>">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $wagonHasSiding->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagonHasSiding->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?>

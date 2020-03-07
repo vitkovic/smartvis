@@ -38,7 +38,7 @@
                 <td><?= $this->Number->format($train->Train_Mass_In_Tones) ?></td>
                 <td><?= $this->Number->format($train->Train_Lenght_In_Meters) ?></td>
                 <td><?= $this->Number->format($train->In_Out_Train) ?></td>
-                <td class="actions" align="center">
+                <td class="actions" align="center" style="<?= $setvisibility; ?>">
                  	<?= $this->Html->link(__('Wagons'), ['controller' => 'WagonHasTrain', 'action' => 'addfromtrain', $train->ID_Train]) ?>
                     <hr/><?= $this->Html->link(__('View'), ['action' => 'view', $train->ID_Train]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $train->ID_Train]) ?>

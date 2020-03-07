@@ -237,4 +237,9 @@ class TrainHasSidingController extends AppController
         return  $siding_length - $sum;
         
     }
+    public function beforeFilter()
+    {
+        
+        $this->set('setvisibility',$this->setvisibility);
+    }
 }

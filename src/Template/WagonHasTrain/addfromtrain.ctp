@@ -52,6 +52,6 @@
             echo $this->Form->control('multi', ['type' => 'hidden', 'value'=>'m']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
     <?= $this->Form->end() ?>
 </div>

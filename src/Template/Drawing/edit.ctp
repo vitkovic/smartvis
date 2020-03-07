@@ -33,6 +33,6 @@
             echo $this->Form->control('showgraphics');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
     <?= $this->Form->end() ?>
 </div>

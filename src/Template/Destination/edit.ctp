@@ -28,6 +28,6 @@
             echo $this->Form->control('name');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
     <?= $this->Form->end() ?>
 </div>

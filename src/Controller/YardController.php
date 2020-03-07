@@ -128,4 +128,9 @@ class YardController extends Controller
         return  $siding_length - $sum;   
         
     }
+    public function beforeFilter()
+    {
+        
+        $this->set('setvisibility',$this->setvisibility);
+    }
 }

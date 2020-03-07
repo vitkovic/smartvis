@@ -20,7 +20,7 @@
             echo $this->Form->control('Train_id');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
     <?= $this->Form->end() ?>
 
  
@@ -33,6 +33,6 @@
             echo $this->Form->control('multi', ['type' => 'hidden', 'value'=>'m']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
     <?= $this->Form->end() ?>
 </div>

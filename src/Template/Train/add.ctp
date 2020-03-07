@@ -26,6 +26,6 @@
             echo $this->Form->control('In_Out_Train');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
     <?= $this->Form->end() ?>
 </div>

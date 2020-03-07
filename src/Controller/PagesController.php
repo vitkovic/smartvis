@@ -66,5 +66,9 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
-   
+    public function beforeFilter()
+    {
+        
+        $this->set('setvisibility',$this->setvisibility);
+    }
 }

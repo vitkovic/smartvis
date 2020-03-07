@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Application Controller
@@ -28,6 +29,7 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
+    public $setvisibility;
     /**
      * Initialization hook method.
      *
@@ -62,6 +64,34 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+        
+        //this can be anything array, object, string, etc .....
+        $uid = $this->Auth->user('id');
+        if ($uid != null) {
+            $connection = ConnectionManager::get('default');
+            $wagons = $connection->execute('Select * from roles,users where users.roleid=roles.id and users.id =  '.$uid)->fetchAll('assoc');
+            $roleid = $wagons[0]['roleid'];
+        } else {
+            $roleid=3;
+        }
+        
+        
+        if ($roleid !=3) {
+            $setvisibility = 'visibility:visible';
+        } else {
+            $setvisibility = 'visibility:hidden';
+        }
+        
+        
+        $this->setvisibility =  $setvisibility;
+        
+        
+        //echo $this->setvisibility." hhuhuuhu";
+    }
+    
+    public function beforeFilter()
+    {
+      
     }
    
 }

@@ -110,4 +110,9 @@ class TrainHasLocomotiveController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function beforeFilter()
+    {
+        
+        $this->set('setvisibility',$this->setvisibility);
+    }
 }

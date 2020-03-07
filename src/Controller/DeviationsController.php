@@ -704,6 +704,10 @@ class DeviationsController extends Controller
            
     }
     
-    
+    public function beforeFilter()
+    {
+        
+        $this->set('setvisibility',$this->setvisibility);
+    }
     
 }

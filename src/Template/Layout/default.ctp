@@ -50,6 +50,7 @@ $cakeDescription = '';
  </style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand -->
   <a class="navbar-brand" href="/smartvis/"><?php echo $this->Html->image("logo.png", ['fullBase' => true]);?></a>

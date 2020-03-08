@@ -100,7 +100,7 @@ $cakeDescription = '';
     	<a class="dropdown-item" href="/smartvis/wagon"><span style="font-size:medium">Wagon</a>
     	<a class="dropdown-item" href="/smartvis/locomotive/"><span style="font-size:medium">Locomotive</a>
      	<a class="dropdown-item" href="/smartvis/sidings"><span style="font-size:medium">Sidings</a>
-     <!--	<a class="dropdown-item" href="/smartvis/people"><span style="font-size:medium">People</a>-->
+        <a class="dropdown-item" href="/smartvis/people"><span style="font-size:medium">People</a>
      	<a class="dropdown-item" href="/smartvis/processing-times"><span style="font-size:medium">Processing times</a>
       </div>
     </li>

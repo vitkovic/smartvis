@@ -19,7 +19,11 @@
                 <th scope="col"><?= $this->Paginator->sort('locomotive_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('train_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <?php if ($setvisibility != 'visibility:hidden'): ?>
+                
+                	<th scope="col" class="actions"><?= __('Actions') ?></th>
+                
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -29,11 +33,13 @@
                 <td><?php echo $trainHasLocomotive->locomotive->description?></td>
                 <td><?php echo $trainHasLocomotive->train->Train_Number?></td>
                 <td><?= h($trainHasLocomotive->description) ?></td>
-                <td class="actions" style="<?= $setvisibility; ?>">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $trainHasLocomotive->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $trainHasLocomotive->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $trainHasLocomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]) ?>
-                </td>
+	             <?php if ($setvisibility != 'visibility:hidden'): ?>
+	                <td class="actions" style="<?= $setvisibility; ?>">
+	                    <?= $this->Html->link(__('View'), ['action' => 'view', $trainHasLocomotive->id]) ?>
+	                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $trainHasLocomotive->id]) ?>
+	                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $trainHasLocomotive->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainHasLocomotive->id)]) ?>
+	                </td>
+	             <?php endif; ?>
             </tr>
             <?php endforeach; ?>
         </tbody>

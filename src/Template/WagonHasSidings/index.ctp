@@ -45,7 +45,11 @@
               <!--  <th scope="col"><?= $this->Paginator->sort('label') ?></th>-->
                 <th scope="col"><?= $this->Paginator->sort('position') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                 <?php if ($setvisibility != 'visibility:hidden'): ?>
+                
+                	<th scope="col" class="actions"><?= __('Actions') ?></th>
+                
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -61,16 +65,18 @@
              <!--   <td><?= h($wagonHasSiding->label) ?></td>-->
                 <td><?= $this->Number->format($wagonHasSiding->position) ?></td>
                 <td><?= $this->Number->format($wagonHasSiding->id) ?></td>
-                <td class="actions" style="<?= $setvisibility; ?>">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $wagonHasSiding->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagonHasSiding->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?>
-                  <?php if ($this->Number->format($wagonHasSiding->ID_wagon)==0) { ?>
-             			<br/> <?= $this->Html->link(__('Insert Wagon'), ['action' => 'insertwagon', $wagonHasSiding->id],['confirm' => __('Are you sure you want to add wagon to database # {0}?', $wagonHasSiding->id)]) ?>
-           		 <?php } else { }?>
-           		  
-           		
-                </td>
+	             <?php if ($setvisibility != 'visibility:hidden'): ?>
+	                <td class="actions" style="<?= $setvisibility; ?>">
+	                    <?= $this->Html->link(__('View'), ['action' => 'view', $wagonHasSiding->id]) ?>
+	                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagonHasSiding->id]) ?>
+	                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagonHasSiding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $wagonHasSiding->id)]) ?>
+	                  <?php if ($this->Number->format($wagonHasSiding->ID_wagon)==0) { ?>
+	             			<br/> <?= $this->Html->link(__('Insert Wagon'), ['action' => 'insertwagon', $wagonHasSiding->id],['confirm' => __('Are you sure you want to add wagon to database # {0}?', $wagonHasSiding->id)]) ?>
+	           		 <?php } else { }?>
+	           		  
+	           		
+	                </td>
+	             <?php endif; ?>
             </tr>
             <?php endforeach; ?>
         </tbody>

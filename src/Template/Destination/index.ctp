@@ -21,7 +21,9 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                 <?php if ($setvisibility != 'visibility:hidden'): ?>
+                	<th scope="col" class="actions"><?= __('Actions') ?></th>
+                 <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -29,11 +31,13 @@
             <tr>
                 <td><?= $this->Number->format($destination->id) ?></td>
                 <td><?= h($destination->name) ?></td>
-                <td class="actions" style="<?= $setvisibility; ?>">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $destination->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $destination->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $destination->id], ['confirm' => __('Are you sure you want to delete # {0}?', $destination->id)]) ?>
-                </td>
+                <?php if ($setvisibility != 'visibility:hidden'): ?>
+	                <td class="actions" style="<?= $setvisibility; ?>">
+	                    <?= $this->Html->link(__('View'), ['action' => 'view', $destination->id]) ?>
+	                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $destination->id]) ?>
+	                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $destination->id], ['confirm' => __('Are you sure you want to delete # {0}?', $destination->id)]) ?>
+	                </td>
+               <?php endif; ?>
             </tr>
             <?php endforeach; ?>
         </tbody>

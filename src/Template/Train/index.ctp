@@ -24,7 +24,12 @@
                 <th scope="col"><?= $this->Paginator->sort('Train_Mass_In_Tones') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Train_Lenght_In_Meters') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('In_Out_Train') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                
+                <?php if ($setvisibility != 'visibility:hidden'): ?>
+                
+                	<th scope="col" class="actions"><?= __('Actions') ?></th>
+                
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -38,12 +43,16 @@
                 <td><?= $this->Number->format($train->Train_Mass_In_Tones) ?></td>
                 <td><?= $this->Number->format($train->Train_Lenght_In_Meters) ?></td>
                 <td><?= $this->Number->format($train->In_Out_Train) ?></td>
-                <td class="actions" align="center" style="<?= $setvisibility; ?>">
-                 	<?= $this->Html->link(__('Wagons'), ['controller' => 'WagonHasTrain', 'action' => 'addfromtrain', $train->ID_Train]) ?>
-                    <hr/><?= $this->Html->link(__('View'), ['action' => 'view', $train->ID_Train]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $train->ID_Train]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $train->ID_Train], ['confirm' => __('Are you sure you want to delete # {0}?', $train->ID_Train)]) ?>
-                </td>
+                
+                 <?php if ($setvisibility != 'visibility:hidden'): ?>
+	                <td class="actions" align="center" style="<?= $setvisibility; ?>">
+	                 	<?= $this->Html->link(__('Wagons'), ['controller' => 'WagonHasTrain', 'action' => 'addfromtrain', $train->ID_Train]) ?>
+	                    <hr/><?= $this->Html->link(__('View'), ['action' => 'view', $train->ID_Train]) ?>
+	                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $train->ID_Train]) ?>
+	                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $train->ID_Train], ['confirm' => __('Are you sure you want to delete # {0}?', $train->ID_Train)]) ?>
+	                </td>
+                <?php endif; ?>
+                
             </tr>
             <?php endforeach; ?>
         </tbody>

@@ -32,8 +32,12 @@
                 <th scope="col"><?= $this->Paginator->sort('Remark') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('destination_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('arrival_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('people_id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <!--<th scope="col"><?= $this->Paginator->sort('people_id') ?></th>-->
+                 <?php if ($setvisibility != 'visibility:hidden'): ?>
+                
+                	<th scope="col" class="actions"><?= __('Actions') ?></th>
+                
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -53,12 +57,14 @@
                 <td><?= h($wagon->Remark) ?></td>
                 <td><?= $wagon->has('destination') ? $this->Html->link($wagon->destination->name, ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) : '' ?></td>
                 <td><?= $wagon->has('destination') ? $this->Html->link($wagon->destination->name, ['controller' => 'Destination', 'action' => 'view', $wagon->destination->id]) : '' ?></td>
-                <td><?= $wagon->has('person') ? $this->Html->link($wagon->person->username, ['controller' => 'People', 'action' => 'view', $wagon->person->ID_User]) : '' ?></td>
-                <td class="actions" style="<?= $setvisibility; ?>">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $wagon->ID_wagon]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagon->ID_wagon]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagon->ID_wagon], ['confirm' => __('Are you sure you want to delete # {0}?', $wagon->ID_wagon)]) ?>
-                </td>
+               <!-- <td><?= $wagon->has('person') ? $this->Html->link($wagon->person->username, ['controller' => 'People', 'action' => 'view', $wagon->person->ID_User]) : '' ?></td>-->
+	             <?php if ($setvisibility != 'visibility:hidden'): ?> 
+	                <td class="actions" style="<?= $setvisibility; ?>">
+	                    <?= $this->Html->link(__('View'), ['action' => 'view', $wagon->ID_wagon]) ?>
+	                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $wagon->ID_wagon]) ?>
+	                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $wagon->ID_wagon], ['confirm' => __('Are you sure you want to delete # {0}?', $wagon->ID_wagon)]) ?>
+	                </td>
+	              <?php endif; ?>
             </tr>
             <?php endforeach; ?>
         </tbody>

@@ -24,10 +24,12 @@
             <th scope="row"><?= __('Role') ?></th>
             <td><?= h($person->Role) ?></td>
         </tr>
+       <!--
         <tr>
             <th scope="row"><?= __('Type') ?></th>
             <td><?= h($person->Type) ?></td>
         </tr>
+       -->
         <tr>
             <th scope="row"><?= __('First Name') ?></th>
             <td><?= h($person->First_Name) ?></td>

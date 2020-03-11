@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $ID_User
  * @property string|null $Phone
- * @property string|null $Role
+ * @property int $Role
  * @property string|null $Type
  * @property string|null $First_Name
  * @property string|null $Last_Name

@@ -36,7 +36,7 @@
           <div class="well">
             <h5>Locomotives</h5>
             <ul>
-              <li class="list-group-item">Shunting locomotives: <?= $shloc; ?></li>
+              <li class="list-group-item">Shunting locomotives: 1</li>
               <li class="list-group-item">Locomotives: <?= $loc; ?></li>
               </ul>
           </div>

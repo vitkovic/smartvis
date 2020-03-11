@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -77,9 +78,30 @@ class YardController extends AppController
      */
     public function viewyard()
     {
-             
+      //  $connection = ConnectionManager::get('default');
+      //  $wagons = $connection->execute('SELECT COUNT(id_Wagon) FROM wagon')->fetch();
         
-      
+        
+        $wagons = TableRegistry::getTableLocator()->get('Wagon');
+        $numw = $wagons->find()->count();
+        $this->set('wagonsnum',$numw);
+        
+        
+        $wagonserror = $wagons->find('all')
+        ->where(['Wagon.Remark =' => 'M'])->count();
+        $this->set('wagonserror',$wagonserror);
+        
+        $locomotives = TableRegistry::getTableLocator()->get('Locomotive');
+        $loc = $locomotives->find('all')->count();
+        $this->set('loc',$loc);
+        
+        $operators = TableRegistry::getTableLocator()->get('People');
+        $opfun = $operators->find('all')->where(['People.Role' => 6])->count();
+        $this->set('opfun',$opfun);
+        
+        $operators = TableRegistry::getTableLocator()->get('People');
+        $opwp = $operators->find('all')->where(['People.Role' => 6, 'People.Type =' => '1'])->count();
+        $this->set('opwp',$opwp);
         
     }
     public function viewyardsimplified()

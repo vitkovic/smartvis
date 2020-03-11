@@ -33,6 +33,11 @@ class PeopleTable extends Table
         $this->setTable('people');
         $this->setDisplayField('username');
         $this->setPrimaryKey('ID_User');
+        
+        $this->belongsTo('Roles', [
+            'foreignKey' => 'Role',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -53,9 +58,9 @@ class PeopleTable extends Table
             ->allowEmptyString('Phone');
 
         $validator
-            ->scalar('Role')
-            ->maxLength('Role', 10)
-            ->allowEmptyString('Role');
+            ->integer('Role')
+            ->requirePresence('Role', 'create')
+            ->allowEmptyString('Role', false);
 
         $validator
             ->scalar('Type')

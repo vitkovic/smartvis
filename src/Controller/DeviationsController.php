@@ -648,11 +648,11 @@ class DeviationsController extends AppController
         
         
         
-        $messages[0] = "Option 1: If train {$latetrain['Train_Number']} is going to be processed first, 
+        $messages[0] = "If train {$latetrain['Train_Number']} is going to be processed first, 
                    it means that processing and shunting of train {$troubletrain['Train_Number']} 
                    can start at {$option1_late_train_time} and it can leave station with {$option1_proc_time} minutes delay and leave the yard at {$option1_leave_time}.
                    This mean that workers and shunting locomotive for next operation can start at {$option1_leave_time_width_ten}.";
-        $messages[1] = "Option 2: If train {$troubletrain['Train_Number']} is going to leave station according to the plan, 
+        $messages[1] = "If train {$troubletrain['Train_Number']} is going to leave station according to the plan, 
                         processing will be from {$option2_processing_from} until {$option2_processing_to} and processing for 
                         train {$latetrain['timetablelist'][$timetableid]['Train_Number']} can start at {$option2_processing_late_from} and will be finished at {$option2_processing_late_from_finished}.
                         This means that workers and shunting locomotive for next operation can start at {$option2_processing_late_from_start}.";
@@ -687,11 +687,10 @@ class DeviationsController extends AppController
             $dateTime->modify("-10 minutes");
             $option2_processing_from = $dateTime->format('H:i');
             
-            $messages[$i++]="Option {$i}:
-            If train {$latetrain['Train_Number']} is going to be processed first this means that processing of train {$latetrain['Train_Number']} 
+            $messages[$i++]="If train {$latetrain['Train_Number']} is going to be processed first this means that processing of train {$latetrain['Train_Number']} 
                 can start at {$option1_late_train_time} until {$option1_proc_time} and processing of train {$value['Train_Number']} can start at {$option2_processing_late_from} until {$option2_processing_late_from_finished}.
                 This mean that workers and shunting locomotive for next operation can start at {$option2_processing_late_from_start}.";
-            $messages[$i++] = "Option {$i}: If train {$value['Train_Number']} is going to be processed first according to the plan,
+            $messages[$i++] = "If train {$value['Train_Number']} is going to be processed first according to the plan,
                 processing will be from {$option2_processing_from} until until {$option2_processing_to} and processing with
                     shunting operations for train {$latetrain['Train_Number']} can start at {$option2_processing_late_from} and will be finished at {$option2_processing_late_from_finished}.
                         This means that workers and shunting locomotive for next operation can start at {$option2_processing_late_from_start}.";

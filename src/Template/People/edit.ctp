@@ -22,14 +22,14 @@
         <legend><?= __('Edit Person') ?></legend>
         <?php
             echo $this->Form->control('Phone');
-            echo $this->Form->control('Role');
-         //   echo $this->Form->control('Type');
+            echo $this->Form->control('Role',['options' => $roles]);
+            echo $this->Form->control('Type');
             echo $this->Form->control('First_Name');
             echo $this->Form->control('Last_Name');
             echo $this->Form->control('Email');
             echo $this->Form->control('username');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'),array('style'=>$setvisibility)) ?>
+    <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>

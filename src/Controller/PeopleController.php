@@ -19,8 +19,12 @@ class PeopleController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Roles']
+        ];
         $people = $this->paginate($this->People);
-
+     
+       // print_r($people);
         $this->set(compact('people'));
     }
 
@@ -48,6 +52,11 @@ class PeopleController extends AppController
     public function add()
     {
         $person = $this->People->newEntity();
+        
+        $roles = $this->People->Roles->find('list', ['limit' => 200]);
+        
+              
+          
         if ($this->request->is('post')) {
             $person = $this->People->patchEntity($person, $this->request->getData());
             if ($this->People->save($person)) {
@@ -57,7 +66,7 @@ class PeopleController extends AppController
             }
             $this->Flash->error(__('The person could not be saved. Please, try again.'));
         }
-        $this->set(compact('person'));
+        $this->set(compact('person','roles'));
     }
 
     /**
@@ -72,8 +81,17 @@ class PeopleController extends AppController
         $person = $this->People->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $person = $this->People->patchEntity($person, $this->request->getData());
+        
+        
+        $roles = $this->People->Roles->find('list', ['limit' => 200]);
+        
+        
+        
+        
+        //print_r($rdata);
+        
+         if ($this->request->is(['patch', 'post', 'put'])) {
+             $person = $this->People->patchEntity($person, $this->request->getData());
             if ($this->People->save($person)) {
                 $this->Flash->success(__('The person has been saved.'));
 
@@ -81,7 +99,7 @@ class PeopleController extends AppController
             }
             $this->Flash->error(__('The person could not be saved. Please, try again.'));
         }
-        $this->set(compact('person'));
+        $this->set(compact('person','roles'));
     }
 
     /**
@@ -102,10 +120,5 @@ class PeopleController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-    public function beforeFilter()
-    {
-        
-        $this->set('setvisibility',$this->setvisibility);
     }
 }

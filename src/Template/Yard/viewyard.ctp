@@ -24,26 +24,46 @@
   <div class="row">
         <div class="col-sm-3">
           <div class="well">
-            <h5>Curent trains:</h5>
+            <h5>Wagons:</h5>
             <ul>
-              <li class="list-group-item">Incoming: 14</li>
-              <li class="list-group-item">Outgoing: 9</li>
+              <li class="list-group-item">Wagons: <?= $wagonsnum; ?></li>
+              <li class="list-group-item">Mailfunction wagons: <?= $wagonserror; ?></li>
               
             </ul>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="well">
-            <h5>Curent wagons:</h5>
+            <h5>Locomotives</h5>
             <ul>
-              <li class="list-group-item">Number: 156</li>
+              <li class="list-group-item">Shunting locomotives: <?= $shloc; ?></li>
+              <li class="list-group-item">Locomotives: <?= $loc; ?></li>
               </ul>
           </div>
         </div>
         
-      </div>
-
- 
+      
+	<div class="col-sm-3">
+          <div class="well">
+            <h5>Workers</h5>
+            <ul>
+              <li class="list-group-item">Operators per function: <?= $opfun; ?></li>
+              <li class="list-group-item">Operators at workplace: <?= $opwp; ?></li>
+              </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h5>Workers</h5>
+            <ul>
+              <li class="list-group-item">Receiving: 9</li>
+              <li class="list-group-item">Classification-departure: 19</li>
+              </ul>
+          </div>
+        </div>
+        
+     
+ </div>
 </div>
 <script>
 window.onload = function () {

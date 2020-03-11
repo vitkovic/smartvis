@@ -14,22 +14,16 @@
     </ul>
 </nav>
 <div class="people view large-9 medium-8 columns content">
-    <h3><?= h($person->ID_User) ?></h3>
+    <h3><?= h($person->username) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Phone') ?></th>
             <td><?= h($person->Phone) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Role') ?></th>
-            <td><?= h($person->Role) ?></td>
-        </tr>
-       <!--
-        <tr>
             <th scope="row"><?= __('Type') ?></th>
             <td><?= h($person->Type) ?></td>
         </tr>
-       -->
         <tr>
             <th scope="row"><?= __('First Name') ?></th>
             <td><?= h($person->First_Name) ?></td>
@@ -49,6 +43,10 @@
         <tr>
             <th scope="row"><?= __('ID User') ?></th>
             <td><?= $this->Number->format($person->ID_User) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Role') ?></th>
+            <td><?= $this->Number->format($person->Role) ?></td>
         </tr>
     </table>
 </div>

@@ -37,6 +37,10 @@ class RolesTable extends Table
         $this->hasMany('Users', [
             'foreignKey' => 'roleid'            
         ]);
+        
+        $this->hasMany('People', [
+            'foreignKey' => 'Role'
+        ]);
     }
     
 

@@ -27,7 +27,7 @@ use DateTime;
  *
  * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class DeviationsController extends Controller
+class DeviationsController extends AppController
 {
     public $addtime = 10;
     /**
@@ -71,6 +71,7 @@ class DeviationsController extends Controller
     public function beforeFilter(Event $event)
     {
         $this->Auth->allow(['index', 'view', 'display']);
+        $this->set('setvisibility',$this->setvisibility);
     }
     
     /**
@@ -704,10 +705,6 @@ class DeviationsController extends Controller
            
     }
     
-    public function beforeFilter()
-    {
-        
-        $this->set('setvisibility',$this->setvisibility);
-    }
+   
     
 }

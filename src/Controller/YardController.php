@@ -26,7 +26,7 @@ use Cake\Datasource\ConnectionManager;
  *
  * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class YardController extends Controller
+class YardController extends AppController
 {
 
     /**
@@ -66,6 +66,7 @@ class YardController extends Controller
     }
     public function beforeFilter(Event $event)
     {
+        $this->set('setvisibility',$this->setvisibility);
         $this->Auth->allow(['index', 'view', 'display']);
     }
     
@@ -128,9 +129,8 @@ class YardController extends Controller
         return  $siding_length - $sum;   
         
     }
-    public function beforeFilter()
-    {
+   
         
-        $this->set('setvisibility',$this->setvisibility);
-    }
+        
+    
 }

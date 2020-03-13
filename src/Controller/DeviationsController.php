@@ -376,8 +376,7 @@ class DeviationsController extends AppController
         }
         
         $i = 1;
-        
-       // print_r($checktrainslist);        
+      
         foreach ($checktrainslist as $key=>$value) {
          
             if ($nowf!="") 
@@ -412,19 +411,19 @@ class DeviationsController extends AppController
             //$dateTimecheck->modify("-{$duration['proctime']} minutes");
             
             if  ($value['Calculated_Dispatch_Time'] > strtotime($dateTimeTo->format('Y-m-d H:i:s'))) {
-                //    echo $value['Dispatch_Time']." 1";
+               //     echo $value['Dispatch_Time']." 1";
                 $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
                //echo $dateTime->format('Y-m-d H:i:s');
                 $dateTime->modify("-{$duration['proctime']} minutes");
                 $Starttime = $dateTime;
                 $starttime = $dateTime->format('H:i');
                 $dateTime = new DateTime(date('Y-m-d H:i:s',$value['Calculated_Dispatch_Time']));
-                //echo $dateTime->format('Y-m-d H:i');
-                $Endtime = $dateTime;
+               // echo $dateTime->format('Y-m-d H:i')." check 1";
+                $EndTime = $dateTime;
                 $endtime = $dateTime->format('H:i');
             } else if ($value['Calculated_Dispatch_Time'] < strtotime($dateTimeTo->format('Y-m-d H:i:s')) &&
                 $value['Dispatch_Time']!='00:00:00'){
-                //    echo $value['Dispatch_Time']." 2";
+              //     echo $value['Dispatch_Time']." 2";
                 $Starttime = $dateTimeTo;
                 $starttime = $Starttime->format('H:i');
                 $dateTime = new DateTime(date('Y-m-d H:i:s',strtotime($dateTimeTo->format('Y-m-d H:i:s'))));
@@ -433,7 +432,7 @@ class DeviationsController extends AppController
                 $EndTime = $dateTime;
                 $endtime = $dateTime->format('H:i');
            } else {
-                 // echo $value['Dispatch_Time']." 3";
+              //    echo $value['Dispatch_Time']." 3";
                 $Starttime = $dateTimeTo;
                 $starttime = $Starttime->format('H:i');
                 $dateTime = new DateTime(date('Y-m-d H:i:s',strtotime($dateTimeTo->format('Y-m-d H:i:s'))));
@@ -453,11 +452,11 @@ class DeviationsController extends AppController
             $messagesecond= '';
             $RealStartTime = $Starttime;
             $RealEndTime = $EndTime;
-            
+           // print_r($checktrainslist);
             foreach ($checktrainslist as $keyother=>$valueother) {
                 
                 if ((string)$key === (string)$keyother) continue;
-               
+              
                 $dateTimeOther = $EndTime;
                 $add = $this->addtime;
                 $dateTimeOther->modify("+{$add} minutes");

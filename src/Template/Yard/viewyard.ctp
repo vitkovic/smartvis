@@ -54,7 +54,7 @@
         </div>
         <div class="col-sm-3">
           <div class="well">
-            <h5>Workers</h5>
+            <h5>Sidings</h5>
             <ul>
               <li class="list-group-item">Receiving: 9</li>
               <li class="list-group-item">Classification-departure: 19</li>

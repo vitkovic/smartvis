@@ -612,7 +612,11 @@ class DeviationsController extends AppController
             } else {
                 $preparedmessages[0] = "Entered deviation is not affecting other yard operation";
             }
-            
+            //print_r($allinone['people']);
+            if ($this->deviationdata['people'][1] != "") {
+                $preparedmessages[0] = "Yard operator and Yard manager are informed about the situation, and they takes adeqate actions! ";
+               // print_r($allinone['people']);
+            }
             return $preparedmessages;
             
             

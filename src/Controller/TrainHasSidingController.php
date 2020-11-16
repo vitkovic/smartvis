@@ -128,6 +128,8 @@ class TrainHasSidingController extends AppController
          and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
         ')->fetchAll('assoc');
         
+        $sidings = $connection->execute('SELECT * FROM drawing where sidings_id != "" AND sidings_id != 0 AND sidings_id IS NOT NULL ORDER BY drawing.sidings_id')->fetchAll('assoc');
+        
         $new = array();
         $i = 0;
         foreach ($wagons as $key => $value) {
@@ -146,6 +148,7 @@ class TrainHasSidingController extends AppController
         }
         
         $this->set(compact('wagons'));
+        $this->set(compact('sidings'));
         $this->set('wagons_sidings',$new);
      //   print_r($wagons);
     }

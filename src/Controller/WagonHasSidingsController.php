@@ -32,6 +32,9 @@ class WagonHasSidingsController extends AppController
          and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
         ')->fetchAll('assoc');
         
+       
+        $sidings = $connection->execute('SELECT * FROM drawing ORDER BY drawing.sidings_id')->fetchAll('assoc');
+        
         $new = array();
         $i = 0;
         foreach ($wagons as $key => $value) {
@@ -44,12 +47,14 @@ class WagonHasSidingsController extends AppController
             
             $i++;
         }
+        
         foreach ($new as $key => $value) {
             $new[$key]['allowed_length'] = $this->calculateSiding($value);
             $i++;
         }
-        
+      //  print_r($sidings);
         $this->set(compact('wagons'));
+        $this->set(compact('sidings'));
         $this->set('wagons_sidings',$new);
     }
 
@@ -93,7 +98,8 @@ class WagonHasSidingsController extends AppController
         wagon_has_sidings.ID_wagon = wagon.ID_wagon and drawing.sidings_g_m = wagon_has_sidings.label
          and sidings.IDSidings = drawing.sidings_id GROUP BY wagon.ID_wagon
         ')->fetchAll('assoc');
-        
+        $sidings = $connection->execute('SELECT * FROM drawing where sidings_id != "" AND sidings_id != 0 AND sidings_id IS NOT NULL ORDER BY drawing.sidings_id')->fetchAll('assoc');
+       
         $new = array();
         $i = 0;
         foreach ($wagons as $key => $value) {
@@ -112,6 +118,7 @@ class WagonHasSidingsController extends AppController
         }
         
         $this->set(compact('wagons'));
+        $this->set(compact('sidings'));
         $this->set('wagons_sidings',$new);
     }
 

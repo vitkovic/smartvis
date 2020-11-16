@@ -37,7 +37,7 @@
                 <td><?= $this->Number->format($siding->Siding_lenght) ?></td>
                 <td><?= h($siding->Mass_per_axle) ?></td>
                 <td><?= h($siding->Siding_Type) ?></td>
-                <td><?= $siding->has('destination') && h($siding->Siding_purpose)=="classification-departure" ? $this->Html->link($siding->destination->name, ['controller' => 'Destination', 'action' => 'view', $siding->destination->id]) : '' ?></td>
+                <td><?= $this->Html->link($siding->destination->name, ['controller' => 'Destination', 'action' => 'view', $siding->destination->id]) ?></td>
 	            <?php if ($setvisibility != 'visibility:hidden'): ?>
 	                <td class="actions" style="<?= $setvisibility; ?>">
 	                    <?= $this->Html->link(__('View'), ['action' => 'view', $siding->IDsidings]) ?>

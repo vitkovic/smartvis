@@ -51,11 +51,13 @@ class WagonHasSidingsTable extends Table
         $validator
             ->scalar('Description')
             ->maxLength('Description', 100)
-            ->allowEmptyString('Description');
+            ->requirePresence('Description', 'create')
+            ->allowEmptyString('Description', false);
 
         $validator
             ->integer('ID_sidings')
-            ->allowEmptyString('ID_sidings');
+            ->requirePresence('ID_sidings', 'create')
+            ->allowEmptyString('ID_sidings',false);
 
         $validator
             ->scalar('label')

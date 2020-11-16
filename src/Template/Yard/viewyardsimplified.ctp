@@ -17,8 +17,6 @@ var mapMatrix;
 </head>
 <body>
 
- 
-
 
 <div class="container-fluid" id="yard">
   <div class="row">
@@ -54,14 +52,16 @@ window.onload = function () {
      var siding, sidingLength, X0, X1,wgcolor;
    // draw wagons 
      var i = 0;
+     
     <?php foreach ($wagons_sidings as $key=>$value):  ?>
-    
-    
-     siding = s.select("#<?php echo $key ?>");
+    	//console.log($key);
+       siding = s.select("#<?php echo $key ?>");
        sidingLength = siding.getTotalLength();
+      
        sdattr = siding.attr('d').split(" ");
        start = sdattr[1].split(",");
        X0 = start[0];
+       
        Y0 = start[1];
        
        var wagonStartX = X0, wagonStartY = Y0;
@@ -76,6 +76,8 @@ window.onload = function () {
           sdlength = "<?php echo $wagon['Siding_lenght']; ?>";
           if (sdlength != null && sdlength !="") {
             sidingScale = sidingLength / Number(sdlength);
+            idw = "<?php echo $wagon['ID_wagon']; ?>";
+            // console.log(idw + "  " + sidingLength + "  " + " " + sdlength+ " " + sidingScale);
        	   // console.log(sdlength);
             var r = s.rect(Number(wagonStartX),Number(wagonStartY)-wagonWidth/2, Number("<?php echo $wagon['Wagon_Lenght'];?>") * sidingScale ,wagonWidth);
 		    r.attr('fill', wagoncolors[i]); 

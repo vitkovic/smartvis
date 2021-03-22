@@ -14,6 +14,6 @@
  */
 
 require 'webroot' . DIRECTORY_SEPARATOR . 'index.php';
-<<<<<<< HEAD
-// vs code
 
+// vs code
+// klik
